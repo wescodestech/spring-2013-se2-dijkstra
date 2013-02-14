@@ -1,0 +1,83 @@
+#summary Definitions of the address data structure, functions, and modules associated.
+
+= Introduction =
+
+The address is what identifies senders and recipients of messages.  It contains a domain and name for a given recipient 
+
+= Dependencies =
+
+[http://code.google.com/p/spring-2013-se2-dijkstra/wiki/XMLScanner_ACL2 xml-scanner.lisp]
+
+= Address Storage =
+
+{{{
+
+<?xml version="1.0"?>
+<!DOCTYPE addresses SYSTEM "http://localhost/dtd/addresses.dtd">
+<addresses>
+	<address>
+		<domain>localhost</domain>
+		<name>Matthew.Crist</name>
+	</address>
+	<address>
+		<domain>localhost</domain>
+		<name>Wesley.Howell</name>
+	</address>
+	<address>
+		<domain>localhost</domain>
+		<name>Adam.Ghodratnama</name>
+	</address>
+</addresses>
+}}}
+
+http://localhost/dtd/addresses.dtd
+
+{{{	
+<!ELEMENT address*(name, domain)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT domain (#PCDATA)>
+}}}
+
+= Data Structure =
+
+name – String – The name portion of the email address
+
+domain – String – The domain portion of the email address
+
+_(domain name)_
+
+= Example =
+
+From the xml file described above, the sample data structures would be:
+
+(“localhost” “Matthew.Crist” ) 
+
+= Function Definitions =
+
+(getDomain s) – returns the domain portion of the name found in the address object s
+
+(getName s) – returns the name  portion of the address found in the address object s
+
+= File Information =
+
+Lines of Code: Not defined.
+
+Functions: Not defined.
+
+Entry Point:  Any function contained in file except _(parseMailingList s)_
+
+File Location: ./server/modules/address/functions.lisp
+
+= External Functional References =
+
+(createAddress domain name) – Creates an address using the domain and name arguments provided in the function call
+  * _./server/modules/address/createAddress.lisp_
+  * _./server/modules/address/createAddress.sh_
+
+(deleteAddress domain name) – Deletes an existing address using the  domain and name arguments provided in the function call
+  * _./server/modules/address/deleteAddress.lisp_
+  * _./server/modules/address/deleteAddress.sh_
+
+(userExists domain name) – Checks to see if an address exists with a given domain and name.  Used in both createAddress and deleteAddress to prevent duplicate values or null references.
+  * _./server/modules/address/userExists.lisp_
+  * _./server/modules/address/userExists.sh_

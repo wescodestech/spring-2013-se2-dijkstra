@@ -1,0 +1,83 @@
+#summary The Server Monitor layer of the project - invocation of ACL2 modules, given parameters defined.
+
+= Introduction =
+
+The server monitor is responsible for monitoring folders that are defined within modules and invoking the registered modules that are responsible for manipulating the data that is contained within those folders.  The server monitor acts as an [http://en.wikipedia.org/wiki/Enterprise_service_bus Enterprise Service Bus] under the [http://en.wikipedia.org/wiki/Service-oriented_architecture Service Oriented Architecture].  This will allow for information transmission from the ACL2 modules using files that contain specific XML formatting.
+
+
+= Module Definition =
+
+Interacting with the server monitor is done through module configuration in the ./config/modules.xml file that is located within the server monitor directory.  Format is as follows:
+
+_modules.xml_
+{{{
+<?xml version="1.0"?>
+<!DOCTYPE module SYSTEM "module.dtd">
+<modules>
+   <module>
+      <name>server.user.exists</name>
+      <monitor>/incoming/user/register</monitor>
+      <invoke>/modules/acl2/check_user.sh</invoke>
+   </module>
+   <module>
+      <name>server.user.register</name>
+      <monitor>/monitored/incoming/user/register</monitor>
+      <invoke>/modules/acl2/register_user</invoke>
+      <dependencies>
+         <dependency>server.user.exists</dependency>
+      </dependencies>
+   </module>
+</modules>
+}}}
+
+_module.dtd_
+{{{
+<!ELEMENT module (name, monitor, invoke, dependencies?)>
+<!ELEMENT dependencies (dependency+)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT monitor (#PCDATA)>
+<!ELEMENT invoke (#PCDATA)>
+<!ELEMENT dependency (#PCDATA)>
+}}}
+
+The module definitions contains a sequence of tags that define the basic parameters of an XML configuration file.  DTD is defined to keep XML to a strict standard where name, monitor, invoke must be defined and dependencies is either defined once or not at all.
+
+Each dependency, when dependencies is defined must be defined once or more.
+
+Each module must define:
+
+_ONCE_
+ * name - The name of the module in (scope).(category).(action) format.
+ * monitor - The directory in which files will be sent to monitor from the client.
+ * invoke - The ACL2 module that will be invoked when the condition is met for the monitor.
+_ZERO OR ONCE_
+ * dependencies - The ACL2 modules that will require completion before this module will be allowed to be invoked (see exit codes).
+_ONE OR MORE_
+ * dependency - The ACL2 module that is required to be completed.
+
+= Module Construction =
+Each module is defined the the XML as stated previously.  This definition is loaded when the server is started up.  This means if you edit the /config/modules.xml file, you must restart the server in order to load the new module definition.
+
+The invoke portion of the module can execute anything that is executable in a POSIX environment.  It is highly recommended that you point this to a shell script.  With a shell script, you can call functions in sequential order, provide input redirection and use other operating system programs that perform things that ACL2 cannot.
+
+Example invoke script:
+{{{
+#!/bin/sh
+acl < "/home/cristma/Projects/Software Engineering II/server/modules/user/register.lisp"
+sleep 5
+clear
+}}}
+
+Through input redirection, we can feed line by line input into the ACL2 interactive prompt.  This information is accepted into ACL2 logic and once the file contents is read, the ACL2 program exits - the entire time echoing the information back to the user.  I added the sleep command in this example to show you its execution and how you can verify if the logic has worked.
+
+** Note that you can also switch program modes within the lisp file since you are dealing with ACL2 directly.
+
+Example lisp script:
+{{{
+(defun test ()
+   t)
+
+(test)
+}}}
+
+Notice that when we define the ACL2 function, we must also call it.  This does promote the problem when we need to pass arguments to the script.  Ideally, since we are executing a shell script, you can rewrite the LISP file dynamically so that you can provide arguments statically in the script to be ran.
