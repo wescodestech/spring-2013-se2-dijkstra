@@ -1,0 +1,6 @@
+<!ELEMENT module (name, monitor, invoke, dependencies?)>
+<!ELEMENT dependencies (dependency+)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT monitor (#PCDATA)>
+<!ELEMENT invoke (#PCDATA)>
+<!ELEMENT dependency (#PCDATA)>
