@@ -8,6 +8,7 @@
 ;
 ; Change Log:
 ; -----------------------------------------------------------------------
+; 2013-02-19	-	Added support for XML reader to ignore whitespace.
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (in-package "ACL2")
@@ -52,8 +53,13 @@
 			(if (equal x #\<)
 				(cons (tag xs) 
 					(nextToken (cdr (member-equal #\> (cdr xs))))) 
-				(cons (pcData xs) 
-					(nextToken (member-equal #\< (cdr xs))))))))
+				(if (or (equal x #\space)
+						  (equal x #\newline)
+						  (equal x #\tab)
+						  (equal x #\page))
+					(nextToken (cdr xs))
+					(cons (pcData xs) 
+						(nextToken (member-equal #\< (cdr xs)))))))))
 
 ; (tokenizeXML xml)
 ; Tokenizes the xml and returns a list of all tokens and their types.

@@ -9,6 +9,11 @@
 ;
 ; CHANGE LOG:
 ; -----------------------------------------------------------------------
+; 2012-02-19	-	Predicate isInAdressBook was making incorrect reference
+;                 to variable address when checking endp for recursion.
+;                 this caused stack overflow.  Corrected to endp 
+;                 addressBook.
+;
 ; 2012-02-19	-	Added predicate test to addAddress function that would
 ;                 determine if the address was already in the address
 ;                 book.
@@ -25,12 +30,12 @@
 (defun getAddress (tokens)
 	(if (endp tokens)
 		nil
-		(if (equal "</address>" (car tokens))
+		(if (equal "</address>" (caar tokens))
 			nil
-			(if (equal "<domain>" (car tokens))
-				(cons (cadr tokens) (getAddress (cddr tokens)))
-				(if (equal "<name>" (car tokens))
-					(cons (cadr tokens) (getAddress (cddr tokens)))
+			(if (equal "<domain>" (caar tokens))
+				(cons (caadr tokens) (getAddress (cdddr tokens)))
+				(if (equal "<name>" (caar tokens))
+					(cons (caadr tokens) (getAddress (cdddr tokens)))
 					(getAddress (cdr tokens)))))))
 
 ; (parseAddresses tokens)
@@ -41,7 +46,7 @@
 (defun parseAddresses (tokens)
 	(if (endp tokens)
 		nil
-		(if (equal "<address>" (car tokens))
+		(if (equal "<address>" (caar tokens))
 			(cons (getAddress (cdr tokens)) (parseAddresses (cdr tokens)))
 			(parseAddresses (cdr tokens)))))
 
@@ -97,6 +102,18 @@
 	'("</addresses>"))))
 			xml)))
 
+; (isInAddressBook addressBook address)
+; Predicate to determine if an address is in the address book.
+; addressBook - the address book to use to determine if an address is 
+;               contained in this address book.
+; address     - the address in which we are to be locating.
+(defun isInAddressBook (addressBook address)
+	(if (endp addressBook)
+		nil
+		(if (equal (car addressBook) address)
+			t
+			(isInAddressBook (cdr addressBook) address))))
+
 ; (addAddress addressBook address)
 ; Appends an address onto the end of the address book structure.  If the
 ; user is already in the address book, then the return is the original 
@@ -104,8 +121,8 @@
 ; addressBook - the address book in which to add the address.
 ; address     - the address to add to the address book.
 (defun addAddress (addressBook address)
-	(if (not (isInAddressBook addressBook address))
-		(append addressBook address)
+	(if (equal (isInAddressBook addressBook address) nil)
+		(append addressBook (list address))
 		addressBook))
 
 ; (removeAddress addressBook address)
@@ -115,19 +132,7 @@
 (defun removeAddress (addressBook address)
 	(if (endp addressBook)
 		nil
-		(if (equal (car addressBook) (address))
+		(if (equal (car addressBook) address)
 			(cdr addressBook)
 			(cons (car addressBook) 
 					(removeAddress (cdr addressBook) address)))))
-
-; (isInAddressBook addressBook address)
-; Predicate to determine if an address is in the address book.
-; addressBook - the address book to use to determine if an address is 
-;               contained in this address book.
-; address     - the address in which we are to be locating.
-(defun isInAddressBook (addressBook address)
-	(if (endp address)
-		nil
-		(if (equal (car addressBook) address)
-			t
-			(isInAddressBook (cdr addressBook) address))))
