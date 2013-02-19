@@ -10,6 +10,7 @@
 ; we can then send a copy of the email message to the receipent clients.
 ;
 ; CHANGE LOG:
+; 2/19/2013 - Moved from ./modules/user to ./modules/email sub directory.
 ; 2/18/2013 - Added to SVN Repo
 ; 2/18/2013 - Updated
 ; -----------------------------------------------------------------------
