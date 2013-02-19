@@ -9,6 +9,9 @@
 ;
 ; CHANGE LOG:
 ; -----------------------------------------------------------------------
+; 2012-02-19	-	Added predicate test to addAddress function that would
+;                 determine if the address was already in the address
+;                 book.
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -92,15 +95,18 @@
 	"<addresses>")
 		(addressBookXML addressBook))
 	'("</addresses>"))))
-	
 			xml)))
 
 ; (addAddress addressBook address)
-; Appends an address onto the end of the address book structure.
+; Appends an address onto the end of the address book structure.  If the
+; user is already in the address book, then the return is the original 
+; address book.
 ; addressBook - the address book in which to add the address.
 ; address     - the address to add to the address book.
 (defun addAddress (addressBook address)
-	(append addressBook address))
+	(if (not (isInAddressBook addressBook address))
+		(append addressBook address)
+		addressBook))
 
 ; (removeAddress addressBook address)
 ; Removes an address from the address book.

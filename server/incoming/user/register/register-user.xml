@@ -1,5 +1,5 @@
 <?xml version='1.0'?>
-<!DOCTYPE user SYSTEM 'http://localhost/dtd/register-user.dtd'>
+<!DOCTYPE user SYSTEM '../../../dtd/register-user.dtd'>
 <user>
 	<domain>localhost</domain>
 	<name>matthew.a.crist</name>
