@@ -66,11 +66,3 @@
 			(if error
 				(mv error state)
 				(mv "Wrote temp_address-book.xml successfully" state)))))
-
-#|(defun registerUser (regXML abXML state)
-	(let* ((tokens (tokenizeXML regXML))
-			 (domain (getDomain tokens))
-			 (name (getName tokens))
-			 (pass (getPassword tokens))
-			 (addressBook (getAddressBook (tokenizeXML abXML))))
-		(list domain name)))|#
