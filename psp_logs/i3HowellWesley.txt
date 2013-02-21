@@ -1,0 +1,157 @@
+name: Wesley Howell
+date: February 6, 2012
+program: Email Client Server System
+instructor: Dr. Rex Page
+language: ACL2
+
+
+
+time log:
+
+       - date: Jan 17, 2013
+	 start time: 10:30AM
+	 end time: 11:45AM
+	 phase: Design
+	 comment: Team Dijkstra's regular meeting time. We brainstormed project ideas and decided on a networked chat client and server system.
+
+       - date: Jan 22, 2013
+	 start time: 10:30AM
+	 end time: 11:45AM
+	 phase: Design
+	 comment: Team Dijkstra's regular meeting time. Finalized the idea of the chat system and began initial designs for the proposal.
+
+	- date: Jan 22, 2013
+	  start time: 7:32PM
+	  end time: 8:44PM
+	  phase: Design
+	  comment: Worked on updating the team's LoC table to include tImpl from last semester. Reused the spreadsheet from last semester and added the new data. Then included the information into the t2 and t3 documents. 
+
+       - date: Jan 22, 2013
+	 start time: 8:53PM
+	 end time: 10:49PM
+	 phase: Research
+	 comment: Worked on researching networking from within ACL2. There is not any native support for networking. However, we did discover that we could use networking if the Operating System supports it. Since our operating systems can be networked, we can work around this limitation. 
+
+	- date: Jan 23, 2013
+	  start time: 8:04PM
+	  end time: 10:27PM
+	  phase: Design
+	  comment: Worked on writing the content of the Proposal. Finished the sections for the Overview, High-level design, some of the requirements, and began the PROBE estimate.
+
+       - date: Jan 24, 2013
+	 start time: 10:30AM
+	 end time: 11:45AM
+	 phase: Design
+	 comment: Team Dijkstra's regular meeting time. We worked on the proposal and worked on several proofs of concepts to determine if the project is feasible. 
+
+	- date: Jan 26, 2013
+	  start time: 4:04PM
+	  end time: 6:31PM
+	  phase: Design
+	  comment: Finished the complete proposal with all the specified requirements and PROBE estimate. 
+
+       - date: Jan 29, 2013
+	 start time: 10:30AM
+	 end time: 11:45AM
+	 phase: Design
+	 comment: Team Dijkstra's regular meeting time. Dr. Page addressed concerns about the Project and that GUI's and File IO cannot exist in the same ACL2 program. We began a major re-design of the project and re-wrote most of the project requirements that are to be included in the proposal.
+
+	- date: Jan 29, 2013
+	  start time: 11:45AM
+	  end time: 2:12PM
+	  phase: Design
+	  comment: Found out that some of the components of the original proposal were not feasible. Worked with Matthew to re-write sections of the proposal to include the new ideas for the project and write out the requirements for the project. The new project will be an email system instead of a chat system, with more emphasis on message delivery and content. 
+
+	- date: Feb 3, 2013
+	  start time: 12:42AM
+	  end time: 2:09AM
+	  phase: Design
+	  comment: Matthew emailed about an issue with the ACL2 EXE's not working correctly and possibly being unable once the project gets large. Spent this time researching how to move the project to UNIX based servers and working with launching ACL2 from the terminal and using shell scripts to call ACL2 lisp files. 
+
+	- date: Feb 4, 2013
+	  start time: 5:23PM
+	  end time: 6:47PM
+	  phase: Design
+	  comment: Worked on typing the progress report with the completed task to date and writing out the plans for the task to be completed. Also noted in in the progress report the need to move the system server to a UNIX based system to run the server components 
+
+	- date: Feb 5, 2013
+	  start time: 10:30PM
+	  end time: 11:45PM
+	  phase: Design
+	  comment: Team Dijkstra's regular meeting time. We delivered a progress report to Dr. Page. We worked on converting the Windows based designs to a UNIX file system in order for the system to run.
+
+	- date: Feb 5, 2013
+	  start time: 7:32PM
+	  end time: 8:35PM
+	  phase: Design
+	  comment: Worked on setting up ACL2 modules to run though the UNIX shell and wrote test scripts to automatically call ACL2 functions from a shell script
+
+	- date: Feb 7, 2013
+	  start time: 10:30PM
+	  end time: 11:45PM
+	  phase: Design
+	  comment: Team Dijkstra's regular meeting time. We worked on the XML format and multi-level design and designed the data structure format for the project. We then wrote sections of the progress report and assigned an XML module to each team member.
+
+	- date: Feb 9, 2013
+	  start time: 5:14PM
+	  end time: 7:32PM
+	  phase: Design
+	  comment: Worked on designing the XML structure for email messages. Designed the XML layout, Document type definition and explanation. These topics were then uploaded to the groups wiki for review, comment, and inclusion in the design document. 
+
+	- date: Feb 11, 2013
+	  start time: 5:12PM
+	  end time: 8:04PM
+	  phase: Design
+	  comment: Worked on the team's design document and formatting of the sections. Took the information from the group's wiki and generated the data structure and IO format sections from this information. The other sections were expanded from the initial proposal with updates to relevant sections where the server information had been changed.
+
+	- date: Feb 12, 2013
+	  start time: 10:30PM
+	  end time: 11:45PM
+	  phase: Design
+	  comment: Team Dijkstra's regular meeting time. We reviewed the team design document and made many changes to the XML format and found several errors. We marked up the design for submission on Thursday. 
+
+	- date: Feb 17, 2013
+	  start time: 3:43PM
+	  end time: 4:51PM
+	  phase: Design
+	  comment: Worked on designing the server email components of the server module. Wrote out data flow diagrams to match the data structure format and XML I/O from the design document, and wrote function prototypes. 
+
+	- date: Feb 18, 2013
+	  start time: 5:05PM
+	  end time: 6:12PM
+	  phase: Design
+	  comment: Typed the progress report for the presentation tomorrow to give Dr. Page an update on our projects task and goals. Also updated the design document to Revision I for submission tomorrow. 
+
+	- date: Feb 18, 2013
+	  start time: 7:23PM
+	  end time: 10:44PM
+	  phase: Design
+	  comment: Worked on implementing the server email components. Took my designs on paper from yesterday and worked them into working functions. I was able to finish an email splitter which splits one email sent to many recipients into multiple messages and XML output for email messages.
+
+	- date: Feb 19, 2013
+	  start time: 10:30AM
+	  end time: 11:45AM
+	  phase: Design
+	  comment: Team Dijkstra's regular meeting time. We delivered a progress report to Dr. Page on our task so far. Also we updated our SVN repository to the most recent changes to the groups implementation. Isaac rejoined the group and the remaining time was spend catching him up on the groups progress.
+
+defect log:
+
+	- date: Jan 22, 2013
+	  type: Design
+	  fix time: 60
+	  comment: Found out that networking is not feasible from within ACL2. To make it natively supported, writing and extending several Common Lisp features would need to be done. We cannot do this in the scope of this project. So we found that using the Operating System's native filesystem and networking support would be much more friendly to deal with once we get to this stage in the project.
+
+       - date: Jan 29, 2013
+	 type: Design
+	 fix time: 147
+	 comment: Found out that GUI's and File IO cannot coexist in ACL2. We can have one or the other, but not both. So we had to scrap the GUI portions of the project and replace them with a new idea. The new idea is the current design of the email server and client system. This project is strictly data processing and file IO. This project will be file and text based rather than Visual and Interactive. 
+
+- date: Feb 5, 2013
+	 type: Design
+	 fix time: 124
+	 comment: We discovered that generating ALC2 executables and invoking these files from an outside source is a troublesome experience and that the generated files are hundreds of megabytes in size. Since we will have several modules for this project, we saw this as a negative side effect of executable files. To solve this problem, we moved all our project to the UNIX platform. This has allowed us to use the UNIX shell environment to generate shell scripts that invoke the ACL2 environment while passing in ACL2 source code files. This reduces the size of the files to kilobytes and streamlines the execution process and eliminating the size of outside programming needed for the original idea to work. Thus we will be executing our ACL2 code through a UNIX shell script and the shell scripts will in turn be executed from the outside programming environment. 
+
+- date: Feb 12, 2013
+	 type: Design
+	 fix time: 75
+	 comment: When we looked at the design review. We saw several errors in the XML format that would not pass if it were to be sent though a web browser. We had to work on setting the XML to a correct format and modify the document type definitions to comply with proper XML syntax.
