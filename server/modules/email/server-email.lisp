@@ -20,9 +20,13 @@
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (in-package "ACL2")
-(include-book "../../include/xml-scanner")
-(include-book "../../include/io-utilities")
-(include-book "../../include/list-utilities")
+(include-book "/Users/w_howell/code/spring-2013-se2-dijkstra/server/include/xml-scanner" :uncertified-okp t)
+(include-book "/Users/w_howell/code/spring-2013-se2-dijkstra/server/include/io-utilities" :uncertified-okp t)
+(include-book "/Users/w_howell/code/spring-2013-se2-dijkstra/server/include/list-utilities" :uncertified-okp t)
+(set-state-ok t)
+
+;(include-book "../../include/io-utilities")
+;(include-book "../../include/list-utilities")
 (defun getEmailXML (email)
   (if (endp email)
       nil
@@ -47,32 +51,30 @@
                               "</messages>")))
               (list hd to from sub msg ft))))        
     
-
 ;(splitEmail email)
 ; Takes an Email and assigns it to one receipent
 ; This will be useful when we send an email with multiple receipients
 ; email - the email strucutre that is defined in the Data Structures of the
 ;         design. 
-(defun splitEmail (email)
-  (if (listp email) ;Checks if the structure is not empty,
-                    ;We need to make sure the data is always correct 
-      (let* ((tos (car email)) ;List of to emails
-             (from (car (cdr email)));from address structure
-             (sub (car (cdr (cdr email))));subject string
-             (msg (car (cdr (cdr (cdr email))))));message string 
-        (if (consp (cdr tos))
-            (cons (list (car tos)  from sub msg) (splitEmail (list (cdr tos)
-                                                             from sub msg)))
-            (list (list (car tos) from sub msg))))
-      nil))
+;(defun splitEmail (email)
+;  (if (listp email) ;Checks if the structure is not empty,
+;      (let* ((tos (car email)) ;List of to emails
+;             (from (car (cdr email)));from address structure
+;             (sub (car (cdr (cdr email))));subject string
+;             (msg (car (cdr (cdr (cdr email))))));message string 
+;        (if (consp (cdr tos))
+;            (cons (list (car tos)  from sub msg) (splitEmail (list (cdr tos)
+;                                                             from sub msg)))
+;            (list (list (car tos) from sub msg))))
+;      nil))
 
-;(writeEmail email fOut state)
-;Writes an email message based on the email data structure with
-;a single email address. Calls the getEmailXML function to generate
-;the output text.
-;email - the email data structure to output
-;fOut - the file path for the outputted file
-;state - the ACL2 state
+;;(writeEmail email fOut state)
+;;Writes an email message based on the email data structure with
+;;a single email address. Calls the getEmailXML function to generate
+;;the output text.
+;;email - the email data structure to output
+;;fOut - the file path for the outputted file
+;;state - the ACL2 state
 (defun writeEmail (email fOut state)
   (mv-let (error-close state)
           (string-list->file
@@ -86,29 +88,31 @@
                   state)
            )))
 
-;getEmailXMLTokens file
-;This function will return the list of XML tokens for the email XML
-;file - the filepath to the XML file
-(defun getEmailXMLTokens (file)
+;;;getEmailXMLTokens file
+;;;This function will return the list of XML tokens for the email XML
+;;;file - the filepath to the XML file
+(defun getEmailXMLTokens (file state)
   (mv-let (input-xml error-open state)
           (file->string file state)
-          (cdr (cdr (tokenizeXML input-xml)))))
+     (if error-open
+         (mv error-open state)
+         (mv (cdr (cdr (tokenizeXML input-xml))) state))))
 
-;getContactStructure string
-;This function will generate a contact structure
-;The delimiter right now is set at "," but can easily be changed to
-;the "@" symbol
-;string - the string to get the contact structure from
-(defun getContactStructure (string) 
-  (let* ((chrs (str->chrs string))
+;;getContactStructure string
+;;This function will generate a contact structure
+;;The delimiter right now is set at "," but can easily be changed to
+;;the "@" symbol
+;;string - the string to get the contact structure from
+(defun getContactStructure (str) 
+  (let* ((chrs (str->chrs str))
          (name (car (break-at #\, chrs)))
          (domain (cdr (break-at #\, chrs))))
         (list  (chrs->str name) (chrs->str (cdr (car domain))))))
 
-;getEmailStructure file
-;This function will generate the email data structure based on the 
-;FIRST email message in the tokenized XML file list. 
-;file - the xml file on the computer to parse
+;;getEmailStructure file
+;;This function will generate the email data structure based on the 
+;;FIRST email message in the tokenized XML file list. 
+;;file - the xml file on the computer to parse
 (defun getEmailStructure (xml)
   (let* (;(xml (cdr (getEmailXMLTokens file)))
          (to (car (car (cdr (cdr xml)))))
@@ -118,28 +122,55 @@
     (list (list (getContactStructure to)) 
                 (getContactStructure from) sub msg)))
   
+;(consumeList xml)
+;This will trash the top email message xml's tags and make the 
+;next email message availiable to getEmailStructureList
+;Warning! This requires the email XML to be in the exact format as
+;on the project Wiki page
+;xml- tokenized xml tags
 (defun consumeList (xml)
   (cddddr (cddddr (cddddr (cddr xml)))))
 
+;(getEmailStructureList xml)
+;This funciton will take the email XML tags and create a list
+;of email messages. 
+;Warning! - this requires the xml format to the exact format as stated
+;on the project wiki
+;xml - the Tokenized list of xml tags
 (defun getEmailStructureList (xml)
-  (if (equal (car (car (cddddr (cddddr (cddddr (cddr xml)))))) "</messages>")
+  (if (equal (car (car (cddddr (cddddr (cddddr (cddr xml)))))) "<email>")
+      (cons (getEmailStructure xml) (getEmailStructureList (consumeList xml)))
       (list (getEmailStructure xml))
-      (cons (getEmailStructure xml) (getEmailStructureList (consumeList xml)))))
+      ))
 
-(defun getEmail (file)
-  (let* ((xml (getEmailXMLTokens file)))
-    (getEmailStructureList (cdr xml))))
-
-
-(defun runEmailOut (email)
-  (if (listp email)
-      (let* ((output (writeEmail (car email) (concatenate 'string 
-                            (car (cddr (car email))) (car (cdddr (car email))) ".xml") 
-              state)))
-     (runEmailOut (cdr email)))
-     nil))
+;getEmail file state
+;This function's goal is to open an email XML file, 
+;parse the xml file and output each individual message to a file. 
+;The funciton below, runEmailOut, should be the recusive call for this
+;function
+;file - the file path to the file to open
+;state - the ACL2 state
+(defun getEmail (file state)
+   (getEmailXMLTokens file state))
   
-(runEmailOut (getEmail "howell/emailinput.xml"))  
+;   (mv-let (str error state) (getEmailXMLTokens file state)
+;      (if error 
+;          (mv error state)
+;          (mv (getEmailStructureList (cdr str)) state))))
+   
+   
+
+
+
+;(defun runEmailOut (email)
+;  (if (listp email)
+;      (let* ((output (writeEmail (car email) (concatenate 'string 
+;                            (car (cddr (car email))) (car (cdddr (car email))) ".xml") 
+;              state)))
+;     (runEmailOut (cdr email)))
+;     nil))
+;  
+;(runEmailOut (getEmail "howell/emailinput.xml"))  
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;test functions
@@ -155,4 +186,3 @@
 ;(getEmailStructure (cdr (getEmailXMLTok "howell/textXML.xml")))
 
 ;(getEmailStructure "howell/testXML.xml")
-
