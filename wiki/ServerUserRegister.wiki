@@ -6,8 +6,8 @@ This module will invoke the action that is required to add a user to the address
 
 = Dependencies =
 
-ServerXmlScanner
-ServerUserAddressBook
+[https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerXmlScanner xml-scanner]
+[https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerUserAddressBook address-book]
 
 = Persistence =
 
@@ -93,6 +93,10 @@ File Location:
 
 _./server/modules/user/register/register-user.lisp_, 
 _./server/modules/user/register/register-user.sh_
+
+= Theorems =
+
+_This module does not contain theorems due to it only using the functions that are present in the [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerUserAddressBook address-book] module._
 
 = Change Log =
 
