@@ -1,0 +1,4 @@
+#summary Allows user to register their domain and name with the ACL2 email service.
+
+= Introduction =
+The user.register
