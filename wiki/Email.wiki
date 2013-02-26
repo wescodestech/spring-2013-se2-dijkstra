@@ -99,3 +99,17 @@ From the xml file described above, the sample data structure would be:
 
  * _./server/modules/email/processEmail.lisp_
  * _./server/modules/email/processEmail.sh_
+
+= Properties and Testing =
+
+(defproperty EmailXMLTest) – Test the email function to see that the XML is returned in the correct format. 
+  * Test that the input is an email structure and verify that the correct XML is outputted and that all tags are present
+
+(defproperty ContactStructureTest) – This will test the getContactStructure function and run test on the integrity of the input and outputted data structures to make sure they are in the correct format.
+  * Test that a correct contact structure, (name, domain) is returned for the input name@domain.
+
+(defproperty EmailStructureTest) – Verify that the email structure is correct for an inputted tokenized XML list
+  * Verify that the email message starts with <email> tag and closes with </email> tag.
+
+(defproperty consumptionTest) - Verify the consumeList will consume only one set of email tags from the xml token list.
+  * Verify the same conditions as EmailStructure test and that the first tag will be <email> or </messages>
