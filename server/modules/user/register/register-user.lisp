@@ -52,6 +52,13 @@
 (set-ignore-ok t)
 
 ; (registerUser inputXML outputXML)
+; Processes the information that is passed via XML string to add the user
+; to the global server address book.
+; regXML - The XML that is contained in the registration file - sent 
+;          dynamically via shell script.
+; abXML  - The XML that is contained in the address book file - sent 
+;          dynamically via shell script.
+; state  - The state of the streams in ACL2.
 (defun registerUser (regXML abXML state)
 	(let* ((tokens (tokenizeXML regXML))
 			 (domain (getDomain tokens))
