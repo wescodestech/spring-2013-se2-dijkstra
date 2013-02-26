@@ -44,7 +44,7 @@ name – String – The name portion of the email address
 
 domain – String – The domain portion of the email address
 
-_(domain name)_
+_((domain name),,0,, (domain name),,1,, ... (domain name),,n,,)_
 
 = Example =
 
