@@ -130,6 +130,24 @@ _(removeAddress addressBook address)_
 
 File Location: ./server/modules/user/address-book.lisp
 
+= Theorems =
+
+== address-is-in-book-adding-returns-original-book ==
+
+_If the address is in the address book, then adding the address to the address book results in the same address book._
+
+== address-is-not-in-book-add-length-test ==
+
+_If the address is not in the address book, then adding the address to the address book will return an address book with the length of the original address book + 1._
+
+== address-is-in-book-remove-length-test ==
+
+_If the address is in the address book, then removing the address from the address book will return an address book with the length of the original address book - 1._
+
+== address-is-not-in-address-book-remove-returns-original-book-test ==
+
+_If the address is not in the address book, then remove the address from the address book results in the original address book (lengths are equivalent)._
+
 = CHANGE LOG =
 
 Name: Matthew Crist, 

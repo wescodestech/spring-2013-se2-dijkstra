@@ -51,7 +51,7 @@
 (set-state-ok t)
 (set-ignore-ok t)
 
-; (registerUser inputXML outputXML)
+; (registerUser regXML abXML state)
 ; Processes the information that is passed via XML string to add the user
 ; to the global server address book.
 ; regXML - The XML that is contained in the registration file - sent 
