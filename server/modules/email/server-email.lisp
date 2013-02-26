@@ -10,6 +10,8 @@
 ; we can then send a copy of the email message to the receipent clients.
 ;
 ; CHANGE LOG:
+; 2/26/2013 - Updated references to be relative instead of absolute for 
+;             xml-scanner.lisp, io-utilities.lisp and list-utilities.lisp.
 ; 2/22/2013 - Finished the email input from file to file out
 ; 2/21/2013 - Worked on parsing XML documents and getting the email informatio
 ;             From the XML file
@@ -20,13 +22,12 @@
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (in-package "ACL2")
-(include-book "/Users/w_howell/code/spring-2013-se2-dijkstra/server/include/xml-scanner" :uncertified-okp t)
-(include-book "/Users/w_howell/code/spring-2013-se2-dijkstra/server/include/io-utilities" :uncertified-okp t)
-(include-book "/Users/w_howell/code/spring-2013-se2-dijkstra/server/include/list-utilities" :uncertified-okp t)
+(include-book "../../include/xml-scanner" :uncertified-okp t)
+(include-book "../../include/io-utilities" :uncertified-okp t)
+(include-book "../../include/list-utilities" :uncertified-okp t)
 (set-state-ok t)
 
-;(include-book "../../include/io-utilities")
-;(include-book "../../include/list-utilities")
+
 (defun getEmailXML (email)
   (if (endp email)
       nil
