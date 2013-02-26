@@ -64,7 +64,7 @@ new objects:
 		type: Non IO
 
 	-	name: parseAddresses
-		estimated lines: 9
+		estimated lines: 6
 		type: Non IO
 
 	- 	name: getAddressBook
