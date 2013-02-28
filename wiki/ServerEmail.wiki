@@ -20,35 +20,14 @@ _./$name.xml_ (File is defined by the name of the mailing list.)
 	<subject>Message1 subject</subject>
 	<message>Test For a Message Would be Here</message>
 </email>
-<email>
-	<to>adam.ghodratnama@localhost</to>
-	<from>wesley.howell@localhost</from>
-	<subject>Message2 subject</subject>
-	<message>Test For another Message Would be Here</message>
-</email>
-<email>
-	<to>adam.ghodratname@localhost, matthew.crist@localhost</to>
-	<from>wesley.howell@localhost</from>
-	<subject>Message3 subject</subject>
-	<message>This is a message sent to a mailing list</message>
-</email>
-<email>
-	<to>adam.ghodratname@localhost, matthew.crist@localhost, mailinglist1@localhost</to>
-	<from>wesley.howell@localhost</from>
-	<subject>Message3 subject</subject>
-	<message>This is a message sent to a mailing list</message>
-</email>
 }}}
 
 _http://localhost/dtd/mailing_list.dtd_
 {{{
-<!ELEMENT to (address+)>
-<!ELEMENT from (address)>
+<!ELEMENT to (#PCDATA)>
+<!ELEMENT from (#PCDATA)>
 <!ELEMENT subject (#PCDATA)>
 <!ELEMENT message (#PCDATA)>
-<!ELEMENT address (name, domain)>
-<!ELEMENT domain (#PCDATA)>
-<!ELEMENT name (#PCDATA)>
 }}}
 
 = Data Structure =

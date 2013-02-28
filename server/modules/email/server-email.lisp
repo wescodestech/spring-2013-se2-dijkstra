@@ -25,11 +25,20 @@
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (in-package "ACL2")
-(include-book "../../include/xml-scanner" :uncertified-okp t)
-(include-book "../../include/io-utilities" :uncertified-okp t)
-(include-book "../../include/list-utilities" :uncertified-okp t)
-(set-state-ok t)
 
+
+(defun break-at-set (delimiters xs)
+  (if (or (not (consp xs))
+          (member-equal (car xs) delimiters))
+      (list '() xs)
+      (let* ((first-thing (car xs))
+             (break-of-rest (break-at-set delimiters (cdr xs)))
+             (prefix (car break-of-rest))
+             (suffix (cadr break-of-rest)))
+          (list (cons first-thing prefix) suffix))))
+
+(defun break-at (delimiter xs)
+   (break-at-set (list delimiter) xs))
 
 (defun getEmailXML (email)
   (if (endp email)
@@ -37,7 +46,6 @@
       (let* ((hd (concatenate 'string
                               "<?xml version='1.0'?>"
                               "<!DOCTYPE user SYSTEM '../../../dtd/messages.dtd'>"
-                              "<messages>"
                               "<email>"))
              (to (concatenate 'string
                               "<to>" (car (car (car email))) ","
@@ -52,7 +60,7 @@
                                "<content>" (cadr (cdr (cdr email))) 
                                "</content>"))
              (ft (concatenate 'string "</email>"
-                              "</messages>")))
+                              )))
               (list hd to from sub msg ft))))        
     
 ;(splitEmail email)
@@ -72,35 +80,6 @@
 ;            (list (list (car tos) from sub msg))))
 ;      nil))
 
-;;(writeEmail email fOut state)
-;;Writes an email message based on the email data structure with
-;;a single email address. Calls the getEmailXML function to generate
-;;the output text.
-;;email - the email data structure to output
-;;fOut - the file path for the outputted file
-;;state - the ACL2 state
-(defun writeEmail (email fOut state)
-  (mv-let (error-close state)
-          (string-list->file
-           fOut
-           (getEmailXML email)
-           state
-           )
-          (if error-close
-              (mv error-close state)
-              (mv (string-append ", output file: " fOut)
-                  state)
-           )))
-
-;;;getEmailXMLTokens file
-;;;This function will return the list of XML tokens for the email XML
-;;;file - the filepath to the XML file
-(defun getEmailXMLTokens (file state)
-  (mv-let (input-xml error-open state)
-          (file->string file state)
-     (if error-open
-         (mv error-open state)
-         (mv (cdr (cdr (tokenizeXML input-xml))) state))))
 
 ;;getContactStructure string
 ;;This function will generate a contact structure
@@ -108,10 +87,10 @@
 ;;the "@" symbol
 ;;string - the string to get the contact structure from
 (defun getContactStructure (str) 
-  (let* ((chrs (str->chrs str))
-         (name (car (break-at #\, chrs)))
-         (domain (cdr (break-at #\, chrs))))
-        (list  (chrs->str name) (chrs->str (cdr (car domain))))))
+  (let* ((chrs (coerce str 'list))
+         (name (car (break-at #\@ chrs)))
+         (domain (cdr (break-at #\@ chrs))))
+        (list  (coerce name 'string) (coerce (cdr (car domain)) 'string))))
 
 ;;getEmailStructure file
 ;;This function will generate the email data structure based on the 
@@ -125,15 +104,7 @@
          (msg (car (car (cddddr (cddddr (cdddr xml)))))))
     (list (list (getContactStructure to)) 
                 (getContactStructure from) sub msg)))
-  
-;(consumeList xml)
-;This will trash the top email message xml's tags and make the 
-;next email message availiable to getEmailStructureList
-;Warning! This requires the email XML to be in the exact format as
-;on the project Wiki page
-;xml- tokenized xml tags
-(defun consumeList (xml)
-  (cddddr (cddddr (cddddr (cddr xml)))))
+
 
 ;(getEmailStructureList xml)
 ;This funciton will take the email XML tags and create a list
@@ -142,56 +113,21 @@
 ;on the project wiki
 ;xml - the Tokenized list of xml tags
 (defun getEmailStructureList (xml)
-  (if (equal (car (car (cddddr (cddddr (cddddr (cddr xml)))))) "<email>")
-      (cons (getEmailStructure xml) (getEmailStructureList (consumeList xml)))
-      (list (getEmailStructure xml))
-      ))
+      (list (getEmailStructure xml)
+      )
+)
 
 ;getEmail file state
+;;;Entry Point;;;
 ;This function's goal is to open an email XML file, 
 ;parse the xml file and output each individual message to a file. 
 ;The funciton below, runEmailOut, should be the recusive call for this
 ;function
 ;file - the file path to the file to open
-;state - the ACL2 state
-(defun getEmail (file state)
-   (getEmailXMLTokens file state))
+;;state - the ACL2 state
+(defun getEmail (str)
+   (getEmailXML (getEmailStructure str))
+   )
   
 
-;(rwEmail fin fout state)
-;This function is the entry point to parse a single email message from the
-;XML file "fin"
-;fin - input XML file
-;fout - output XML filename
-;state - ACL2 state
-(defun rwEmail (fin fout state)
-  (mv-let (input-as-string error-open state) 
-	  (file->string fin state)
-     (if error-open
-         (mv error-open state)
-         (mv-let (error-close state)
-                 (string-list->file fout
-                                  (getEmailXML (getEmailStructure 
-                                              (cdr(cdr (cdr 
-                                              (tokenizeXML input-as-string
-                                                           ))))))
-                                    state)  
-            (if error-close
-                (mv error-close state)
-                (mv "Success File has been written!" 
-                     state))))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;test functions
-;(splitEmail '( (("howell" "localhost") ("crist" "localhost") 
-;                                       ("ghodratnama" "localhost")) 
-;               ("howell" "localhost") "sub" "msg"))
-
-;(writeEmail '((("howell" "localHost")) ("crist" "localhost") "SUB" "MSG")
-;              "howell/testXML.xml" state)
-
-;(cdr (getEmailXMLTok "howell/testXML.xml"))
-
-;(getEmailStructure (cdr (getEmailXMLTok "howell/textXML.xml")))
-
-;(getEmailStructure "howell/testXML.xml")
