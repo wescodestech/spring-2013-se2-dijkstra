@@ -10,6 +10,9 @@
 ; we can then send a copy of the email message to the receipent clients.
 ;
 ; CHANGE LOG:
+; 2/27/2013 - Fixed the IO issue and now we can Call an XML file and 
+;  		    Output a file from the same funciton. 
+;             Note! This only pull the first message in the XML file!
 ; 2/26/2013 - Updated references to be relative instead of absolute for 
 ;             xml-scanner.lisp, io-utilities.lisp and list-utilities.lisp.
 ; 2/22/2013 - Finished the email input from file to file out
@@ -154,24 +157,29 @@
 (defun getEmail (file state)
    (getEmailXMLTokens file state))
   
-;   (mv-let (str error state) (getEmailXMLTokens file state)
-;      (if error 
-;          (mv error state)
-;          (mv (getEmailStructureList (cdr str)) state))))
-   
-   
 
-
-
-;(defun runEmailOut (email)
-;  (if (listp email)
-;      (let* ((output (writeEmail (car email) (concatenate 'string 
-;                            (car (cddr (car email))) (car (cdddr (car email))) ".xml") 
-;              state)))
-;     (runEmailOut (cdr email)))
-;     nil))
-;  
-;(runEmailOut (getEmail "howell/emailinput.xml"))  
+;(rwEmail fin fout state)
+;This function is the entry point to parse a single email message from the
+;XML file "fin"
+;fin - input XML file
+;fout - output XML filename
+;state - ACL2 state
+(defun rwEmail (fin fout state)
+  (mv-let (input-as-string error-open state) 
+	  (file->string fin state)
+     (if error-open
+         (mv error-open state)
+         (mv-let (error-close state)
+                 (string-list->file fout
+                                  (getEmailXML (getEmailStructure 
+                                              (cdr(cdr (cdr 
+                                              (tokenizeXML input-as-string
+                                                           ))))))
+                                    state)  
+            (if error-close
+                (mv error-close state)
+                (mv "Success File has been written!" 
+                     state))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;test functions
