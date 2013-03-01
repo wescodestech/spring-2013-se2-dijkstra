@@ -6,7 +6,7 @@
 The Email (server module) will parse an incoming email message and the direct it to the specified client output folder.
 
 = Dependencies = 
-[http://code.google.com/p/spring-2013-se2-dijkstra/wiki/XMLScanner_ACL2 xml-scanner.lisp]
+none.
 
 = Email Storage =
 
@@ -65,13 +65,13 @@ From the xml file described above, the sample data structure would be:
 {{{(defun processEmail (in out))}}} - The "main" call that will process the current email queue.
 
 = File Information =
-*Lines of Code*: Not defined.
+*Lines of Code*: 69.
 
 *Functions*: Not defined.
 
-*Entry Point*: Any function contained in file except _(parseMailingList s)_.
+*Entry Point*: (getEmail tokXML)
 
-*File Location*: ./server/modules/email/functions.lisp
+*File Location*: ./server/modules/email/server-email.lisp
 
 = External Functional References =
 {{{(defun processEmail (in out))}}} - Runs the current Email queue of incoming email messages to the server. This will take all the incoming messages, separate multiple message, and create an individual message for one sent to multiple recipients. This function will be generated from the shell as follows:
