@@ -4,8 +4,8 @@ program: Email Client Server System
 instructor: Dr. Rex Page
 language: ACL2
 
-actual added lines: 146
-actual base lines: 0
+actual added lines: 151
+actual base lines: 12
 actual modified lines: 15
 actual removed lines: 0
 

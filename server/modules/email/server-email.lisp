@@ -16,7 +16,7 @@
 ; 2/26/2013 - Updated references to be relative instead of absolute for 
 ;             xml-scanner.lisp, io-utilities.lisp and list-utilities.lisp.
 ; 2/22/2013 - Finished the email input from file to file out
-; 2/21/2013 - Worked on parsing XML documents and getting the email informatio
+; 2/21/2013 - Worked on parsing XML documents and getting the email information
 ;             From the XML file
 ; 2/19/2013 - Moved from ./modules/user to ./modules/email sub directory.
 ; 2/18/2013 - Added to SVN Repo
@@ -25,8 +25,9 @@
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (in-package "ACL2")
-
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;Base Lines
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun break-at-set (delimiters xs)
   (if (or (not (consp xs))
           (member-equal (car xs) delimiters))
@@ -39,6 +40,8 @@
 
 (defun break-at (delimiter xs)
    (break-at-set (list delimiter) xs))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun getEmailXML (email)
   (if (endp email)
@@ -62,24 +65,6 @@
              (ft (concatenate 'string "</email>"
                               )))
               (list hd to from sub msg ft))))        
-    
-;(splitEmail email)
-; Takes an Email and assigns it to one receipent
-; This will be useful when we send an email with multiple receipients
-; email - the email strucutre that is defined in the Data Structures of the
-;         design. 
-;(defun splitEmail (email)
-;  (if (listp email) ;Checks if the structure is not empty,
-;      (let* ((tos (car email)) ;List of to emails
-;             (from (car (cdr email)));from address structure
-;             (sub (car (cdr (cdr email))));subject string
-;             (msg (car (cdr (cdr (cdr email))))));message string 
-;        (if (consp (cdr tos))
-;            (cons (list (car tos)  from sub msg) (splitEmail (list (cdr tos)
-;                                                             from sub msg)))
-;            (list (list (car tos) from sub msg))))
-;      nil))
-
 
 ;;getContactStructure string
 ;;This function will generate a contact structure
@@ -90,7 +75,9 @@
   (let* ((chrs (coerce str 'list))
          (name (car (break-at #\@ chrs)))
          (domain (cdr (break-at #\@ chrs))))
-        (list  (coerce name 'string) (coerce (cdr (car domain)) 'string))))
+        (list  (coerce name 'string) 
+              (coerce (cdr (car domain)) 
+                      'string))))
 
 ;;getEmailStructure file
 ;;This function will generate the email data structure based on the 
@@ -129,5 +116,4 @@
    (getEmailXML (getEmailStructure str))
    )
   
-
 
