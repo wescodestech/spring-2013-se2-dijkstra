@@ -10,6 +10,9 @@
 ; we can then send a copy of the email message to the receipent clients.
 ;
 ; CHANGE LOG:
+; 3/4/2013  Added 5 lines to the RWEmail function to take in a timestamp
+;           and dynamically write the email to the appropriate directory
+;           based on the <to> tag in the email message.
 ; 2/28/2013 Created this file to handled the IO and outside dependencies 
 ;           of the server-email functions.
 ; -----------------------------------------------------------------------
@@ -67,7 +70,12 @@
      (if error-open
          (mv error-open state)
          (mv-let (error-close state)
-                 (string-list->file fout
+                 (string-list->file 
+                  (concatenate 'string "../../../store/email/"
+                               (car(car (cddddr (tokenizeXML input-as-string))))
+                               "/msg_"
+                               fout
+                               ".xml")
                                   (getEmail
                                          (cdr (cdr 
                                           (tokenizeXML input-as-string)))

@@ -51,11 +51,11 @@
                               "<!DOCTYPE user SYSTEM '../../../dtd/messages.dtd'>"
                               "<email>"))
              (to (concatenate 'string
-                              "<to>" (car (car (car email))) ","
+                              "<to>" (car (car (car email))) "@"
                               (car (cdr (car (car email))))
                               "</to>"))
              (from (concatenate 'string 
-                                "<from>" (car (cadr email)) ","
+                                "<from>" (car (cadr email)) "@"
                                 (car(cdr (cadr email)))"</from>"))
              (sub (concatenate 'string
                                "<subject>" (cadr (cdr email)) "</subject>"))

@@ -4,7 +4,7 @@ program: Email Client Server System
 instructor: Dr. Rex Page
 language: ACL2
 
-actual added lines: 151
+actual added lines: 156
 actual base lines: 12
 actual modified lines: 15
 actual removed lines: 0
@@ -166,6 +166,30 @@ time log:
 	  end time: 10:32PM
 	  phase: Implementation
 	  comment: I finally have the IO fixed. With one call I can have and input file in XML format parse and get passed to an output file. Now its time to handled multiple XML messages in one file.	
+
+	- date: Feb 28, 2013
+	  start time: 10:30AM
+	  end time: 11:45AM
+	  phase: Implementation
+	  comment: Team Dijkstra's regular meeting time. We worked on server implementation and fixed issues with the server-email file. We split it into two files where one contained the IO functions and the other contained the logic functions. This was done in order to make proving theorems in ACL2 easier. 
+
+	- date: Feb 28, 2013
+	  start time: 4:02PM
+	  end time: 5:12PM
+	  phase: Implementation
+	  comment: I wrote the theorem suite for the server-email functions. These tested each function in the file at least once. This guarantees that the written code does what it is needed to do. 
+
+	- date: March 2, 2013
+	  start time: 4:53PM
+	  end time: 5:34PM
+	  phase: Implementation
+	  comment: I wrote a shell script that dynamically writes a lisp file with the command to call the rwEmail function and output the files to a directory with the clients name in the servers store folder. Each file is names msg_timestamp where the timestamp is the actual timestamp of the message.
+
+	- date: March 4, 2013
+	  start time: 11:49AM
+	  end time: 12:46PM
+	  phase: Implementation
+	  comment: Worked on updating rwEmail. I changed the output file from being solely passed in by the parameters to where only a timestamp is required. The output directory is now dynamically generated to pull the <to> tag from the XML and outputs to output each email message into a directory based on the contents of the tag and the naming convention that was implemented earlier for each individual file.
 
 defect log:
 

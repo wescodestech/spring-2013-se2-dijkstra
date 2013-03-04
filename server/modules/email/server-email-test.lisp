@@ -70,4 +70,3 @@
   (implies (listp str)
            (AND (equal (listp (getEmail str)) t)
                 (equal (stringp (car (getEmail str))) t))))
-
