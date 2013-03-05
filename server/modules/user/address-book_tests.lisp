@@ -3,7 +3,7 @@
 ; Theorem:
 ; If the address is in the address book, then adding the address to 
 ; the address book results in the same address book structure.
-(defthm address-is-in-book-adding-returns-original-book
+(defthm address-is-in-book-adding-returns-original-book-test
 	(implies (isInAddressBook addressBook address)
 				(equal addressBook (addAddress addressBook address))))
 
