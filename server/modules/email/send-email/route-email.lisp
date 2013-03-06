@@ -72,7 +72,10 @@
          (mv-let (error-close state)
                  (string-list->file 
                   (concatenate 'string "../../../store/email/"
-                               (car(car (cddddr (tokenizeXML input-as-string))))
+                               (car (cdr (getContactStructure (car(car (cddddr (tokenizeXML input-as-string)))))))
+                                                              "/"
+                               (car (getContactStructure (car(car (cddddr (tokenizeXML input-as-string))))))
+			       ;Separate this into the structure ../domain/user
                                "/msg_"
                                fout
                                ".xml")

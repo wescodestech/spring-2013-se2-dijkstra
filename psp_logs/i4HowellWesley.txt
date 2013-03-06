@@ -187,9 +187,15 @@ time log:
 
 	- date: March 4, 2013
 	  start time: 11:49AM
-	  end time: 12:46PM
+	  end time: 1:04PM
 	  phase: Implementation
 	  comment: Worked on updating rwEmail. I changed the output file from being solely passed in by the parameters to where only a timestamp is required. The output directory is now dynamically generated to pull the <to> tag from the XML and outputs to output each email message into a directory based on the contents of the tag and the naming convention that was implemented earlier for each individual file.
+
+	- date: March 5, 2013
+	  start time: 7:24PM
+	  end time: 7:48PM
+	  phase: Implementation
+	  comment: Worked on updating the shell script to include a for loop to process each file that exist in the incoming directory. Also edited, the route-email ACL2 file to change the directory structure of the email output.
 
 defect log:
 
