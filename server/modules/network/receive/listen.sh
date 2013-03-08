@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Created by Matthew A. Crist on March 4, 2013.
 
@@ -6,10 +6,36 @@
 # listen for incoming connections and save that information to the 
 # global incoming folder.
 
-FILENAME=`date +%s`".txt"
+KILL_SERVICE=true
 
-nc -l 20000 > $FILENAME
+for(( ; ; ))
+do
+	FILENAME=`date +%s`".rmi"
+	nc -l 20000 > $FILENAME
+	
+	echo "Connection accepted.  Data written to $FILENAME"	
 
-CONTENTS=$(cat $FILENAME)
+	ACTIONSTRING=$(grep ^{.*} $FILENAME)
 
-echo $CONTENTS
+	OLDIFS=$IFS
+	IFS=";"
+
+	read -a actions <<< "$(printf "%s" "$ACTIONSTRING")"
+
+
+	for((i=0; i<${#actions[@]}; i++))
+	do
+		IFS="="
+		read -a action <<< "$(printf "%s" "${actions[i]//[\{\} ]/}")"
+
+		echo ${action[0]}
+		echo ${action[1]}
+	done
+
+	IFS=$OLDIFS
+
+	if($KILL_SERVICE)
+	then
+		break
+	fi
+done

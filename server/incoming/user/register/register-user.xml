@@ -1,7 +1,0 @@
-<?xml version='1.0'?>
-<!DOCTYPE user SYSTEM '../../../dtd/register-user.dtd'>
-<user>
-	<domain>localhost</domain>
-	<name>matthew.a.crist</name>
-	<password>simulation</password>
-</user>
