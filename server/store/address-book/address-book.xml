@@ -1,7 +1,0 @@
-<?xml version='1.0'?>
-<!DOCTYPE addresses SYSTEM 'http://localhost/dtd/address-book.dtd'>
-<addresses>
-<address><domain>localhost</domain><name>matthew.crist</name></address>
-<address><domain>localhost</domain><name>wesley.howell</name></address>
-<address><domain>localhost</domain><name>matthew.a.crist</name></address>
-</addresses>
