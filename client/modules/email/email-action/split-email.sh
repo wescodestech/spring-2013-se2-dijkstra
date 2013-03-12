@@ -7,8 +7,13 @@
 
 for i in `ls "../../../store/email/outbox/"`
 do
-awk '/<?xml/{n++}{filename = "../../../store/email/outbox/msg_" n ".xml"; print >filename }' ../../../store/email/outbox/$i
-
+awk '/<?xml/{n++}{filename = "../../../store/email/outbox/msgx_" n ".xml"; print >filename }' ../../../store/email/outbox/$i
+	
+	for y in `find ../../../store/email/outbox/ -name "msgx*"`
+	do
+		mv ../../../store/email/outbox/$y ../../../store/email/outbox/`date "+%Y%m%d%H%M%S"`.xml
+		sleep 1
+	done
 rm ../../../store/email/outbox/$i
 sleep 1
 done
