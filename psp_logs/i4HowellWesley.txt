@@ -228,3 +228,8 @@ defect log:
 	 type: Implementation
 	 fix time: 52
 	 comment: After fixing the certification issue. Certain functions were still not admitting to ACL2. This was due to illegal arguments as the ACL2 output stated. To fix these arguments, the state variable had to be set and implemented differently than I had intended. I added some safe guards to the variables and added constraints to the functions that depended on them. 
+
+-date: March 5, 2013
+	type: Implementation
+	fix time: 21
+	comment: After finishing the IO entry point function on the server email module, We noticed that the XML files were being generated with a comma instead of the @ symbol between names and domains in the email address. Also, the output file for the email was a statically named file. This file needed to be dynamically named with a timestamp.
