@@ -182,7 +182,7 @@
 ;return the contents of an email message to the client
 (defun getEmailHTML (tokxml)
   (let* ((xml (getEmailStructure tokxml))
-         (hd (concatenate 'string "<!DOCTYPE html><html><body>"))
+         (hd (concatenate 'string "<html><body>"))
              (to (concatenate 'string
                               "<h2>To: " (car (car (car xml))) "@"
                               (car (cdr (car (car xml)))) "</h2>"
@@ -191,9 +191,9 @@
                                 "<h2> From: " (car (cadr xml)) "@"
                                 (car(cdr (cadr xml))) "</h2>"))
              (sub (concatenate 'string
-                               "<h1> Subject: " (cadr (cdr xml)) "</h1>"))
+                               "<h1>" (cadr (cdr xml)) "</h1><hr><br>"))
              (msg (concatenate 'string
-                               "<p>Message: " (cadr (cdr (cdr xml))) "</p>"  
+                               "<p>" (cadr (cdr (cdr xml))) "</p>"  
                                ))
              (ft (concatenate 'string "</body></html>"))
         )
