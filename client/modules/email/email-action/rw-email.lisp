@@ -77,28 +77,3 @@
        (writeEmailToFile msgs to from state))
 )
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
