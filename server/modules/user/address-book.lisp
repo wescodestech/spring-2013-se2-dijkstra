@@ -9,12 +9,13 @@
 ;
 ; CHANGE LOG:
 ; -----------------------------------------------------------------------
-; 2012-02-19	-	Predicate isInAdressBook was making incorrect reference
+; 2013-03-17	-	Added password field to address book for verification.
+; 2013-02-19	-	Predicate isInAdressBook was making incorrect reference
 ;                 to variable address when checking endp for recursion.
 ;                 this caused stack overflow.  Corrected to endp 
 ;                 addressBook.
 ;
-; 2012-02-19	-	Added predicate test to addAddress function that would
+; 2013-02-19	-	Added predicate test to addAddress function that would
 ;                 determine if the address was already in the address
 ;                 book.
 ;
@@ -36,7 +37,9 @@
 				(cons (caadr tokens) (getAddress (cdddr tokens)))
 				(if (equal "<name>" (caar tokens))
 					(cons (caadr tokens) (getAddress (cdddr tokens)))
-					(getAddress (cdr tokens)))))))
+					(if (equal "<password>" (caar tokens))
+						(cons (caadr tokens) (getAddress (cdddr tokens)))
+						(getAddress (cdr tokens))))))))
 
 ; (parseAddresses tokens)
 ; Acquires all the addresses that are present in the tokenized XML string
@@ -73,8 +76,10 @@
 				 (name   (concatenate 'string
 					"<name>" (cadr address) "</name>"))
 			 	 ; Address tag <address>[domain][name]</address>
+				 (password (concatenate 'string
+               "<password>" (caddr address) "</password>"))
 				 (address (concatenate 'string 
-					"<address>" domain name "</address>")))
+					"<address>" domain name password "</address>")))
 			address)))
 
 ; (addressBookXML addressBook)
@@ -96,7 +101,7 @@
 		(let* ((xml (append (append (list
 
 	"<?xml version='1.0'?>" 
-	"<!DOCTYPE addresses SYSTEM 'http://localhost/dtd/address-book.dtd'>"
+	"<!DOCTYPE addresses SYSTEM '../../../dtd/address-book.dtd'>"
 	"<addresses>")
 		(addressBookXML addressBook))
 	'("</addresses>"))))
