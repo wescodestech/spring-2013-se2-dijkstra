@@ -27,21 +27,21 @@ function route_email() {
 	do
 
 		# Information dump for network connectivity
-		EMAIL="../../../incoming/email/`date +%s`.xml"
+		script="write-email.lisp"
+		email_file="../../../incoming/email/`date +%s`.xml"
 	
 		# Send mail port 20005
-		nc -l 20005 > $EMAIL
+		nc -l 20005 > $email_file
 
 		# Temporary dynamically written ACL2 script
-		SCRIPT="write-email.lisp"
-		echo "(in-package \"ACL2\")(include-book \"route-email\" :uncertified-okp t)(rwEmail \"$EMAIL\" \"`date "+%Y%m%d%H%M%S"`\" state)" > $SCRIPT
+		echo "(in-package \"ACL2\")(include-book \"route-email\" :uncertified-okp t)(rwEmail \"$email_file\" \"`date "+%Y%m%d%H%M%S"`\" state)" > $script
 	
 		# Dump dynamically written script to ACL2 for execution
-		acl2 < $SCRIPT
+		acl2 < $script
 
 		# Cleanup temporary files.
-		rm $SCRIPT
-		rm $EMAIL
+		rm $script
+		rm $email_file
 
 		# Sleep 1 second to ensure file uniqueness
 		sleep 1
