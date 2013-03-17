@@ -99,7 +99,6 @@
 	(if (endp addressBook)
 		nil
 		(let* ((xml (append (append (list
-
 	"<?xml version='1.0'?>" 
 	"<!DOCTYPE addresses SYSTEM '../../../dtd/address-book.dtd'>"
 	"<addresses>")

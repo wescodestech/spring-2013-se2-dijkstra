@@ -79,7 +79,7 @@
 (defun getActionType (xs)
 	(let* ((key (getActionKey xs))
 		    (value (cdr (member-equal #\= xs))))
-		(cons (coerce key 'string) (coerce value 'string))))
+		(list (coerce key 'string) (coerce value 'string))))
 
 ; (splitActions xs)
 ; Acquires the key / value pairs that will be used to invoke actions upon
@@ -107,3 +107,29 @@
 					(splitActions actionString))
 				nil))
 		(getActions (coerce xs 'list))))
+
+; (convertActions (action)
+; Converts an action into an XML format string.
+; actions - the action data structure to be performed on the server.
+(defun convertActions (actions)
+	(if (endp actions)
+		nil
+		(concatenate 'string 
+			"<action>"
+         	"<action-type>" (caar actions) "</action-type>" 
+         	"<module>" (cadar actions) "</module>"
+      	"</action>"
+			(convertActions (cdr actions)))))
+
+(set-guard-checking :none)
+
+; (exportActions actions)
+; Exports the server action in XML format.
+; actions - the actions the server is to perform.
+(defun exportActions (actions)
+	(concatenate 'string 
+      "<?xml version='1.0'?>"
+      "<!DOCTYPE actions SYSTEM '../../../dtd/server-actions.dtd'>"
+		"<actions>" 
+      (convertActions actions)
+      "</actions>"))

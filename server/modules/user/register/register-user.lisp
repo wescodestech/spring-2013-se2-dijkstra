@@ -9,14 +9,17 @@
 ;
 ; CHANGE LOG:
 ; -----------------------------------------------------------------------
-;
+; 2013-03-17	-	Added uncertified book ignore on load.
+; 2013-03-17	-	Added the password to be added to address-book on 
+;                 registration.
+; 2013-02-14	-	Initial conception of this file.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (in-package "ACL2")
 
-(include-book "../../../include/io-utilities")
-(include-book "../../../include/xml-scanner")
-(include-book "../address-book")
+(include-book "../../../include/io-utilities" :uncertified-okp t)
+(include-book "../../../include/xml-scanner" :uncertified-okp t)
+(include-book "../address-book" :uncertified-okp t)
 
 ; (getDomain tokens)
 ; Acquires the domain of the registration request from the token list.

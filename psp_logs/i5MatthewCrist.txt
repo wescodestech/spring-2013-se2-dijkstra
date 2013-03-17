@@ -1,0 +1,72 @@
+name: Matthew A. Crist
+date: March 26, 2013
+program: Email with ACL2
+instructor: Dr. Rex Page
+language: ACL2, C++, Shell Scripting, XML
+
+actual added lines: 58
+actual base lines: 0
+actual modified lines: 4
+actual removed lines: 0
+
+time log:
+	-	date: March 13, 2013
+		start time: 9:00am
+		end time: 10:30am
+		phase: Coding
+		comment: Began adding shell commands to extract the domain and name from the registration files to be able to create the directories for the email storage on the server.
+
+	-	date: March 17, 2013
+		start time: 12:15am
+		end time: 12:48am
+		phase: Coding
+		comment: Finished adding the directory creation mechanisms to the shell scripts and tested the user registration process.  It seems to be working correctly now.
+
+	-	date: March 17, 2013
+		start time: 12:50am
+		end time: 12:55am
+		phase: Testing
+		comment: Continued to test the functionality of the user registration process on the server side.  One thing to note, we cannot have spaces in our name and domain.  Whitespace has been trimmed.
+
+	-	date: March 17, 2013
+		start time: 1:00
+		end time: 1:15am
+		phase: Coding
+		comment: Added and modified lines in the register-user and address-book lisp files to allow for a user to register with a password.  This will be used to verify the user can perform actions on the server side.
+
+	-	date: March 17, 2013
+		start time: 1:15am
+		end time: 3:00am
+		phase: Coding
+		comment: Created the verify action on the user module.  Defined utility functions to acquire domain, name, password and the location of the client.  The location will need to be extracted from the original XML from the shell script since it does not conform the the verification user information.
+
+new objects:
+	-	name: getDomain
+		estimated lines: 6
+		type: Non IO
+
+	-	name: getName
+		estimated lines: 6
+		type: Non IO
+
+	- 	name: getPassword
+		estimated lines: 6
+		type: Non IO
+
+	-	name: getLocation
+		estimated lines: 6
+		type: Non IO
+
+	-	name: verifyUser
+		estimated lines: 6
+		type: Non IO
+
+	-	name: testUser
+		estimated lines: 16
+		type: IO
+
+defect log:
+	-	date: March 13, 2013
+		type: Coding
+		fix time: 20
+		comment: Was not able to get email to write to the server.  Determine that it was an issue that the directories did not exist, thus the information was not being written properly by the ACL2 script, which was a difficult thing to determine since acquiring error information from the runtime environment would only be possible if we wrote the error to an output log.  Determined that I would need to finish the registration process by adding directory creation to the shell script in order to make this function correctly.  Until then, we can manually create the directories.
