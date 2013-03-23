@@ -11,16 +11,17 @@
 # 20001	-	User Registration
 # 20002  -  User Verification
 # 20005	-	Incoming Email
-# 20006  -  Outgoing Email Request
 #
 # CHANGE LOG:
 # ------------------------------------------------------------------------
+# 2013-03-23	-	Added user verification module for email reception.
 # 2013-03-09	-	Initial conception of file.
 #
 ##########################################################################
 
 module[0]="./modules/user/register/register-user.sh"
 module[1]="./modules/email/send-email/route-email.sh"
+module[2]="./modules/user/verify/verify-user.sh"
 
 # Kill command for all processes.
 export RUN_SERVICE=true

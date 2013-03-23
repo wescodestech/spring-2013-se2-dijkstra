@@ -4,7 +4,7 @@ program: Email with ACL2
 instructor: Dr. Rex Page
 language: ACL2, Shell Scripting, XML
 
-actual added lines: 181
+actual added lines: 188
 actual base lines: 0
 actual modified lines: 4
 actual removed lines: 0
@@ -144,6 +144,10 @@ new objects:
 	-	name: address-is-not-in-address-book-remove-returns-original-book-test
 		estimated lines: 4
 		type: Property
+
+	-	name: getLocation
+		estimated lines: 6
+		type: Non IO
 
 defect log:
 	-	date: March 13, 2013

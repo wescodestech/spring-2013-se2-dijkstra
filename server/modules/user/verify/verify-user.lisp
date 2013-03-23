@@ -17,6 +17,7 @@
 ;    <domain>localhost</domain>
 ;    <name>matthew.crist</name>
 ;    <password>simulation</password>
+;	  <location>128.0.0.2</location>
 ; </verify>
 ;
 ; CHANGE LOG: 
@@ -63,6 +64,17 @@
 			(getPassword (cdr tokens)))))
 
 ; (getLocation tokens)
+; Acquires the physical location of the user that is being verified for 
+; network connectivity on the verification process.
+; tokens - the scanned tokens from the incoming XML verify request.
+(defun getLocation (tokens)
+	(if (endp tokens)
+		nil
+		(if (equal "<location>" (caar tokens))
+			(caadr tokens)
+			(getLocation (cdr tokens)))))
+
+; (getLocation tokens)
 ; Acquires the location of the verification request from the token list.
 ; tokens - the scanned stokens from the incoming XML verify request.
 (defun getLocation (tokens)
@@ -92,6 +104,7 @@
 			 (domain (getDomain   userTokens))
           (name   (getName     userTokens))
 			 (pass   (getPassword userTokens))
+			 (loc    (getLocation userTokens))
 			 (abook  (getAddressBook (tokenizeXML addressBookXML))))
 		(if (verifyUser '(domain name pass) abook)
 			(mv-let (error state)
