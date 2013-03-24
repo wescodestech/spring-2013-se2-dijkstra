@@ -1,4 +1,5 @@
 <?xml version='1.0'?>
-<!DOCTYPE addresses SYSTEM 'http://localhost/dtd/address-book.dtd'>
+<!DOCTYPE addresses SYSTEM '../../../dtd/address-book.dtd'>
 <addresses>
+<address><domain>localhost</domain><name>matthew.crist</name><password>simulation</password></address>
 </addresses>

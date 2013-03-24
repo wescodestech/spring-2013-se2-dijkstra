@@ -71,7 +71,7 @@
 		(mv-let (error state)
 			(string-list->file 
 			   "../../../store/address-book/temp_address-book.xml" 
-			   (getAddressBookXML (addAddress addressBook (list domain name password)))
+			   (getAddressBookXML (addAddress addressBook (list domain name pass)))
 				state)
 			(if error
 				(mv error state)

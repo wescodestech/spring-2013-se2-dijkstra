@@ -19,8 +19,6 @@
 #
 ##########################################################################
 
-RUN_SERVICE=true
-
 function verifyUser() {
 	# Set the active working directory for this module to this directory
 	cd "./modules/user/verify"
@@ -43,8 +41,34 @@ function verifyUser() {
 		then
 			echo "(in-package \"ACL2\")(include-book \"verify-user.lisp\")(testUser \"$verify_xml\" \"$addressbook_xml\")" > $response_file
 			acl2 < $response_file
+
+			# Extract the location from the verification XML
+			location=$(grep "<location>.*</location>" "server-action.xml")
+			location=$(echo ${location#*>})	# Trim the beginning tag
+			location=$(echo ${location%<*})	# Trim the ending tag
+
+			# Extract the response from the verification XML
+			response=$(grep "<action>.*</action>" "server-action.xml")
+			response=$(echo ${response#*>})	# Trim the beginning tag
+			response=$(echo ${response%<*})	# Trim the ending tag
+
+			if [ "$response" = "ACCEPT" ]
+			then
+				# Send the "ACCEPT" connection to begin transfer
+				cat "server-action.xml" | nc $location 20002
+				rm "server-action.xml"
+				# Kick off the send server module
+				cat $verify_file | nc localhost 20006
+			else
+				# Send the "REJECT" connection and kill the request
+				cat "server-action.xml" | nc $location 20002
+				rm "server-action.xml"
+			fi
+
+			rm $response_file
+			#rm $verify_file
 		fi
 	done
-}
+}	# end verifyUser function
 
 verifyUser

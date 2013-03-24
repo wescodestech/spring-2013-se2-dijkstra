@@ -74,16 +74,6 @@
 			(caadr tokens)
 			(getLocation (cdr tokens)))))
 
-; (getLocation tokens)
-; Acquires the location of the verification request from the token list.
-; tokens - the scanned stokens from the incoming XML verify request.
-(defun getLocation (tokens)
-	(if (endp tokens)
-		nil
-		(if (equal "<location>" (caar tokens))
-			(caadr tokens)
-			(getLocation (cdr tokens)))))
-
 ; (verifyUser user addressBook)
 ; Verifies that a user is present in the address-book.  This function is 
 ; essentially the same as the isInAdressBook predicate in the address-book
@@ -95,28 +85,42 @@
 			t
 			(verifyUser user (cdr addressBook)))))
 
+(set-state-ok t)
+(set-ignore-ok t)
+
 ; (testUser userXML addressBookXML)
 ; Writes a server action file based on the result of a user being verified
 ; If the user is accepted, it will return a response to the client that
 ; verification was successful.  If not, it will write back a failure.
-(defun testUser (userXML addressBookXML)
+(defun testUser (userXML addressBookXML state)
 	(let* ((userTokens (tokenizeXML userXML))
 			 (domain (getDomain   userTokens))
           (name   (getName     userTokens))
 			 (pass   (getPassword userTokens))
 			 (loc    (getLocation userTokens))
+			 (user   (list domain name pass))
 			 (abook  (getAddressBook (tokenizeXML addressBookXML))))
-		(if (verifyUser '(domain name pass) abook)
+		(if (verifyUser user abook)
 			(mv-let (error state)
-				(string-list->file "server-action.xml" (exportActions 
-					(getActions "{SERVERACTION=ACCEPT(user.verify); CLIENTACTION=ACCEPT(user.verify);}"))
+				(string-list->file "server-action.xml" 
+					  (list "<?xml version='1.0'?>" 
+                       "<!DOCTYPE message SYSTEM '../../../dtd/system-message.dtd'>"
+                       "<message>" 
+							     (concatenate 'string "   <action>" "ACCEPT" "</action>")
+							     (concatenate 'string "   <location>" loc "</location>")
+							  "</message>")
 					state)
 				(if error
 					(mv error state)
 					(mv "Action written successfully!" state)))
 			(mv-let (error state)
-				(string-list->file "server-action.xml" (exportActions
-					(getActions "{SERVERACTION=REJECT(user.verify); CLIENTACTION=REJECT(user.verify);}"))
+				(string-list->file "server-action.xml" 
+					  (list "<?xml version='1.0'?>" 
+                       "<!DOCTYPE message SYSTEM '../../../dtd/system-message.dtd'>"
+                       "<message>" 
+							     (concatenate 'string "   <action>" "REJECT" "</action>")
+							     (concatenate 'string "   <location>" loc "</location>")
+							  "</message>")
 					state)
 				(if error
 					(mv error state)

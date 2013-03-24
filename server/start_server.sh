@@ -19,16 +19,19 @@
 #
 ##########################################################################
 
+# Declared modules that will be initialized at startup
 module[0]="./modules/user/register/register-user.sh"
-module[1]="./modules/email/send-email/route-email.sh"
-module[2]="./modules/user/verify/verify-user.sh"
+module[1]="./modules/user/verify/verify-user.sh"
+module[2]="./modules/email/send/route-email.sh"
+moudle[3]="./modules/email/receive/receive-email.sh"
 
 # Kill command for all processes.
 export RUN_SERVICE=true
 
 for((i=0;i<=${#module[@]};i++))
 do
-	coproc bash ${module[$i]}
+	process=`echo myproc$i`
+	coproc ${process} { bash ${module[$i]}; }
 done
 
 echo "Hit 'enter' to kill service..."
@@ -36,5 +39,9 @@ read user_input
 export RUN_SERVICE=false
 		
 # Just attempt to kill all the processes at this point
-pkill ^nc
-pkill ^bash
+for((i=0;i<=${#module[@]};i++))
+do
+	process=`echo myproc$i\_PID`
+	kill $process
+	echo "Module killed: ${module[$i]}"
+done

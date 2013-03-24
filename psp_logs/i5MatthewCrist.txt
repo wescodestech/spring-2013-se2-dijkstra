@@ -2,9 +2,9 @@ name: Matthew A. Crist
 date: March 26, 2013
 program: Email with ACL2
 instructor: Dr. Rex Page
-language: ACL2, Shell Scripting, XML
+language: ACL2, Shell Scripting, XML, Java
 
-actual added lines: 188
+actual added lines: 208
 actual base lines: 0
 actual modified lines: 4
 actual removed lines: 0
@@ -51,6 +51,18 @@ time log:
 		end time: 6:45am
 		phase: Testing
 		comment: After looking at some of the properties from the address-book_tests file, I realize that I forgot to log these functions into the PSP logs from last cycle (probably because I did them right before class and lost track of time).  These have been added to this log.
+
+	-	date: March 23, 2013
+		start time: 2:00am
+		end time: 2:45am
+		phase: Coding
+		comment: Added verify-user.sh file to invoke the actions required to start the user verification process on the server side.  Having a few issues getting remote-actions.lisp to be accepted into logic (guard checking issues).
+
+	-	date: March 23, 2013
+		start time: 12:00am
+		end time: 2:50am
+		phase: Coding
+		comment: Finished the verify-user.sh action file for establishing a connection between the client and server for mail reception.
 
 new objects:
 	-	name: getDomain
@@ -145,12 +157,13 @@ new objects:
 		estimated lines: 4
 		type: Property
 
-	-	name: getLocation
-		estimated lines: 6
-		type: Non IO
-
 defect log:
 	-	date: March 13, 2013
 		type: Coding
 		fix time: 20
 		comment: Was not able to get email to write to the server.  Determine that it was an issue that the directories did not exist, thus the information was not being written properly by the ACL2 script, which was a difficult thing to determine since acquiring error information from the runtime environment would only be possible if we wrote the error to an output log.  Determined that I would need to finish the registration process by adding directory creation to the shell script in order to make this function correctly.  Until then, we can manually create the directories.
+	
+	-	date: March 23, 2013
+		type: Coding
+		fix time: 35
+		comment: Type checking for string-listp on XML conversion in the server actions was incorrect.  Was using endp and stringp tests, when combined I could use string-listp, which ended up being the required fix and not having to turn off guard checking.

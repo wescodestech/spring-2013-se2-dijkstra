@@ -1,0 +1,2 @@
+<!ELEMENT action (#PCDATA)>
+<!ELEMENT location (#PCDATA)>
