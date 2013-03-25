@@ -1,0 +1,25 @@
+#summary The Server manages the transmission of information and security associated with it.
+
+= Introduction =
+
+The server program for this application manages the transmission of the data and the security surrounding that information.  It will register users for accounts as well as maintain a store for messages that have yet to be received by the user.  It will also store log in credentials for each user and maintain a set of mailing lists that users can subscribe to for mass emailing.
+
+
+= Details =
+
+The server currently consists of 3 modules:
+  * The User Module
+  * The Email Module
+  * The Mailing List Module
+
+Each module contains actions that can be performed on that module:
+  * The User Module
+    * Register User
+    * Verify User
+  * The Email Module
+    * Send Email
+    * Receive Email
+  * The Mailing List Module
+    * Create Mailing List
+    * Subscribe to Mailing List
+    * Send to Mailing List
