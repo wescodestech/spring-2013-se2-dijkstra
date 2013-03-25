@@ -8,18 +8,18 @@ The server program for this application manages the transmission of the data and
 = Details =
 
 The server currently consists of 3 modules:
-  * The User Module
-  * The Email Module
-  * The Mailing List Module
+  * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerUser The User Module]
+  * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerEmail The Email Module]
+  * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerMailingList The Mailing List Module]
 
 Each module contains actions that can be performed on that module:
   * The User Module
-    * Register User
-    * Verify User
+    * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerUserRegister Register User]
+    * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerUserVerify Verify User]
   * The Email Module
-    * Send Email
-    * Receive Email
+    * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerEmailSend Send Email]
+    * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerEmailRecieve Receive Email]
   * The Mailing List Module
-    * Create Mailing List
-    * Subscribe to Mailing List
-    * Send to Mailing List
+    * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerMailingListCreate Create Mailing List]
+    * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerMailingListSubscribe Subscribe to Mailing List]
+    * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerMailingListSend Send to Mailing List]
