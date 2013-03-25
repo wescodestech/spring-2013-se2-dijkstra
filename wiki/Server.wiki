@@ -23,3 +23,18 @@ Each module contains actions that can be performed on that module:
     * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerMailingListCreate Create Mailing List]
     * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerMailingListSubscribe Subscribe to Mailing List]
     * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerMailingListSend Send to Mailing List]
+
+The server program also requires a number of ports to not be in use.  These include ports 20001-20010.  If these ports are being used, some of the functionality of the server will be compromised.
+
+Current Port Assignment:
+  * *20001* - User Registration
+  * *20002* - User Verification
+  * *20005* - Send EMail
+  * *20006* - Receive EMail
+  * *20007* - Server Messages
+
+There are also a number of "includes" that are available on the server side:
+  * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/XMLScanner xml-scanner.lisp]
+  * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/IOUtilities io-utilities.lisp]
+  * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ListUtilities list-utilities.lisp]
+  * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/RemoteActions remote-actions.lisp]
