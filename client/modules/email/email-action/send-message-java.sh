@@ -14,4 +14,6 @@ rm $script
 
 sh /Users/w_howell/code/spring-2013-se2-dijkstra/client/modules/email/email-action/split-email.sh
 
+
+
 echo "Complete!"

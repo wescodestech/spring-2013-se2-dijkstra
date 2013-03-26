@@ -87,7 +87,7 @@ public class newMessage extends JDialog {
 		 * Send Button Action
 		 */
 		JButton btnSend = new JButton("Send");
-		btnSend.setIcon(new ImageIcon("/Users/w_howell/Desktop/work/email/email_go.png"));
+		btnSend.setIcon(new ImageIcon("email_go.png"));
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -126,7 +126,7 @@ public class newMessage extends JDialog {
 		 * Cancel Button Action
 		 */
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setIcon(new ImageIcon("/Users/w_howell/Desktop/work/email/cancel.png"));
+		btnCancel.setIcon(new ImageIcon("cancel.png"));
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);

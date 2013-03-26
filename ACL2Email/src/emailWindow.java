@@ -25,7 +25,7 @@ import java.awt.Color;
  * 
  * mainly, this is a fancy way of entering data instead of using the console and navigating folders.
  * 
- * The Icons in this applications are open source obtained from http://openiconlibrary.sourceforge.net/
+ * The Icons in this applications are open source obtained from http://www.famfamfam.com/
  * The license stipulates that the icons are free to use, modify and redistribute. 
  * 
  * March 13, 2013
@@ -45,7 +45,7 @@ public class emailWindow extends JFrame {
 	 */
 	public emailWindow() {
 		getContentPane().setBackground(new Color(192, 192, 192));
-		setIconImage(Toolkit.getDefaultToolkit().getImage("/Users/w_howell/Desktop/work/email/icon.gif"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("icon.gif"));
 		/**
 		 * Close the application when the window closes.
 		 */
@@ -62,7 +62,7 @@ public class emailWindow extends JFrame {
 		final JLabel lblBlah = new JLabel();
 		lblBlah.setBackground(Color.WHITE);
 		JButton btnGetEmail = new JButton("Get Email");
-		btnGetEmail.setIcon(new ImageIcon("/Users/w_howell/Desktop/work/email/email_open.png"));
+		btnGetEmail.setIcon(new ImageIcon("email_open.png"));
 		
 		
 		/**
@@ -192,7 +192,7 @@ public class emailWindow extends JFrame {
 				}
 			}
 		});
-		lblNewLabel.setIcon(new ImageIcon("/Users/w_howell/Desktop/work/email/logo.gif"));
+		lblNewLabel.setIcon(new ImageIcon("logo.gif"));
 		lblNewLabel.setBounds(16, 688, 83, 74);
 		getContentPane().add(lblNewLabel);
 		JLabel lblAcl = new JLabel("<html><h2>ACL2 Email System</h2><p>2013 Team Dijkstra \n University of Oklahoma</p></html>\n");
@@ -204,7 +204,7 @@ public class emailWindow extends JFrame {
 		 * New Email Message Button
 		 */
 		JButton btnNewMessage = new JButton("New Message");
-		btnNewMessage.setIcon(new ImageIcon("/Users/w_howell/Desktop/work/email/email_edit.png"));
+		btnNewMessage.setIcon(new ImageIcon("email_edit.png"));
 		btnNewMessage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newMessage msg = new newMessage();
@@ -244,7 +244,7 @@ public class emailWindow extends JFrame {
 		 * Register Email button
 		 */
 		JButton btnRegister = new JButton("Register");
-		btnRegister.setIcon(new ImageIcon("/Users/w_howell/Desktop/work/email/user_add.png"));
+		btnRegister.setIcon(new ImageIcon("user_add.png"));
 		btnRegister.setBounds(901, 6, 117, 29);
 		getContentPane().add(btnRegister);
 	}

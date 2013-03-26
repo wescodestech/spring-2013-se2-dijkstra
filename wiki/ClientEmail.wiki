@@ -1,0 +1,146 @@
+#summary Definitions of the Email data structure, functions, and modules associated.
+#labels ACL2,XML,Email
+
+= Introduction =
+
+The Email (client module) will parse an incoming email message and the direct it to the inbox/outbox folder and send and receive messages from the server.
+
+= Dependencies = 
+None
+
+= Email Storage =
+
+_./$name.xml_ (File is defined by the name of the mailing list.)
+{{{
+<?xml version="1.0"?>
+<!DOCTYPE email SYSTEM "email.dtd">
+<email>
+	<to>wesley.howell@localhost</to>
+	<from>matthew.crist@localhost</from>
+	<subject>Message1 subject</subject>
+	<message>Test For a Message Would be Here</message>
+</email>
+}}}
+
+_http://localhost/dtd/mailing_list.dtd_
+{{{
+<!ELEMENT to (#PCDATA)>
+<!ELEMENT from (#PCDATA)>
+<!ELEMENT subject (#PCDATA)>
+<!ELEMENT message (#PCDATA)>
+}}}
+
+= Data Structure =
+{{{to}}} - address - The address(es) to send an email.
+
+{{{from}}} - address - The address that sent the email.
+
+{{{name}}} - string - The name portion of the email address.
+
+{{{domain}}} - string - The domain portion of the email address.
+
+{{{subject}}} - string - The subject of the email message.
+
+{{{message}}} - string - The content of the message.
+
+_((to1 to2 ... ton) from subject message)_
+
+=== Example ===
+From the xml file described above, the sample data structure would be:
+
+{{{
+( ("localhost" "matthew.crist") ("localhost" "adam.ghodratnama")) 
+  ("localhost" "wesley.howell")
+  "Message Subject"
+  "Email Message Content" )
+}}}
+
+= Function Definitions =
+{{{(defun break-at-set (delimiters xs))}}} - Breaks a list into parts based on the delimiters. Base code from List Utilities
+{{{(defun break-at (delimiter xs))}}} - Breaks a list at the delimiter. Base code from List Utilities.
+{{{(defun getEmailXML (email))}}} -Returns the XML format text for a given email structure
+{{{(defun getContactStructure (str) )}}} - Returns a contact structure for the given contact string.
+{{{(defun getEmailStructure (xml))}}} - Returns the email structure from an tokenized xml input
+{{{(defun splitToString (toString))}}} - Converts a list of chars to a string
+{{{(splitToStruct toList)}}} - Splits multiple addressees into a list of separate contact structures.
+{{{(splitToField toString)}}} - Entry point into the to field string parsing.
+{{{(generateEmailFromStrings to from sub msg)}}} - Generates email structures from the given strings
+{{{(multRecip toList from sub msg)}}} - Handles multiple addressees in an email message
+{{{(email to from sub msg)}}} - Generates email XML for an inputted message
+{{{(getEmailText tokxml)}}} - Returns plain text version of an email xml file.
+{{{(getEmailHTML tokxml)}}} - Returns formatted HTML version of email message for display in Java program
+
+= File Information =
+*Lines of Code*: 127
+
+*Functions*: Not defined.
+
+*Entry Point*: (getEmail tokXML)
+
+*File Location*: ./server/modules/email/server-email.lisp
+
+= External Functional References =
+None
+
+= Properties and Testing =
+
+{{{(contactStructure-not-nil)}}}
+Theorem to prove that a returned contatct structure cannot be nil
+if a correct string is passed into the function
+
+{{{(contactStructure-contents-are-strings)}}}
+Theorem to prove that the contents of the atoms in a contact structure are
+strings
+
+{{{(contactStructure-domain-is-a-string)}}}
+Theorem to prove that the contact structure's name is a string, the above
+Theorem contactStructure-contents-are-strings builds off this proof.
+
+{{{(emailStructure-is-a-list)}}}
+Theorem to prove that the emailStructure is returned from the function
+getEmailStructure
+
+{{{(emailStrucutre-ToField-a-list)}}}
+Theorem to prove the email's to structure is a list based on the 
+data structure based on the project documentation.
+
+{{{(toStringTakesListAndConvertsToString)}}}
+Theorem to test conservation of string properties for this 
+function, similar to the chrs->string in the list utilities 
+
+{{{(splitToStructisList)}}}
+Theorem to prove that the item returned is a list
+of strings that is not empty
+
+{{{(splitToFieldReturnsListofTos)}}}
+Theorem to show that the splitToField function takes
+The inputed email addresses and parses the string into
+a list of valid email addresses (as strings).
+The returned type will be the same as the above theorem
+Note: The above theorm is encapsulated here as well.
+
+{{{(genEmailProducesMessage)}}}
+Theorem to test that the email structure
+returned from generateEmailFromStrings is the correct
+email structure ((list) str str str)
+
+{{{(multRecipProducesXMLList)}}}
+Theorem to prove that the output is correct on multRecip
+based on the toList
+The format will be (XML_1, XML_2, ... , XML_n) where XML
+is the prepared string format from the getEmailXML function.
+
+{{{(emailEntryPoint)}}}
+Tests the email function since it is the entry point for the client
+side test. This theorem will need to prove that the subsequent calls
+to the email functions returns the correctly formatted list in order.
+for the IO module to output correctly. Hence, we need to prove the same steps
+as in multRecip with the extra constraint that "to" is a string.
+
+{{{(emailTextReturnsListofString)}}}
+Test that the email text returns a list built strings for either,
+console display or output. 
+
+{{{(emailHTMLReturnsListofStrings)}}}
+Test that the email html output is a correct list for the IO
+function. 
