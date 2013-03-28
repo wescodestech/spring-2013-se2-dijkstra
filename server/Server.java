@@ -27,7 +27,11 @@ public class Server
 		for(int i = 0; i < modules.size(); i++) {
 			try {
 				String program = modules.get(i).getInvocation();
-				Process p = new ProcessBuilder("java", "program").start();
+				File startLog = new File("logs/startup.txt");
+				ProcessBuilder pb = new ProcessBuilder("java", program);
+				pb.redirectErrorStream(true);
+				pb.redirectOutput(ProcessBuilder.Redirect.appendTo(startLog));
+				Process p = pb.start();
 				activeProcesses.add(p);
 				// TODO Let the console know the x service was started.
 				System.out.println("Server started: " + modules.get(i).getName());

@@ -28,10 +28,10 @@
 
 (in-package "ACL2")
 
-(include-book "include/io-utilities" :uncertified-okp t)
-(include-book "include/remote-actions" :uncertified-okp t)
-(include-book "include/xml-scanner" :uncertified-okp t)
-(include-book "modules/user/address-book" :uncertified-okp t)
+(include-book "../../../include/io-utilities" :uncertified-okp t)
+(include-book "../../../include/remote-actions" :uncertified-okp t)
+(include-book "../../../include/xml-scanner" :uncertified-okp t)
+(include-book "../address-book" :uncertified-okp t)
 
 ; (getDomain tokens)
 ; Acquires the domain of the verification request from the token list.

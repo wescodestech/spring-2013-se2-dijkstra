@@ -54,6 +54,7 @@ public class VerifyUser {
 				} 
 
 				String acl2 = "(include-book \"modules/user/verify/verify-user\")" + 
+								  "(in-package \"ACL2\")" +
 			                 "(set-state-ok t)" +
 								  "(set-guard-checking :none)" + 
 				              "(testUser \"" + request + "\" \"" + store + "\" state)";
@@ -62,9 +63,11 @@ public class VerifyUser {
 				
 				System.out.println("Executing process...");
 				ProcessBuilder processBuilder = new ProcessBuilder("acl2");
+				File log = new File("logs/user/verify/acl2_log.txt");
+				processBuilder.redirectErrorStream(true);
+				processBuilder.redirectOutput(ProcessBuilder.Redirect.appendTo(log));
 				Process process = processBuilder.start();
 				PrintWriter procIn = new PrintWriter(process.getOutputStream());
-				File log = new File("logs/user/verify/acl2_log.txt");
 				
 				
 				procIn.println(acl2);
