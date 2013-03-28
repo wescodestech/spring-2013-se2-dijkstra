@@ -19,7 +19,6 @@ public class Server
 	{
 		ModuleManager manager = new ModuleManager();
 		manager.loadModules("config/modules.xml");
-		
 		ArrayList<Module> modules = manager.getModules();
 	
 		activeProcesses = new ArrayList<Process>();
@@ -41,6 +40,7 @@ public class Server
 		}
 
 		JFrame frame = new JFrame("Application");
+		manager.getAddModuleDialog(frame);
 		frame.setBounds(0,0,100,100);
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent we) {

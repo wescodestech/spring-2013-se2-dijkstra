@@ -6,4 +6,9 @@
 		<invoke>modules.user.verify.VerifyUser</invoke>
 		<port>20002</port>
 	</module>
+	<module>
+		<name>user.verify</name>
+		<invoke>C:\Users\Matthew\Documents\My Projects\Software Engineering II\server\Server.class</invoke>
+		<port>20002</port>
+	</module>
 </modules>
