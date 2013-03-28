@@ -28,10 +28,10 @@
 
 (in-package "ACL2")
 
-(include-book "../../../include/io-utilities" :uncertified-okp t)
-(include-book "../../../include/remote-actions" :uncertified-okp t)
-(include-book "../../../include/xml-scanner" :uncertified-okp t)
-(include-book "../address-book" :uncertified-okp t)
+(include-book "include/io-utilities" :uncertified-okp t)
+(include-book "include/remote-actions" :uncertified-okp t)
+(include-book "include/xml-scanner" :uncertified-okp t)
+(include-book "modules/user/address-book" :uncertified-okp t)
 
 ; (getDomain tokens)
 ; Acquires the domain of the verification request from the token list.
@@ -104,7 +104,7 @@
 			(mv-let (error state)
 				(string-list->file "server-action.xml" 
 					  (list "<?xml version='1.0'?>" 
-                       "<!DOCTYPE message SYSTEM '../../../dtd/system-message.dtd'>"
+                       "<!DOCTYPE message SYSTEM 'dtd/system-message.dtd'>"
                        "<message>" 
 							     (concatenate 'string "   <action>" "ACCEPT" "</action>")
 							     (concatenate 'string "   <location>" loc "</location>")
@@ -116,7 +116,7 @@
 			(mv-let (error state)
 				(string-list->file "server-action.xml" 
 					  (list "<?xml version='1.0'?>" 
-                       "<!DOCTYPE message SYSTEM '../../../dtd/system-message.dtd'>"
+                       "<!DOCTYPE message SYSTEM 'dtd/system-message.dtd'>"
                        "<message>" 
 							     (concatenate 'string "   <action>" "REJECT" "</action>")
 							     (concatenate 'string "   <location>" loc "</location>")
