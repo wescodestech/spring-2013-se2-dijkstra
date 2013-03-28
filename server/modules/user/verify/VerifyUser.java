@@ -58,8 +58,11 @@ public class VerifyUser {
 								  "(set-guard-checking :none)" + 
 				              "(testUser \"" + request + "\" \"" + store + "\" state)";
 
+				System.out.println(acl2);
+				
 				System.out.println("Executing process...");
 				ProcessBuilder processBuilder = new ProcessBuilder("acl2");
+				Process process = processBuilder.start();
 				PrintWriter procIn = new PrintWriter(process.getOutputStream());
 				File log = new File("logs/user/verify/acl2_log.txt");
 				
