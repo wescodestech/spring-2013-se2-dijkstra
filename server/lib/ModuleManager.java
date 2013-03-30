@@ -18,33 +18,86 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.event.*;
 import javax.xml.parsers.*;
 import org.w3c.dom.*;
 
-public class ModuleManager
-{
+public class ModuleManager extends JDialog {
 	public ArrayList<Module> modules = new ArrayList<Module>();
 
 	private JDialog dialog;
 	private JTextField _fileInput;
 	private JTextField _nameInput;
 	private JTextField _portInput;
+	private JButton    _removeModule;
 
 	/**
      * Default, unargumented constructor for this class.
      */
-	public ModuleManager()
-	{
+	public ModuleManager() {
 		modules = loadModules("config/modules.xml");
 	}	// end default, unargumented constructor
 
 	/**
+	 * Acquires the dialog that will allow a user to manage the current modules
+	 * that are registered with the server.
+	 */
+	public void getManageModuleDialog() {
+		JPanel _main = new JPanel(new BorderLayout());
+		
+		DefaultListModel<String> listModel = new DefaultListModel<String>();
+		JList moduleList = new JList(listModel);
+		JScrollPane scroller = new JScrollPane(moduleList);
+		
+		// Add all the modules to the list model
+		for(int i = 0; i < this.modules.size(); i++) {
+			listModel.addElement(this.modules.get(i).getName());
+		}	// end for loop
+		
+		_removeModule = new JButton("Remove");
+		
+		/*
+		moduleList.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent lse) {
+				if(((ListSelectionModel).lse.getSource()).isSelectionEmpty()) {
+					_removeModule.setEnabled(false);
+				} else {
+					_removeModule.setEnabled(true);
+				}
+			}
+		});*/
+		
+		JButton _saveModules = new JButton("Save");
+		_saveModules.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				boolean status = storeModules("config/modules.xml");
+				
+				if(status) {
+					JOptionPane.showMessageDialog(((JButton)ae.getSource()).getRootPane(), "Modules updated successfully!");
+				} else {
+					JOptionPane.showMessageDialog(((JButton)ae.getSource()).getRootPane(), "Unable to update modules.  Please see console output.", "Module Management Error", JOptionPane.ERROR_MESSAGE);
+				}	// end if-else
+			}	// end method actionPerformed
+		});
+		
+		_main.setBorder(BorderFactory.createTitledBorder("Module Management"));
+		_main.add(scroller, BorderLayout.CENTER);
+		_main.add(_saveModules, BorderLayout.SOUTH);
+		
+		this.add(_main);
+		
+		int width  = Toolkit.getDefaultToolkit().getScreenSize().width;
+		int height = Toolkit.getDefaultToolkit().getScreenSize().height;
+		this.setBounds(width/2-300, height/2-200, 600, 400);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setVisible(true);
+	}	// end method getManageModuleDialog
+	
+	/**
 	  * Acquires the dialog that will allow a user to register a module with the 
-     * server for monitoring.
+      * server for monitoring.
 	  */
-	public void getAddModuleDialog(JFrame parent)
-	{
-		dialog = new JDialog(parent);
+	public void getAddModuleDialog() {
 		JPanel _main = new JPanel();		
 
 		JLabel _nameLabel   = new JLabel("Module Name:");
@@ -58,16 +111,22 @@ public class ModuleManager
 		JButton _fileSelect       = new JButton("Select File...");
 		JButton _saveModuleButton = new JButton("Save Module");
 
-		_fileSelect.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent ae)
-			{
-				JFileChooser chooser = new JFileChooser();
+		_fileSelect.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae)	{
+				JFileChooser chooser = new JFileChooser(".");
 				int val = chooser.showOpenDialog(dialog);
 				
-				if(val == JFileChooser.APPROVE_OPTION)
-				{
-					_fileInput.setText(chooser.getSelectedFile().getPath());
+				if(val == JFileChooser.APPROVE_OPTION) {
+					String filePath      = chooser.getSelectedFile().getPath();
+					// Kill the absolute package resolution
+					String modulePackage = filePath.substring(filePath.lastIndexOf("server"), filePath.length()-1);
+					// Replace the file separators with . for the package name resolution
+					modulePackage = modulePackage.replace(System.getProperty("file.separator"), ".");
+					// Trim off server. portion of string
+					modulePackage = modulePackage.substring(modulePackage.indexOf(".")+1, modulePackage.length()-1);
+					// Trim off the file extension.
+					modulePackage = modulePackage.substring(0, modulePackage.lastIndexOf("."));
+					_fileInput.setText(modulePackage);
 				}	// end if
 			}	// end method actionPerformed
 		});
@@ -81,9 +140,7 @@ public class ModuleManager
 				module.setInvocation(_fileInput.getText());
 				module.setPort(_portInput.getText());
 
-				modules.add(module);
-
-				storeModules("config/modules.xml");
+				addModule(module);
 			}	// end method actionPerformed
 		});
 
@@ -138,10 +195,11 @@ public class ModuleManager
 		
 		_main.setBorder(BorderFactory.createTitledBorder("Register Module"));
 		
-		dialog.add(_main);
-		dialog.setBounds(0,0, 300, 150);
-		dialog.setVisible(true);
-		dialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.add(_main);
+		this.setBounds(0,0, 400, 150);
+		this.setResizable(false);
+		this.setVisible(true);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
 	/**
@@ -151,7 +209,7 @@ public class ModuleManager
 		boolean ok = true;
 
 		for(int i = 0; i < this.modules.size(); i++) {
-			if(this.modules.get(i).getPort() == module.getPort()) {
+			if(this.modules.get(i).getPort().equalsIgnoreCase(module.getPort())) {
 				ok = false;
 			}	// end if
 		}	// end for loop
@@ -159,8 +217,11 @@ public class ModuleManager
 		// Attempt to add the module.
 		if(ok) {
 			this.modules.add(module);
+			this.storeModules("config/modules.xml");
+			
 			return true;
 		} else {
+			JOptionPane.showMessageDialog(this, "Unable to add module.  There exists a module using the same port as the one you are attempting to register.", "Error Registering Module", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}	// end if-else
 	}	// end method addModule
@@ -214,12 +275,10 @@ public class ModuleManager
 					modules.add(module);
 				}
 			}
-			// TODO: Log successful loading of modules.
 		}	// end try
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			// TODO: Log error loading modules.
 		}	// end catch
 
 		return modules;
@@ -228,7 +287,7 @@ public class ModuleManager
 	/**
      * Writes the modules out to an XML file for storage.
      */
-	public void storeModules(String configFile)
+	public boolean storeModules(String configFile)
 	{
 		// Header information for the XML file.
 		String xml = "<?xml version='1.0'?>\n"                                + 
@@ -251,12 +310,15 @@ public class ModuleManager
 		{
 			FileWriter writer = new FileWriter(configFile);
 			writer.write(xml);
-			writer.close();
+			writer.close();	
 		}	// end try
 		catch(IOException ioe)
 		{
-			// TODO: Throw this exception to the logger panel
+			ioe.printStackTrace();
+			return false;
 		}	// end catch
+		
+		return true;
 	}	// end method storeModules
 
 	/**

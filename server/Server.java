@@ -1,3 +1,4 @@
+import java.awt.*;	
 import java.awt.event.*;
 import java.io.*;
 import java.net.*;
@@ -6,69 +7,178 @@ import javax.swing.*;
 
 import lib.*;
 
-
-public class Server
-{
-	public static boolean KILL_SERVER = false;
-	private ArrayList<Process> activeProcesses;	
+public class Server extends JFrame {
+	private ArrayList<Process> activeProcesses;
+	private ModuleManager manager;
+	
+	public static JTextArea console = new JTextArea();
 
 	/*
     * Default constructor for this class.
     */
 	public Server()
 	{
-		ModuleManager manager = new ModuleManager();
-		manager.loadModules("config/modules.xml");
-		ArrayList<Module> modules = manager.getModules();
+		// Initialize the module manager and load the modules
+		this.manager = new ModuleManager();
 	
-		activeProcesses = new ArrayList<Process>();
-
-		for(int i = 0; i < modules.size(); i++) {
-			try {
-				String program = modules.get(i).getInvocation();
-				File startLog = new File("logs/startup.txt");
-				ProcessBuilder pb = new ProcessBuilder("java", program);
-				pb.redirectErrorStream(true);
-				pb.redirectOutput(ProcessBuilder.Redirect.appendTo(startLog));
-				Process p = pb.start();
-				activeProcesses.add(p);
-				// TODO Let the console know the x service was started.
-				System.out.println("Server started: " + modules.get(i).getName());
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		JFrame frame = new JFrame("Application");
-		manager.getAddModuleDialog(frame);
-		frame.setBounds(0,0,100,100);
-		frame.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent we) {
-				System.out.println("Kill request initiated.");
-				Server.KILL_SERVER = true;
-			}
-		});
-
-		frame.setVisible(true);
-
-		int j = 0;
-		while(!Server.KILL_SERVER)
-		{
-			j++;
-		}
-
-		for(int i = 0; i < activeProcesses.size(); i++)
-		{
-			System.out.println("Killing all processes...");
-			this.activeProcesses.get(i).destroy();
-		}	// end for loop
-
-		System.exit(0);
-
+		// Holder for the currently active processes
+		this.activeProcesses = new ArrayList<Process>();
+		
+		this.initUI();
 	}	// end constructor
 
-	public static void main(String[] args)
-	{
+	/**
+	 * Creates the GUI for the server to interface with the user.
+	 */
+	private void initUI() {
+		JMenuBar _menuBar = new JMenuBar();
+		
+		// Server actions
+		JMenu     _server        = new JMenu("Server");
+		JMenuItem _startServer   = new JMenuItem("Start Server");
+		JMenuItem _stopServer    = new JMenuItem("Stop Server");
+		JMenuItem _restartServer = new JMenuItem("Restart Server");
+		JMenuItem _exit          = new JMenuItem("Exit Program");
+		
+		// Menu action listeners
+		_startServer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				startup();
+			}	// end method actionPerformed
+		});
+		
+		_stopServer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				shutdown();
+			}	// end method actionPerformed
+		});
+		
+		_restartServer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				restart();
+			}	// end method actionPerformed
+		});
+		
+		_exit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				shutdown();
+				System.exit(0);
+			}	// end method actionPerformed
+		});
+		
+		_server.add(_startServer);
+		_server.add(_stopServer);
+		_server.add(_restartServer);
+		_server.addSeparator();
+		_server.add(_exit);
+		
+		JMenu _modules = new JMenu("Modules");
+		JMenuItem _registerModules = new JMenuItem("Registration");
+		JMenuItem _manageModules   = new JMenuItem("Management");
+		_modules.add(_registerModules);
+		_modules.add(_manageModules);
+		
+		_registerModules.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				manager.getAddModuleDialog();
+			}	// end method actionPerformed
+		});
+		
+		_manageModules.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				manager.getManageModuleDialog();
+			}	// end method actionPerformed
+		});
+		
+		JMenuItem _help = new JMenuItem("Help");
+		_help.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				try {
+					Desktop.getDesktop().browse(new URI("https://code.google.com/p/spring-2013-se2-dijkstra"));
+				} catch(Exception e) {
+					e.printStackTrace();
+				}	// end try/catch
+			}	// end method actionPerformed
+		});
+		
+		_menuBar.add(_server);
+		_menuBar.add(_modules);
+		_menuBar.add(_help);
+		
+		JPanel _layoutPanel = new JPanel(new BorderLayout());
+		JScrollPane scroller = new JScrollPane(Server.console);
+		_layoutPanel.add(scroller, BorderLayout.CENTER);
+		
+		this.setJMenuBar(_menuBar);
+		this.add(_layoutPanel);
+		this.setBounds(0, 0, 600, 300);
+		this.setVisible(true);
+		
+		// When the frame is exited, we need to shut down the services
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent we) {
+				shutdown();
+				System.exit(0);
+			}	// end method windowClosing
+		});
+	}	// end method initUI
+	
+	/**
+	 * Starts all the processes.
+	 */
+	public void startup() {
+		ArrayList<Module> modules = this.manager.getModules();
+		
+		String msg = "System startup in progress...\n";
+		Server.console.setText(Server.console.getText().concat(msg));
+		
+		// Cycle through all available modules and start their process
+		for(int i = 0; i < modules.size(); i++) {
+			try {
+				// Process to initiate
+				ProcessBuilder pb = new ProcessBuilder("java", modules.get(i).getInvocation());
+				// Enable logging for startup file
+				File startLog = new File("logs/startup.txt");
+				pb.redirectErrorStream(true);
+				pb.redirectOutput(ProcessBuilder.Redirect.appendTo(startLog));
+				
+				// Start the process and add it to the list of active processes
+				Process p = pb.start();
+				activeProcesses.add(p);
+				
+				msg = "Module Listening: [" + modules.get(i).getName() + "]; Port: [" + modules.get(i).getPort() + "]\n";
+				Server.console.setText(Server.console.getText().concat(msg));
+			} catch(Exception e) {
+				e.printStackTrace();
+			}	// end try/catch
+		}	// end for loop
+	}	// end method startup
+	
+	/**
+	 * Shuts down all the processes.
+	 */
+	public void shutdown() {
+		String msg = "System shutdown in progress...\n";
+		Server.console.setText(Server.console.getText().concat(msg));
+		for(int i = 0; i < activeProcesses.size(); i++)
+		{
+			this.activeProcesses.get(i).destroy();
+			this.activeProcesses.remove(i);
+		}	// end for loop
+	}	// end method shutdown
+	
+	/**
+	 * Restarts all the processes.
+	 */
+	public void restart() {
+		this.shutdown();
+		this.startup();
+	}	// end method restart
+	
+	/**
+	 * Main entry point for this application.
+	 */
+	public static void main(String[] args) {
 		new Server();
 	}	// end function main
-}
+}	// end class Server
