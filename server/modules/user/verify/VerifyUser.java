@@ -42,26 +42,24 @@ public class VerifyUser {
 
 				String input, store = "", request = "";
 
-				// For all input received, write it to the request file.
+				// For all input received, write it to the request buffer.
 				while((input = in.readLine()) != null) {
 					request += input;
-				}	// end while
+				}	// end while loop
 
 				BufferedReader reader = new BufferedReader(new FileReader("store/address-book/address-book.xml"));
 		
 				while((input = reader.readLine()) != null) {
 					store += input;
-				} 
+				}	// end while loop
 
 				String acl2 = "(include-book \"modules/user/verify/verify-user\")" + 
 								  "(in-package \"ACL2\")" +
 			                 "(set-state-ok t)" +
 								  "(set-guard-checking :none)" + 
 				              "(testUser \"" + request + "\" \"" + store + "\" state)";
-
-				System.out.println(acl2);
 				
-				System.out.println("Executing process...");
+				System.out.println("Executing ACL2 runtime...");
 				ProcessBuilder processBuilder = new ProcessBuilder("acl2");
 				File log = new File("logs/user/verify/acl2_log.txt");
 				processBuilder.redirectErrorStream(true);
@@ -69,22 +67,20 @@ public class VerifyUser {
 				Process process = processBuilder.start();
 				PrintWriter procIn = new PrintWriter(process.getOutputStream());
 				
-				
+				// Write the ACL2 to the process, exit ACL2 and close the socket
 				procIn.println(acl2);
 				procIn.println("(good-bye)");
 				procIn.flush();
 				procIn.close();
-				System.out.println("Done...");
 				out.close();
 				in.close();
 				client.close();
-			}
+			}	// end while loop
 			
 			server.close();
 			System.exit(0);
 		} catch(Exception e) {
-			// TODO Log this issue to the GUI console.
 			e.printStackTrace();
-		}
-	}
-}
+		}	// end try/catch
+	}	// end function main
+}	// end class VerifyUser

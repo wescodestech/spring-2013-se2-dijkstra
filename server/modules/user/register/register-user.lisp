@@ -70,7 +70,7 @@
 			 (addressBook (getAddressBook (tokenizeXML abXML))))
 		(mv-let (error state)
 			(string-list->file 
-			   "../../../store/address-book/temp_address-book.xml" 
+			   "store/address-book/temp_address-book.xml" 
 			   (getAddressBookXML (addAddress addressBook (list domain name pass)))
 				state)
 			(if error

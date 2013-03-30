@@ -6,4 +6,9 @@
 		<invoke>modules.user.verify.VerifyUser</invoke>
 		<port>20002</port>
 	</module>
+	<module>
+		<name>user.register</name>
+		<invoke>modules.user.register.RegisterUser</invoke>
+		<port>20001</port>
+	</module>
 </modules>
