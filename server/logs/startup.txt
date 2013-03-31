@@ -1,0 +1,12 @@
+Executing ACL2 runtime for RegisterUser...
+java.io.IOException: Cannot run program "acl2": The system cannot find the path specified
+	at java.lang.ProcessBuilder.start(Unknown Source)
+	at modules.user.register.RegisterUser.main(RegisterUser.java:74)
+Caused by: java.io.IOException: The system cannot find the path specified
+	at java.lang.ProcessImpl.openForAtomicAppend(Native Method)
+	at java.lang.ProcessImpl.newFileOutputStream(Unknown Source)
+	at java.lang.ProcessImpl.start(Unknown Source)
+	... 2 more
+(include-book "modules/user/verify/verify-user")(in-package "ACL2")(set-state-ok t)(set-guard-checking :none)(testUser "<?xml version='1.0'?><verify>	<domain>localhost</domain>	<name>matthew.crist</name>	<password>simulation</password></verify>" "<?xml version='1.0'?><!DOCTYPE addresses SYSTEM '../../../dtd/address-book.dtd'><addresses>	<address>		<domain>localhost</domain>		<name>matthew.crist</name>		<password>simulation</password>	</address></addresses>" state)
+Executing process...
+Done...
