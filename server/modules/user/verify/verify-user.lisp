@@ -12,7 +12,7 @@
 ; XML Document Format:
 ; ------------------------------------------------------------------------
 ; <?xml version="1.0"?>
-; <!DOCTYPE verify SYSTEM "../../../dtd/verify-user.dtd">
+; <!DOCTYPE verify SYSTEM "dtd/verify-user.dtd">
 ; <verify>
 ;    <domain>localhost</domain>
 ;    <name>matthew.crist</name>
@@ -102,7 +102,7 @@
 			 (abook  (getAddressBook (tokenizeXML addressBookXML))))
 		(if (verifyUser user abook)
 			(mv-let (error state)
-				(string-list->file "server-action.xml" 
+				(string-list->file "incoming/user/verify/server-action.xml" 
 					  (list "<?xml version='1.0'?>" 
                        "<!DOCTYPE message SYSTEM 'dtd/system-message.dtd'>"
                        "<message>" 
@@ -114,7 +114,7 @@
 					(mv error state)
 					(mv "Action written successfully!" state)))
 			(mv-let (error state)
-				(string-list->file "server-action.xml" 
+				(string-list->file "incoming/user/verify/server-action.xml" 
 					  (list "<?xml version='1.0'?>" 
                        "<!DOCTYPE message SYSTEM 'dtd/system-message.dtd'>"
                        "<message>" 

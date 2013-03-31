@@ -64,14 +64,14 @@
 ;fin - input XML file
 ;fout - output XML filename
 ;state - ACL2 state
-(defun rwEmail (fin fout state)
-  (mv-let (input-as-string error-open state) 
-	  (file->string fin state)
-     (if error-open
-         (mv error-open state)
+(defun rwEmail (#|fin|#input-as-string fout state)
+;  (mv-let (input-as-string error-open state) 
+;	  (file->string fin state)
+;     (if error-open
+;         (mv error-open state)
          (mv-let (error-close state)
                  (string-list->file 
-                  (concatenate 'string "../../../store/email/"
+                  (concatenate 'string "store/email/"
                                (car (cdr (getContactStructure (car(car (cddddr (tokenizeXML input-as-string)))))))
                                                               "/"
                                (car (getContactStructure (car(car (cddddr (tokenizeXML input-as-string))))))
@@ -89,4 +89,4 @@
             (if error-close
                 (mv error-close state)
                 (mv "Success File has been written!" 
-                     state))))))
+                     state))));))

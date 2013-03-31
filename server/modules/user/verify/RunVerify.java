@@ -5,25 +5,38 @@ import java.net.*;
 public class RunVerify {
 	public static void main(String[] args) {
 		Socket server = null;
-		PrintWriter out = null;
+		BufferedWriter out = null;
 		BufferedReader in = null;
 
 		try {
 			System.out.println("Opening socket...");
 			server = new Socket("localhost", 20002);
 			System.out.println("Connection successful!");
-			out = new PrintWriter(server.getOutputStream(), true);
+			out = new BufferedWriter(new OutputStreamWriter(server.getOutputStream()));
 			in = new BufferedReader(new InputStreamReader(server.getInputStream()));
 
-			out.println("<?xml version='1.0'?>");
-			out.println("<verify>");
-			out.println("\t<domain>localhost</domain>");
-			out.println("\t<name>matthew.crist</name>");
-			out.println("\t<password>simulation</password>");
-			out.println("</verify>");
-
-			out.flush();
-			out.close();
+			System.out.println("Sending login information to the server.");
+			
+			if(server.isConnected()) {
+				out.write("<?xml version='1.0'?>");
+				out.write("<verify>");
+				out.write("<domain>localhost</domain>");
+				out.write("<name>matthew.crist</name>");
+				out.write("<password>simulation</password>");
+				out.write("</verify>");
+				out.newLine();
+				out.flush();	// flush should write
+				out.close();
+				
+				String response = in.readLine();
+			} else {
+				System.out.println("Connection with server could not be established.");
+			}	// end if-else
+			
+			// Wait for a response
+			System.out.println("Waiting for server response...");
+			
+			//out.close();
 			in.close();
 			server.close();
 		
