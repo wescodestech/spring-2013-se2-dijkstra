@@ -130,13 +130,18 @@ public class VerifyUser {
 							// Reset the buffer
 							transmit = "";
 						}	// end for
+						
+						out.write("END");
 					} else {
 						// Create the directory since it should be there!!!
 						emailDirectory.mkdirs();
+						out.write("There was an internal server error: Inbox does not exist!");
+						out.write("END");
 					}	// end if-else
 				} else {
 					out.write(failBuffer);
 					out.newLine();
+					out.write("END");
 				}	// end if-else
 				
 				// Close our connections

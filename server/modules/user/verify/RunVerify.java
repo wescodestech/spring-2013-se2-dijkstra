@@ -26,15 +26,16 @@ public class RunVerify {
 				out.write("</verify>");
 				out.newLine();
 				out.flush();	// flush should write
-				out.close();
+				server.shutdownOutput();
 				
-				String response = in.readLine();
+				String response = "";
+				while(!(response = in.readLine()).contains("END")) {
+					if(response != null)
+						System.out.println(response);
+				}	// end while loop
 			} else {
 				System.out.println("Connection with server could not be established.");
 			}	// end if-else
-			
-			// Wait for a response
-			System.out.println("Waiting for server response...");
 			
 			//out.close();
 			in.close();
