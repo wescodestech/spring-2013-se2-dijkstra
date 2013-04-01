@@ -50,3 +50,27 @@ When a module is registered, it is stored in a persistent file located under the
   * The `name` of the module is the actual visual name of the module as it would appear in the "modules" listing for management.
   *The `invoke` of the modules is the actual package and class name for the program that will be invoked by the server.  This is written in Java and performs the action on the logic of the module (which will be discussed later in the document).
   * The port is the TCP port that will be opened for the data to be received and transmitted upon.  While the server does not actually communicate with the clients, it will ensure that there are no conflicting ports when modules are registered via the GUI.
+
+Each module structure is encapsulated in the document data structure as defined by the dtd reference:
+
+{{{
+<?xml version='1.0'?>
+<!DOCTYPE modules SYSTEM '../dtd/module.dtd'>
+<modules>
+   <module>
+      <name>Module Name 1</name>
+      <invoke>class.path.to.Module1</invoke>
+      <port>20000</port>
+   </module>
+   <module>
+      <name>Module Name 2</name>
+      <invoke>class.path.to.Module1</invoke>
+      <port>20001</port>
+   </module>
+   ...
+</modules>
+}}}
+
+  _It is important to note that you MUST use single quotes in these documents.  When injecting XML into ACL2, you must have them escape sequenced or use singles._
+
+=== Constructing a Module ===
