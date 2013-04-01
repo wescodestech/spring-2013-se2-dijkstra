@@ -97,3 +97,84 @@ The actions are the IO specific interfacing between the Java application and the
 Though not defined as a part of the module, the Java application that invokes the actions is the interfacing mechanism between the JVM and ACL2 runtime environments.  The Java application will start a process of the ACL2 environment and send ACL2 commands from the IO wrappers to the application spawned.
 
 _Basic Wrapper Requirements_
+
+{{{
+
+package modules.user.register;
+
+import java.io.*;
+import java.util.*;
+import java.net.*;
+import java.nio.channels.FileChannel;
+
+public class RegisterUser {
+        public static void main(String[] args) {
+                boolean listening = true;
+                
+                try {
+                        // Acquire the listening port for connection to client.
+                        ServerSocket server = new ServerSocket(20001);
+                        
+                        while(listening) {
+                                // Wait until the client connects
+                                Socket client = server.accept();
+                                
+                                // Handles for input and output streams relating to the socket connection
+                                PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+                                BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                                
+                                // Buffers
+                                String input, store="", request="";
+                                
+                                // Read the input from the connection
+                                while((input = in.readLine()) != null) {
+                                        request += input;
+                                }       // end while
+                                
+                                // The ACL2 code to execute.
+                                String acl2 = "(include-book \"modules/user/register/register-user\")" +
+                                              "(in-package \"ACL2\")"            +
+                                                      "(registerUser \"" + request + "\" \"" + store + "\" state)";
+                                
+                                // Initialize ACL2 and dump its output to the log
+                                System.out.println("Executing ACL2 runtime for RegisterUser...");
+                                ProcessBuilder processBuilder = new ProcessBuilder("acl2");
+                                File log = new File("logs/user/register/acl2_log.txt");
+                                processBuilder.redirectErrorStream(true);
+                                processBuilder.redirectOutput(log);
+                                
+                                Process process = processBuilder.start();
+                                PrintWriter procIn = new PrintWriter(process.getOutputStream());
+                                
+                                // Write the ACL2 to the process, close ACL2
+                                procIn.println(acl2);
+                                procIn.println("(good-bye)");
+                                procIn.flush();
+                                procIn.close();
+                                
+                                // Close all streams
+                                out.close();
+                                in.close();
+                                client.close();
+                        }       // end while
+                } catch(Exception e) {
+                        e.printStackTrace();
+                }       // end try/catch
+        }       // end function main
+}       // end class RegisterUser
+
+}}}
+
+The package is the first thing to be defined.  In this example, the wrapper is in the `modules/user/register` directory.  The name of the class is `RegisterUser`.  We can select this file during module registration to invoke this class (file selected since we can parse the package name from the selection.)  This results in a binary after compilation being called by `java modules.user.register.RegisterUser` which is the location of the action file relative to the server invocation.
+
+How you structure your functions is completely up to you, but there must be a `main` statement for an execution point.  As stated previously, all modules are standalone applications in themselves and should run calling them directly.  If this is not the case, then they will not function properly on the server after being registered.
+
+The server module opens a server socket in order to provide a listening mechanism for the client to connect.  The server does not actually need to know the location of the client since the Socket class handles two way communication.  (Location was depreciated after the use of bash script was deemed insufficient. [https://code.google.com/p/spring-2013-se2-dijkstra/source/detail?r=64 See R64 for more information on transition])
+
+The wrappers are created for the IO between the client and server with `out` being the stream to write information to the client and `in` being data that can be read from the client.  It may be required to close the input stream in order to write information back to the client by invoking the `socket.shutdownOutput` on the client side.  This is due in part that the socket is listening for an EOF command, which may not be reached, but by shutting down the output after it is no longer required by the client, we can force the outputstream to post.
+
+We then use the ProcessBuilder to initialize the ACL2 environment and log that information to the log defined by the `log` variable.  You may be tempted to use the ProcessBuilder.Redirect class but this forces the requirement for the user to 1.7 SDK in Java and should be worth noting in your module.  It is assumed, at the time of this writing, that Java 1.7 is the standard (some mac computers may need to manually update this from the Oracle website).
+
+The input wrapper for the ACL2 process is them acquired and the ACL2 is dumped to the process.  It is important to note that you ARE require to call `(good-bye)` in order to exit the ACL2 program gracefully.  Not doing so may result in the module hanging and not exiting properly, disallowing the module to continue processing.
+
+After this, it is merely a matter of closing the data streams and exiting to module or cycling back for another iteration of listening.
