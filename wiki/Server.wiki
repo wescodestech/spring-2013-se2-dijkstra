@@ -5,14 +5,14 @@
 The server application is responsible for registering users, creating persistent storage, maintaining mailing lists and routing email that is sent by users.  Though the server does not adhere to current email system specifications, the premise is similar and can be thought of as a message routing system.
 
 *Topics Covered*
-  * [Server#Starting_the_Server]
-  * [Server#Modules]
-    * [Server#The_Module_Storage_File]
-    * [Server#Constructing_A_Module]
+  * [Server#Server Operation Server Operation]
+  * [Server#Modules Modules]
+    * [Server#The_Module_Storage_File Module Storage]
+    * [Server#Constructing_a_Module Constructing a Module]
 
 = Details =
 
-=== Starting the Server ===
+=== Server Operation ===
 To start the server, you must make sure that the path to your ACL2 binary is registered in the PATH variable.  This can be checked in DOS via the command `echo %PATH%` .  Under windows, you will be required to rename the ACL2 binary from `run_acl2.exe` to `acl2.exe` in order to conform to the interoperable standards of the application.  This is because the application is located simply by the `acl2` command from the console, so if by typing `acl2` in the console of the OS you have chosen, you can invoke ACL2, then your environment has been configured correctly for ACL2.
 
 The Java SDK is also required for development, but not deployment as we will only be required to use the Java Runtime instead.  Regardless, if by typing `java` in the console of your choice, you are able to invoke the java application, your computer is properly set up to start the server process.  If not, you need to register the path variable to the location of your java SDK/RE.  A similar process is required for the `javac` command.
@@ -82,3 +82,18 @@ Each module structure is encapsulated in the document data structure as defined 
   _It is important to note that you MUST use single quotes in these documents.  When injecting XML into ACL2, you must have them escape sequenced or use singles._
 
 === Constructing a Module ===
+
+Each module contains 3 basic parts:
+  # The Logic
+  # The Tests
+  # The Action
+
+The logic defines the ACL2 that may be performed on a data structure.  This explicitly does not contain any IO and will be used for testing purposes in order to determine the logically sound proof through Racket using Dracula.  The theoretical data structure for processing this information can be called up from the actions and the theorems in order to process what was intended.
+
+The tests are predicate based testing designed to prove the soundness of the logic behind the functions defined in the logic file.  The only include that should be required by this file is the logic file itself.  Typically these files are located next to each other in the `modules/module_name` folder.  The tests are ran separately and are not considered to be a functional part of the program itself, but ensures the results are to be as expected.  You can defined `defthm`, `defproperty` and `check-expects` in this file.
+
+The actions are the IO specific interfacing between the Java application and the logic defined in the logic file.  This is typically where ALL io must occur and any parsing form the input that is received from the Java application.
+
+Though not defined as a part of the module, the Java application that invokes the actions is the interfacing mechanism between the JVM and ACL2 runtime environments.  The Java application will start a process of the ACL2 environment and send ACL2 commands from the IO wrappers to the application spawned.
+
+_Basic Wrapper Requirements_
