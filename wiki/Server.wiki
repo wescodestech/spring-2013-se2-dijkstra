@@ -98,6 +98,8 @@ Though not defined as a part of the module, the Java application that invokes th
 
 _Basic Wrapper Requirements_
 
+** This code has been stripped and minimalized for brevity.  it will not compile since as listed, some of these values are not defined, but it will give you a basic sense of operation.
+
 {{{
 
 package modules.user.register;
@@ -105,7 +107,6 @@ package modules.user.register;
 import java.io.*;
 import java.util.*;
 import java.net.*;
-import java.nio.channels.FileChannel;
 
 public class RegisterUser {
         public static void main(String[] args) {
