@@ -4,6 +4,11 @@
 
 The user module will manage the verification of a user and the creation of those users that will be populated in the address-book that is used by the server to determine the validity of login information.  it is worth noting that all information is stored via flat file (which is typically not the secure standard for sensitive information).
 
+  * [ServerUser#User_Registration User Registration]
+    * [ServerUser#XML_Transmission_Data_Format Input Format]
+    * [ServerUser#Server_Response_for_User_Registration Output Format]
+  * [ServerUser#User_Verification User Verification]
+
 = User Registration =
 User registration is done via the network by a client request.  All information regarding the registration request is acquired by the client and transmitted to the server via port 20001.  This module has been registered with this port and will listen for a specific data structure defined by the `dtd/register-user.dtd` data structure.  While the DTD is not specifically used to enforce the data structure via XML parser, it serves as a guide to the validation of the structure.  This can be checked by opening the file in a browser to ensure the XML is parsed correctly and an error is not returned.  If an error is returned, the XML is invalid input for the ACL2.
 
