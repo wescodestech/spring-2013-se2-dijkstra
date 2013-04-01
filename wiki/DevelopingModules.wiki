@@ -1,0 +1,33 @@
+#summary Process for developing modules for ACL2 Email Server
+
+=Developing for the Application=
+Developing for the application will be done via the modules based system.  Anytime you wish to intercept information from a specific module, you can listen on a port and have the information from a module diverted to that module via the _nc_ command through UNIX.  Simple call the _localhost_ address and the port number and that information is diverted.  It is important to note that the module must be able to process the information correctly and independently.
+
+Each module consists of 4 parts:
+  # The Logic
+  # The Action
+  # The Invocation
+  # The Tests
+
+===The Logic===
+When programming the logic for a module, no IO and imports should exist in this file unless the import is that of a logical module as well.  To define what exactly a logical module is, any action taken upon a data structure that does not result in any output other than another data structure is the logical foundation for a module.  Instance being:
+
+{{{
+(defun sum (xs)
+  (if (listp xs)
+    (if (endp xs)
+      0
+      (+ (car xs) (sum (cdr xs))))
+    0))
+}}}
+
+As you can see, a list of numbers is taken as input and the resulting output is a single number.  There are not actions for IO taken upon this and it can be used in testing to acquire predicable results.  This module can be added to the ACL2 logic via redirection:
+
+{{{
+acl2 < sum.lisp
+}}}
+
+The acl2 program will run and exit immediately, so visible output will not occur.  You can test it via the dracula console.  it is also important to note that _ALL LOGIC MODULES MUST  BE (IN-PACKAGE "ACL2")_.
+
+===The Action===
+The actions are where all the IO occur as well as the data insertion from the text that is read from nc.  How you read the text is up to you, and generally a temporary ACL2 file needing writing from the invocation phase.
