@@ -32,6 +32,6 @@ Current Port Assignment:
 
 There are also a number of "includes" that are available on the server side:
   * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/XmlScanner xml-scanner.lisp]
-  * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/IOUtilities io-utilities.lisp]
+  * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/IoUtilities io-utilities.lisp]
   * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ListUtilities list-utilities.lisp]
   * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/RemoteActions remote-actions.lisp]
