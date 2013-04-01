@@ -12,24 +12,6 @@ The server currently consists of 3 modules:
   * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerEmail The Email Module]
   * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerMailingList The Mailing List Module]
 
-Each module contains actions that can be performed on that module:
-  * The User Module
-    * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerUserRegister Register User]
-    * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerUserVerify Verify User]
-  * The Email Module
-    * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerEmailSend Send Email]
-  * The Mailing List Module
-    * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerMailingListCreate Create Mailing List]
-    * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerMailingListSubscribe Subscribe to Mailing List]
-    * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerMailingListSend Send to Mailing List]
-
-The server program also requires a number of ports to not be in use.  These include ports 20001-20010.  If these ports are being used, some of the functionality of the server will be compromised.
-
-Current Port Assignment:
-  * *20001* - User Registration
-  * *20002* - User Verification
-  * *20005* - Send EMail
-
 There are also a number of "includes" that are available on the server side:
   * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/XmlScanner xml-scanner.lisp]
   * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/IoUtilities io-utilities.lisp]
