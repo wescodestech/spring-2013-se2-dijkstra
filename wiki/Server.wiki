@@ -2,18 +2,51 @@
 
 = Introduction =
 
-The server program for this application manages the transmission of the data and the security surrounding that information.  It will register users for accounts as well as maintain a store for messages that have yet to be received by the user.  It will also store log in credentials for each user and maintain a set of mailing lists that users can subscribe to for mass emailing.
-
+The server application is responsible for registering users, creating persistent storage, maintaining mailing lists and routing email that is sent by users.  Though the server does not adhere to current email system specifications, the premise is similar and can be thought of as a message routing system.
 
 = Details =
 
-The server currently consists of 3 modules:
+=== Starting the Server ===
+To start the server, you must make sure that the path to your ACL2 binary is registered in the PATH variable.  This can be checked in DOS via the command `echo %PATH%` .  Under windows, you will be required to rename the ACL2 binary from `run_acl2.exe` to `acl2.exe` in order to conform to the interoperable standards of the application.  This is because the application is located simply by the `acl2` command from the console, so if by typing `acl2` in the console of the OS you have chosen, you can invoke ACL2, then your environment has been configured correctly for ACL2.
+
+The Java SDK is also required for development, but not deployment as we will only be required to use the Java Runtime instead.  Regardless, if by typing `java` in the console of your choice, you are able to invoke the java application, your computer is properly set up to start the server process.  If not, you need to register the path variable to the location of your java SDK/RE.  A similar process is required for the `javac` command.
+
+Starting the server GUI only involves one command:
+
+{{{ java Server }}}
+
+By typing this in the console you should be able to start the GUI.  Starting the processes requires manual intervention, as this is not done automatically.  This is because we allow the user to register modules with the server before starting the server.  A restart of the server application may be required to properly identify all modules that have been registered after startup.
+
+To start the modules, go to Server >> Start Server from the drop down menu.
+
+To stop the modules, go to Server >> Stop Server from the drop down menu.
+
+To restart the modules as they are currently running, go to Server >> Restart Server.
+
+To exit the server application, go to Server >> Exit.
+
+The server currently consists of 3 basic modules:
   * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerUser The User Module]
   * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerEmail The Email Module]
   * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerMailingList The Mailing List Module]
 
-There are also a number of "includes" that are available on the server side:
-  * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/XmlScanner xml-scanner.lisp]
-  * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/IoUtilities io-utilities.lisp]
-  * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ListUtilities list-utilities.lisp]
-  * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/RemoteActions remote-actions.lisp]
+Each module is considered to be a standalone program and and run on its own without the server.  The server program simply initializes these programs and maintains their running state.  The program is ran via processes which can be initiated via the start server command located under the System >> Start Server menu in the server application.
+
+As stated previously, each program is invoked through a new process and ideally the programmer dumps the log information to the logs folder which is similar to the path required to find the module (for instance modules/user/verify is located under the logs/user/verify/acl2_log.txt file.)  Because of this, the server can still operate, even if one of the modules fail and a simple restart of the modules will suffice in order to bring all modules back online.  While this was considered for automation, that feature was nixed for more verbous server error reporting.
+
+=== The Module Storage File ===
+When a module is registered, it is stored in a persistent file located under the config folder (config/modules.xml).  Each module adheres to a specific DTD requirement that is outlined in the dtd/module.dtd definitions.
+
+*Structure for a Module in XML:*
+
+{{{
+<module>
+   <name>Module Name</name>
+   <invoke>class.path.to.Module</invoke>
+   <port>20000</port>
+</module>
+}}}
+
+  * The `name` of the module is the actual visual name of the module as it would appear in the "modules" listing for management.
+  *The `invoke` of the modules is the actual package and class name for the program that will be invoked by the server.  This is written in Java and performs the action on the logic of the module (which will be discussed later in the document).
+  * The port is the TCP port that will be opened for the data to be received and transmitted upon.  While the server does not actually communicate with the clients, it will ensure that there are no conflicting ports when modules are registered via the GUI.
