@@ -1,0 +1,102 @@
+#summary XML document scanner that will tokenize the XML tags in an XML string.
+
+= Introduction =
+
+Some of the ACL2 modules will need to read some of the XML data that is contained within the files that are sent to the server.  Because of this, we will need to extract that information from the file in order to determine the path in which we wish to take.
+
+The XML Scanner will parse information from a string that is sent into the function _tokenizeXML_.  No file information is read in with this file.  You will be responsible for reading in file information and passing the string that is read from the file to the _tokenizeXML_ function.
+
+= Data Structure =
+
+The structure of the data that is returned from the XML scanner is as follows:
+
+{{{
+// value - string - the string that is parsed as a token.
+// key   - string - the string representation that denotes the token type.
+}}}
+
+_((value key),,1,, (value key),,2,, ... (value key),,n,,)_
+
+** *There are only 3 types for keys:*
+ * PCDATA - the data between two tags.
+ * openTag - The opening tag for encapsulation.
+ * closeTag - The ending tag for encapsulation.
+
+===Example:===
+{{{
+<?xml version="1.0"?>
+<!DOCTYPE addressbook SYSTEM "addressbook.dtd">
+<addresses>
+   <address>
+      <name>matthew.crist</name>
+      <domain>localhost</domain>
+   </address>
+   <address>
+      <name>adam.ghodratnama</name>
+      <domain>localhost</domain>
+   </address>
+   <address>
+      <name>wesley.howell</name>
+      <domain>localhost</domain>
+   </address>
+</addresses>
+}}}
+
+Will tokenize as such:
+
+{{{
+(("<?xml version=\"1.0\"?>" "openTag")
+ ("<!DOCTYPE addressbook SYSTEM \"addressbook.dtd\">" "openTag")
+ ("<addresses>" "openTag")
+ ("<address>" "openTag")
+ ("<name>" "openTag")
+ ("matthew.crist" "PCDATA")
+ ("</name>" "closeTag")
+ ("<domain>" "openTag")
+ ("localhost" "PCDATA")
+ ("</domain>" "closeTag")
+ ("</address>" "closeTag")
+ ("<address>" "openTag")
+ ("<name>" "openTag")
+ ("adam.ghodratnama", "PCDATA")
+ ("</name>" "closeTag")
+ ("<domain>" "openTag")
+ ("localhost" "PCDATA")
+ ("</domain>" "closeTag")
+ ("</address>" "closeTag")
+ ("<address>" "openTag")
+ ("<name>" "openTag")
+ ("wesley.howell" "PCDATA")
+ ("</name>" "closeTag")
+ ("<domain>" "openTag")
+ ("localhost" "PCDATA")
+ ("</domain>" "closeTag")
+ ("</address>" "closeTag")
+ ("</addresses>" "closeTag"))
+}}}
+
+= Function Definitions =
+There are a number of helper defined that help the XML scanner find the required information and tokenize it accordingly.  These are based on the need to consume characters, and ignore other characters based on the tag type that was located.  It is also important to note where one token begins and another ends and this is on a case by case basis.
+
+=== State Diagram ===
+[http://spring-2013-se2-dijkstra.googlecode.com/svn/wiki/state-diagram.jpg]
+
+=== Function Definitions ===
+{{{(consume xs d)}}} Consumes characters until a delimiter is reached.  In this case, xs is the list of characters and d is the delimiter.
+
+{{{(tag xs)}}} Extracts the next tag in the sequence of XML data.  xs is a list of characters that represent the XML string.
+
+{{{(pcData xs)}}} Extracts the data that is encapsulated between two XML tags.  xs is a list of characters that represent the XML string.
+
+{{{(nextToken xs)}}} Acquires the next token from the XML string.  xs is a list of characters that represent the XML string.
+
+{{{(tokenizeXML xml)}}} Acquires the tokenized form of the XML with the data structure described above.  xml is the string of XML to be scanned.
+
+= File Information =
+*Lines of Code*: 26
+
+*Functions*: 5
+
+*Entry Point*: _(tokenizeXML xml)_
+
+*File Location*: _./server/inc/xml-scanner.lisp_
