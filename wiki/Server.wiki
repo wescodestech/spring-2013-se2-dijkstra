@@ -4,6 +4,12 @@
 
 The server application is responsible for registering users, creating persistent storage, maintaining mailing lists and routing email that is sent by users.  Though the server does not adhere to current email system specifications, the premise is similar and can be thought of as a message routing system.
 
+*Topics Covered*
+  * [Server#Starting_the_Server]
+  * [Server#Modules]
+    * [Server#The_Module_Storage_File]
+    * [Server#Constructing_A_Module]
+
 = Details =
 
 === Starting the Server ===
@@ -24,6 +30,8 @@ To stop the modules, go to Server >> Stop Server from the drop down menu.
 To restart the modules as they are currently running, go to Server >> Restart Server.
 
 To exit the server application, go to Server >> Exit.
+
+=Modules=
 
 The server currently consists of 3 basic modules:
   * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerUser The User Module]
