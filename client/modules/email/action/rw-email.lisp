@@ -45,7 +45,7 @@
          (mv error-open state)
          (mv-let (error-close state)
                  (string-list->file 
-                  (concatenate 'string "../client/store/email/inbox/"
+                  (concatenate 'string "/store/email/inbox/"
                                
                                "msg_"
                                fout
@@ -65,7 +65,7 @@
 (defun writeEmailToFile (xmlStr to ts state)
   (mv-let (error state)
           (string-list->file (concatenate 'string 
-                                          "../store/email/outbox/"
+                                          "store/email/outbox/"
                                           to ts ".xml")
                              xmlStr
                              state)
