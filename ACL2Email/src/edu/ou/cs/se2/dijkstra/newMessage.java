@@ -1,3 +1,4 @@
+package edu.ou.cs.se2.dijkstra;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
@@ -95,26 +96,28 @@ public class newMessage extends JDialog {
                                  * Send to ACL2
                                  * 
                                  */
-                                String s;
+                               // String s;
                                 String to = txtFdTo.getText();
                                 String from = txtFdFrom.getText();
                                 String sub = txtFdSubject.getText(); 
                                 String cont = textArea.getText();
+//                                
+                                SendEmail.sendMessage(to, from, sub, cont);
                                 
-                                String[] cmdArray = {"sh", "/Users/w_howell/code/spring-2013-se2-dijkstra/client/modules/email/email-action/send-message-java.sh", to, from, sub, cont};
-                                
-                                try {
-                                        Process p = Runtime.getRuntime().exec(cmdArray);
-                                                        
-                                        BufferedReader err = new BufferedReader (
-                                                new InputStreamReader (p.getErrorStream()));
-                                        while ((s = err.readLine()) != null) {
-                                                System.out.println(s);
-                                        }
-                                }
-                                catch (Exception x) {
-                                        x.printStackTrace();
-                                }
+//                                String[] cmdArray = {"sh", "/Users/w_howell/code/spring-2013-se2-dijkstra/client/modules/email/email-action/send-message-java.sh", to, from, sub, cont};
+//                                
+//                                try {
+//                                        Process p = Runtime.getRuntime().exec(cmdArray);
+//                                                        
+//                                        BufferedReader err = new BufferedReader (
+//                                                new InputStreamReader (p.getErrorStream()));
+//                                        while ((s = err.readLine()) != null) {
+//                                                System.out.println(s);
+//                                        }
+//                                }
+//                                catch (Exception x) {
+//                                        x.printStackTrace();
+//                                }
                                 
                                 setVisible(false);
                         }

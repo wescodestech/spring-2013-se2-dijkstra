@@ -1,3 +1,4 @@
+package edu.ou.cs.se2.dijkstra;
 import java.awt.Image;
 import java.awt.Toolkit;
 

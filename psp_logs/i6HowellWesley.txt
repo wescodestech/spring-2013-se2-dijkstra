@@ -1,5 +1,5 @@
 name: Wesley Howell
-date: February 6, 2012
+date: March 28, 2012
 
 program: Email Client Server System
 
@@ -207,7 +207,7 @@ time log:
 	  phase: Coding 
 	  comment: Worked on the client code for the email module. I wrote the functions to parse strings into XML files for outgoing messages. I also handled the need for the client to sent an email to multiple recipients to where a separate XML file will need to be written for each recipient indicated in the to field of the email xml.
 
-	- date March 11, 2013
+	- date: March 11, 2013
 	  start time: 12:04PM
 	  end time: 12:51PM
 	  phase: Coding
@@ -292,17 +292,17 @@ defect log:
 	fix time: 21
 	comment: After finishing the IO entry point function on the server email module, We noticed that the XML files were being generated with a comma instead of the @ symbol between names and domains in the email address. Also, the output file for the email was a statically named file. This file needed to be dynamically named with a timestamp.
 
--date March 11, 2013
+-date: March 11, 2013
 	type: Coding
 	fix time: 24
 	comment: Email parsing had a one off error that did not have the correct lines returned for the XML file which rendered the outputted file useless.
 
--date March 14, 2013
+-date: March 14, 2013
 	type: Coding
 	fix time: 32
 	comment: Shell script was not correctly splitting the XML files based on the regular expression. Started using awk to parse the file. However, the file did not have a unique file name and was getting overwritten every time the script was executed. 
 
--date March 24, 2013
+-date: March 24, 2013
 	type: Testing
 	fix time: 16
 	comment: The theorem that tested the email data structure was not passing. This was traced to an error in the proof and not in the code. The error was trying to access an item that was not in the structure, hence the failure of the proof.

@@ -8,6 +8,8 @@
 ; handled the IO portion of the client functions.  
 ;
 ; CHANGE LOG:
+; 4/ 1/2013 - Changed the file path for outputted files to be consistant with
+;             new Java interface.
 ; 3/11/2013 - Created file to handled the client logic for email messages
 ; -----------------------------------------------------------------------
 ;
@@ -43,7 +45,7 @@
          (mv error-open state)
          (mv-let (error-close state)
                  (string-list->file 
-                  (concatenate 'string "../../../store/email/inbox/"
+                  (concatenate 'string "../client/store/email/inbox/"
                                
                                "msg_"
                                fout
@@ -63,7 +65,7 @@
 (defun writeEmailToFile (xmlStr to ts state)
   (mv-let (error state)
           (string-list->file (concatenate 'string 
-                                          "../../../store/email/outbox/"
+                                          "../client/store/email/outbox/"
                                           to ts ".xml")
                              xmlStr
                              state)
