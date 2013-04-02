@@ -65,13 +65,13 @@
 (defun writeEmailToFile (xmlStr to ts state)
   (mv-let (error state)
           (string-list->file (concatenate 'string 
-                                          "../client/store/email/outbox/"
+                                          "../store/email/outbox/"
                                           to ts ".xml")
                              xmlStr
                              state)
      (if error
          (mv error state)
-         (mv "Write C:/foo.wpd succeeded" state))))
+         (mv "XML File Written Successfully" state))))
 
 
 (defun writeMessage (to from sub msg state)

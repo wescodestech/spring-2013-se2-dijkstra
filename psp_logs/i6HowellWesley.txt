@@ -9,7 +9,7 @@ language: ACL2
 
 
 actual added lines: 401
-actual base lines: 66
+actual base lines: 16
 actual modified lines: 15
 actual removed lines: 0
 
@@ -255,6 +255,18 @@ time log:
 	  phase: Coding
 	  comment: Tweaked the shell scripts for the clients to ensure that the server has ample time to process a single email message and that the client will not overload the server by adding too many emails to the queue. 
 
+	- date: April 1, 2013
+	  start time: 5:55PM
+	  end time: 6:47PM
+	  phase: Coding
+	  comment: Worked on reworking the Java Gui client to work directly with ACL2 instead of relying on shell scripts. This allows faster and more secure connections between remote host for our networking portions. 
+
+	- date: April 1, 2013
+	  start time: 8:59PM
+	  end time: 11:10PM
+	  phase: Coding
+	  comment: Continued to work on the Java integration with ALC2. I was able to complete most of the Send email functions for the client. All that remains on this front is sending the file's contents over the network.
+
 defect log:
 
 	- date: Jan 22, 2013
@@ -306,3 +318,8 @@ defect log:
 	type: Testing
 	fix time: 16
 	comment: The theorem that tested the email data structure was not passing. This was traced to an error in the proof and not in the code. The error was trying to access an item that was not in the structure, hence the failure of the proof.
+
+-date: April 1, 2013
+	type: Coding
+	fix time: 23
+	comment: Working on integrating the ALC2 with Java. Having trouble getting Java to see the files that ACL2 has generated. Right now, the current solution is to make the Java sleep for a couple of seconds while ACL2 finishes its processing then resume. Then it sees the files that ALC2 generates
