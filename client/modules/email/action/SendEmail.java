@@ -28,8 +28,8 @@ import java.util.Date;
 
 public class SendEmail {
 	
-	public final static String OUTPATH = "store/email/outbox/";
-	public final static String ACL2PATH = "/Users/w_howell/Desktop/acl2-image-4.3.0/saved_acl2";
+    	public final static String OUTPATH = "store/email/outbox/";
+    //	public final static String ACL2PATH = "/Users/w_howell/Desktop/acl2-image-4.3.0/saved_acl2";
 	
 
 	
@@ -41,7 +41,30 @@ public class SendEmail {
 	 * @param msg
 	 */
 	public static void sendMessage(String to, String from, String sub, String msg){
-		
+	    String ACL2PATH = "";
+	    //Load the Config File
+	    BufferedReader configreader = null;
+				try {
+					configreader = new BufferedReader(new FileReader ("config/acl2path.dat"));
+					
+					
+					try {
+					    ACL2PATH = configreader.readLine();
+					    System.out.println(ACL2PATH);
+							
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				
+
 		//Build the ACL2 script
 		String script = "(in-package \"ACL2\")(include-book \"modules/email/action/rw-email\"" +
 				" :uncertified-okp t) (writeMessage \""+to+"\" \""+from+"\" \""+sub+"\" \""+msg+"\" state)";
