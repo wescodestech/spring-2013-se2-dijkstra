@@ -72,23 +72,7 @@ public class GetEmail {
 
 		//Parse the imported files Originally found in the shell script
 		
-        //Get the ACL2 path
-       String ACL2PATH = "";
-	    //Load the Config File
-	   BufferedReader configreader = null;
-	   try {
-		   configreader = new BufferedReader(new FileReader ("config/acl2path.dat"));
-		   try {
-			   ACL2PATH = configreader.readLine();
-			   System.out.println(ACL2PATH);		
-		   } catch (IOException e) {
-			   // TODO Auto-generated catch block
-			   e.printStackTrace();
-		   }
-	   } catch (FileNotFoundException e) {
-		   // TODO Auto-generated catch block
-		   e.printStackTrace();
-	   }
+    
 	   
 	   int datecnt = 1;
 	   File folder = new File(INPATH);
@@ -106,7 +90,7 @@ public class GetEmail {
 				//Run on ACL2
 				// Initialize ACL2 and dump its output to the log
 				System.out.println("Executing ACL2 runtime for Email Generation...");
-				ProcessBuilder processBuilder = new ProcessBuilder(ACL2PATH);
+				ProcessBuilder processBuilder = new ProcessBuilder("acl2");
 				File log = new File("logs/acl2_log.txt");
 				processBuilder.redirectErrorStream(true);
 				processBuilder.redirectOutput(log);
