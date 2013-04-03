@@ -68,5 +68,5 @@ Rules: NIL
 Warnings:  Uncertified and Compiled file
 Time:  0.11 seconds (prove: 0.00, print: 0.00, other: 0.11)
  "/Users/w_howell/code/spring-2013-se2-dijkstra/client/modules/email/action/rw-email.lisp"
-ACL2 !>("XML File Written Successfully" <state>)
+ACL2 !>("Success File has been written!" <state>)
 ACL2 !>

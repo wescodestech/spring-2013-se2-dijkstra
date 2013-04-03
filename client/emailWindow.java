@@ -1,4 +1,4 @@
-
+import modules.email.action.*;
 import javax.swing.*;
 
 import java.awt.event.ActionListener;
@@ -72,18 +72,25 @@ public class emailWindow extends JFrame {
                 btnGetEmail.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent arg0) {
                                 String s;
-                                try {
-                                        Process p = Runtime.getRuntime().exec(
-                                                        "sh /Users/w_howell/code/spring-2013-se2-dijkstra/client/modules/email/email-action/java-email.sh");
-                                        BufferedReader err = new BufferedReader (
-                                                        new InputStreamReader (p.getErrorStream()));
-                                        while ((s = err.readLine()) != null) {
-                                                System.out.println(s);
-                                        }
+//                                
+                                GetEmail.getEmail("matthew.crist", "localhost", "simulation");
+                                try{
+                                Thread.sleep(2000);
+                                } catch (InterruptedException e){
+                                	e.printStackTrace();
                                 }
-                                catch (Exception e) {
-                                        e.printStackTrace();
-                                }
+                                //try {
+//                                        Process p = Runtime.getRuntime().exec(
+//                                                        "sh /Users/w_howell/code/spring-2013-se2-dijkstra/client/modules/email/email-action/java-email.sh");
+//                                        BufferedReader err = new BufferedReader (
+//                                                        new InputStreamReader (p.getErrorStream()));
+//                                        while ((s = err.readLine()) != null) {
+//                                                System.out.println(s);
+//                                        }
+//                                }
+//                                catch (Exception e) {
+//                                        e.printStackTrace();
+//                                }
                                 
                                 //Update Jlist
                                 File folder = new File("/Users/w_howell/code/spring-2013-se2-dijkstra/client/store/email/inbox");

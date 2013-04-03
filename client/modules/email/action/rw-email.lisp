@@ -45,7 +45,7 @@
          (mv error-open state)
          (mv-let (error-close state)
                  (string-list->file 
-                  (concatenate 'string "/store/email/inbox/"
+                  (concatenate 'string "store/email/inbox/"
                                
                                "msg_"
                                fout

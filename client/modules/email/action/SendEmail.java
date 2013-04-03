@@ -1,15 +1,8 @@
 package modules.email.action;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Date;
+import java.io.*;
+import java.util.*;
+import java.net.*;
 
 
 /**
@@ -113,6 +106,9 @@ public class SendEmail {
 				BufferedReader reader = null;
 				
 				try {
+				    //Use the string builder to append each email to the string,
+				    //Add the string to the list when it reaches the end
+				    //Start a new string builder for each new email in the file.
 					reader = new BufferedReader(new FileReader (f));
 					String line = null;
 					
@@ -138,36 +134,42 @@ public class SendEmail {
 				
 				contents.add(strb.toString());
 				
+				//Remove the file since we do not need it anymore.
 				f.delete();
 				
 				int count = 1;
 				
 				for(String str : contents){
-					/*
-					 * Open a new file for each one and save the contents.
-					 */
-					try{
-						FileWriter fstream = new FileWriter(OUTPATH + (new Date().toString()) + "_"+count+".xml");
-						BufferedWriter out = new BufferedWriter(fstream);
-						out.write(str);
-						out.close();
-					} catch (Exception e){
-						e.printStackTrace();
-					}
+				    
+				    /*
+				      We will now send each email to the server
+				    */
+
+					Socket server = null;
+					PrintWriter out = null;
+					BufferedReader in = null;
+
+					try {
+					    System.out.println("Opening socket...");
+					    server = new Socket("localhost", 20005);
+					    System.out.println("Connection successful!");
+					    out = new PrintWriter(server.getOutputStream(), true);
+					    in = new BufferedReader(new InputStreamReader(server.getInputStream()));
+
+					    out.println(str);
 					
-					count ++;
+					    out.flush();
+					    out.close();
+					    in.close();
+					    server.close();
+		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 				}
 			}
 			
 		}
-		
-		
-		
-		
-		//Send ALL files over socket 20005
-		
-		
-		
 		
 		
 		
