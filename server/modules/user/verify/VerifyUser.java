@@ -116,7 +116,8 @@ public class VerifyUser {
 						System.out.println("Writing emails to client.");
 						// Read the contents of each email and transmit them to the client.
 						for(int i = 0; i < emails.length; i++) {
-							BufferedReader eRead = new BufferedReader(new FileReader(emails[i]));
+						   if(!emails[i].isHidden()){	
+						     BufferedReader eRead = new BufferedReader(new FileReader(emails[i]));
 							String eTmp = "";
 							while((eTmp = eRead.readLine()) != null) {
 								transmit += eTmp;
@@ -129,6 +130,7 @@ public class VerifyUser {
 							out.newLine();
 							// Reset the buffer
 							transmit = "";
+						}
 						}	// end for
 						
 						out.write("END");
