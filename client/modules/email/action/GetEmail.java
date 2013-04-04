@@ -28,9 +28,9 @@ public class GetEmail {
 			if(server.isConnected()) {
 				out.write("<?xml version='1.0'?>");
 				out.write("<verify>");
-				out.write("<domain>localhost</domain>");
-				out.write("<name>matthew.crist</name>");
-				out.write("<password>simulation</password>");
+				out.write("<domain>"+domain+"</domain>");
+				out.write("<name>"+name+"</name>");
+				out.write("<password>"+password+"</password>");
 				out.write("</verify>");
 				out.newLine();
 				out.flush();	// flush should write
@@ -120,7 +120,7 @@ public class GetEmail {
 				    e.printStackTrace();
 		       }
 			
-			//f.delete();
+			f.delete();
 			datecnt ++;
 	   }
 	

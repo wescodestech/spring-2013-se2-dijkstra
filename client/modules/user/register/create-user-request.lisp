@@ -55,7 +55,7 @@
     (mv-let (error state)
             (string-list->file
              (concatenate 'string
-                  (string-append "../../../store/user/requests/register/request-register" (rat->str timeStamp 0))
+                  (string-append "store/user/requests/register/request-register" (rat->str timeStamp 0))
                   ".xml")
              (list 
                   "<?xml version='1.0'?>"

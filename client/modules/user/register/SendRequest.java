@@ -17,7 +17,7 @@ import java.net.*;
 
 public class SendRequest {
 	
-	public final static String OUTPATH = "store/user/requests/";
+	public final static String OUTPATH = "store/user/requests/register/";
 	public final static String INPATH = "incoming/email";
 	
 	public static void sendRequest (String name, String domain, String password){
@@ -68,7 +68,7 @@ public class SendRequest {
 		
 		try {
 			System.out.println("Opening socket...");
-			server = new Socket("localhost", 20001);
+			server = new Socket("localhost", 20003);
 			System.out.println("Connection successful!");
 			out = new PrintWriter(server.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(server.getInputStream()));
@@ -87,6 +87,7 @@ public class SendRequest {
 						String line = null;
 						try {
 							while ((line = reader.readLine()) != null){
+								System.out.println(line);
 								out.println(line);
 							}
 						} catch (IOException e) {
