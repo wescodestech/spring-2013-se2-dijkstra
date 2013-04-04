@@ -144,3 +144,12 @@ java.net.BindException: Address already in use: JVM_Bind
 	at java.net.ServerSocket.<init>(Unknown Source)
 	at java.net.ServerSocket.<init>(Unknown Source)
 	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
+java.net.BindException: Address already in use: JVM_Bind
+	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
+	at java.net.PlainSocketImpl.bind(Unknown Source)
+	at java.net.ServerSocket.bind(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at modules.user.register.RegisterUser.main(RegisterUser.java:39)

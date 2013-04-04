@@ -121,7 +121,7 @@ public class emailWindow extends JFrame {
                 /**
                  * Load the Files in the inbox and add to the list of input
                  */
-                File folder = new File("/Users/w_howell/code/spring-2013-se2-dijkstra/client/store/email/inbox");
+                File folder = new File("store/email/inbox");
         File [] rawContents = folder.listFiles();
         listofFiles = new File[rawContents.length];
         names = new String[rawContents.length];
