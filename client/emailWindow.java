@@ -170,7 +170,7 @@ public class emailWindow extends JFrame {
                            
                         }
                 });
-                list.setBounds(16, 44, 315, 632);
+                list.setBounds(16, 44, 315, 612);
                 list.setListData(names);
                 getContentPane().add(list);
                 
@@ -269,6 +269,35 @@ public class emailWindow extends JFrame {
                 btnRegister.setIcon(new ImageIcon("lib/user_add.png"));
                 btnRegister.setBounds(901, 6, 117, 29);
                 getContentPane().add(btnRegister);
+		
+		JButton btnNewButton = new JButton("Delete Message");
+		btnNewButton.setIcon(new ImageIcon("lib/email_delete.png"));
+                btnNewButton.addActionListener(new ActionListener() {
+                	public void actionPerformed(ActionEvent e) {
+			    int currentlySelected = list.getSelectedIndex();
+			    listofFiles[currentlySelected].delete();
+
+
+			    //Update Jlist
+                            File folder = new File("store/email/inbox");
+			    folder.mkdirs();
+			    File [] rawContents = folder.listFiles();
+			    listofFiles = new File[rawContents.length];
+			    names = new String[rawContents.length];
+                       
+			    for (int i = 0; i < rawContents.length; i++){
+                                if(rawContents[i].isFile() && !rawContents[i].isHidden()){
+                                        listofFiles[i] = rawContents[i];
+                                        names[i] = getEmailHeader(listofFiles[i]);
+                                }
+			    }
+			    list.setListData(names);
+                	}
+                });
+                btnNewButton.setBounds(16, 657, 315, 29);
+                getContentPane().add(btnNewButton);
+		
+
         }
         
         /**
