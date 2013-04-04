@@ -98,7 +98,8 @@ public class emailWindow extends JFrame {
 //                                }
                                 
                                 //Update Jlist
-                                File folder = new File("/Users/w_howell/code/spring-2013-se2-dijkstra/client/store/email/inbox");
+                                File folder = new File("store/email/inbox");
+								folder.mkdirs();
                         File [] rawContents = folder.listFiles();
                         listofFiles = new File[rawContents.length];
                         names = new String[rawContents.length];

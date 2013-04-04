@@ -46,6 +46,7 @@ public class GetEmail {
 					    BufferedWriter fout = new BufferedWriter(fstream);
 					    fout.write(response);
 					    fout.close();
+						count++;
 					} catch (Exception e){
 					    System.err.println("Error: "+e.getMessage());
 					}
@@ -76,15 +77,16 @@ public class GetEmail {
 	   
 	   int datecnt = 1;
 	   File folder = new File(INPATH);
+	   folder.mkdirs();
 	   File[] listOfFiles = folder.listFiles();
 	   for (File f : listOfFiles){
 			if(f.isFile() && !f.isHidden()){
 				//Build the ACL2 script
 				String unique = (new Date().toString()) +"_" + datecnt;
-				unique.replace(' ', '_');
-				unique.replace(':', '_');
+				unique = unique.replace(' ', '_');
+				unique = unique.replace(':', '_');
 				String script = "(in-package \"ACL2\")(include-book \"modules/email/action/rw-email\"" +
-						" :uncertified-okp t) (readEmail \""+f.getPath()+"\" \""+unique+"\" state)";
+						" :uncertified-okp t) (readEmail \"incoming/email/"+f.getName()+"\" \""+unique+"\" state)";
 				
 				try{
 				//Run on ACL2
@@ -118,7 +120,7 @@ public class GetEmail {
 				    e.printStackTrace();
 		       }
 			
-			f.delete();
+			//f.delete();
 			datecnt ++;
 	   }
 	

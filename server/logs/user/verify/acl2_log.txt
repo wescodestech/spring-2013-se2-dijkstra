@@ -71,7 +71,7 @@ Summary
 Form:  ( INCLUDE-BOOK "modules/user/verify/verify-user" ...)
 Rules: NIL
 Warnings:  Uncertified and Compiled file
-Time:  0.14 seconds (prove: 0.00, print: 0.00, other: 0.14)
+Time:  0.19 seconds (prove: 0.00, print: 0.00, other: 0.19)
  "C:/Users/Matthew/Documents/My Projects/Software Engineering II/server/modules/user/verify/verify-user.lisp"
 ACL2 !> "ACL2"
 ACL2 !> T

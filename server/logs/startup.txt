@@ -153,3 +153,6 @@ java.net.BindException: Address already in use: JVM_Bind
 	at java.net.ServerSocket.<init>(Unknown Source)
 	at java.net.ServerSocket.<init>(Unknown Source)
 	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
+Executing ACL2 runtime for RegisterUser...
+Old Store Size: 313
+New Store Size: 316
