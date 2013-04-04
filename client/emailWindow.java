@@ -1,4 +1,5 @@
 import modules.email.action.*;
+import modules.user.register.*;
 import javax.swing.*;
 
 import java.awt.event.ActionListener;
@@ -40,6 +41,9 @@ public class emailWindow extends JFrame {
         private static final long serialVersionUID = 1L;
         private  File [] listofFiles;
         private String [] names;
+        private String currentUser     = "";
+        private String currentDomain   = "";
+        private String currentPassword = "";
         
         /**
          * Run The Email Window object. Most of the code will be handled here.
@@ -73,7 +77,8 @@ public class emailWindow extends JFrame {
                         public void actionPerformed(ActionEvent arg0) {
                                 String s;
 //                                
-                                GetEmail.getEmail("matthew.crist", "localhost", "simulation");
+                                //GetEmail.getEmail("matthew.crist", "localhost", "simulation");
+                                GetEmail.getEmail(currentUser, currentDomain, currentPassword);
                                 try{
                                 Thread.sleep(2000);
                                 } catch (InterruptedException e){
@@ -252,6 +257,14 @@ public class emailWindow extends JFrame {
                  * Register Email button
                  */
                 JButton btnRegister = new JButton("Register");
+                btnRegister.addActionListener(new ActionListener() {
+                	public void actionPerformed(ActionEvent e) {
+                		currentUser = JOptionPane.showInputDialog("Input your name");
+                		currentDomain  = JOptionPane.showInputDialog("input your domain");
+                		currentPassword  = JOptionPane.showInputDialog("Input your Password");                		
+                		SendRequest.sendRequest(currentUser, currentDomain, currentPassword);
+                	}
+                });
                 btnRegister.setIcon(new ImageIcon("lib/user_add.png"));
                 btnRegister.setBounds(901, 6, 117, 29);
                 getContentPane().add(btnRegister);
