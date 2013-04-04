@@ -7,7 +7,7 @@
 ;
 ; CHANGE LOG:
 ; -------------------------------------------------------------------------
-; 
+; 2013-03-25	-	Initial file conception.
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -58,19 +58,19 @@
     (mv-let (error state)
             (string-list->file
              (concatenate 'string
-                  (string-append "./requests/request-block-" (rat->str timeStamp 0))
+                  (string-append "../../../store/user/requests/block/request-block" (rat->str timeStamp 0))
                   ".xml")
              (list 
                   "<?xml version='1.0'?>"
                   ;"<!DOCTYPE user SYSTEM '../../../dtd/register-user.dtd'>" ; NEED DTD FOR BLOCK USER
-                  "<user>" 
+                  "<blocker>" 
                   blockerDomain 
                   blockerName 
-                  "</user>"
-                  "<user>" 
+                  "</blocker>"
+                  "<blockee>" 
                   blockeeDomain 
                   blockeeName 
-                  "</user>")
+                  "</blockee>")
              state)
             (if error
                 (mv error state)
