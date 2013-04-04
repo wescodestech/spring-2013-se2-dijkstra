@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <!DOCTYPE message SYSTEM 'dtd/system-message.dtd'>
 <message>
-   <action>ACCEPT</action>
+   <action>REJECT</action>
    <location></location>
 </message>

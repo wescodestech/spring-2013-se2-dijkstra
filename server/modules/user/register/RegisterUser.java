@@ -36,7 +36,7 @@ public class RegisterUser {
 		
 		try {
 			// Acquire the listening port for connection to client.
-			ServerSocket server = new ServerSocket(20001);
+			ServerSocket server = new ServerSocket(20003);
 			
 			while(listening) {
 				// Wait until the client connects
@@ -51,7 +51,8 @@ public class RegisterUser {
 				
 				// Read the input from the connection
 				while((input = in.readLine()) != null) {
-					request += input;
+				    System.out.println(input);
+				    request += input;
 				}	// end while
 				
 				// Read the contents of the address-book currently stored
@@ -80,7 +81,7 @@ public class RegisterUser {
 				procIn.println("(good-bye)");
 				procIn.flush();
 				procIn.close();
-				
+				System.out.println("FinishedACL2");
 				// Old store is old address-book file and new store is newly generated
 				File oldStore = new File("store/address-book/address-book.xml");
 				File newStore = new File("store/address-book/temp_address-book.xml");
@@ -90,8 +91,8 @@ public class RegisterUser {
 								  "<!DOCTYPE response SYSTEM 'dtd/reponse.dtd'>" +
 								  "<response>";
 				
-				System.out.println("Old Store Size: " + oldStore.length());
-				System.out.println("New Store Size: " + newStore.length());
+				//System.out.println("Old Store Size: " + oldStore.length());
+				//System.out.println("New Store Size: " + newStore.length());
 				
 				// Determine if there was a change.
 				// If entry was added, the length > that old length.
@@ -121,7 +122,7 @@ public class RegisterUser {
 				response += "</response>";
 				
 				// Writeback the response to the client
-				out.print(response);
+				//out.print(response);
 				out.flush();
 				
 				// Close all streams
