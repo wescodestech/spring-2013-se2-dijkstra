@@ -30,6 +30,7 @@ package modules.user.verify;
 import java.io.*;
 import java.util.*;
 import java.net.*;
+import lib.*;
 
 public class VerifyUser {
 	public static void main(String[] args) {
@@ -39,7 +40,9 @@ public class VerifyUser {
 			ServerSocket server = new ServerSocket(20002);
 
 			while(listening) {
+				ServerConsole.post("User verification bound to post 20002.\n");
 				Socket client = server.accept();
+				ServerConsole.post("User verification request accepted.  Processing...");
 
 				BufferedWriter out = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
 				BufferedReader in  = new BufferedReader(new InputStreamReader(client.getInputStream()));
@@ -65,7 +68,7 @@ public class VerifyUser {
 				              "(testUser \"" + request + "\" \"" + store + "\" state)";
 				
 				// Proceed to spur the ACL2 process and place a wrapper on the IO
-				System.out.println("Executing ACL2 runtime for User Verification...");
+				ServerConsole.post("Executing ACL2 runtime for User Verification...");
 				ProcessBuilder processBuilder = new ProcessBuilder("acl2");
 				File log = new File("logs/user/verify/acl2_log.txt");
 				processBuilder.redirectErrorStream(true);
@@ -86,11 +89,13 @@ public class VerifyUser {
 				BufferedReader tRead = new BufferedReader(new FileReader("incoming/user/verify/server-action.xml"));
 				String failBuffer = "";
 				
-				System.out.println("Determining if login information is correct.");
+				ServerConsole.post("Determining if login information is correct.");
+				
 				while((input = tRead.readLine()) != null) {
 					// Because I am lazy and don't want to parse the XML
 					if(input.contains("ACCEPT")) {
 						proceed = true;
+						ServerConsole.post("User verified successfully!");
 					} else {
 						failBuffer += request;
 					}	// end if-else
@@ -105,7 +110,7 @@ public class VerifyUser {
 
 					File emailDirectory = new File("store/email/" + domain + "/" + name + "/");
 					
-					System.out.println("Sending emails from " + emailDirectory.getPath());
+					ServerConsole.post("Sending emails from " + emailDirectory.getPath());
 					
 					// It better be a damn directory, but incase someone has leet hacks
 					if(emailDirectory.isDirectory()) {
@@ -113,31 +118,32 @@ public class VerifyUser {
 						
 						String transmit = "";
 						
-						System.out.println("Writing emails to client.");
+						ServerConsole.post("Writing emails to client.");
 						// Read the contents of each email and transmit them to the client.
 						for(int i = 0; i < emails.length; i++) {
 						   if(!emails[i].isHidden()){	
-						     BufferedReader eRead = new BufferedReader(new FileReader(emails[i]));
-							String eTmp = "";
-							while((eTmp = eRead.readLine()) != null) {
-								transmit += eTmp;
-							}	// end while
+							   BufferedReader eRead = new BufferedReader(new FileReader(emails[i]));
+							   String eTmp = "";
+							   while((eTmp = eRead.readLine()) != null) {
+								   transmit += eTmp;
+							   }	// end while
 							
-							eRead.close();
+							   eRead.close();
 							
-							// Write email to client
-							out.write(transmit);
-							out.newLine();
-							// Reset the buffer
-							transmit = "";
-						}
+							   // Write email to client
+							   out.write(transmit);
+							   out.newLine();
+							   // Reset the buffer
+							   transmit = "";
+						   }	// end if
 						}	// end for
 						
 						out.write("END");
 					} else {
 						// Create the directory since it should be there!!!
 						emailDirectory.mkdirs();
-						out.write("There was an internal server error: Inbox does not exist!");
+						
+						ServerConsole.post("There was an internal server error: Inbox does not exist!\n");
 						out.write("END");
 					}	// end if-else
 				} else {
@@ -155,6 +161,7 @@ public class VerifyUser {
 			server.close();
 			System.exit(0);
 		} catch(Exception e) {
+			ServerConsole.post(e.getMessage());
 			e.printStackTrace();
 		}	// end try/catch
 	}	// end function main

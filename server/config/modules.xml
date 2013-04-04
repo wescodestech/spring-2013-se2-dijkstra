@@ -2,13 +2,18 @@
 <!DOCTYPE modules SYSTEM '../dtd/module.dtd'>
 <modules>
 	<module>
+		<name>User Registration</name>
+		<invoke>modules.user.register.RegisterUser</invoke>
+		<port>20001</port>
+	</module>
+	<module>
 		<name>User Verification</name>
 		<invoke>modules.user.verify.VerifyUser</invoke>
 		<port>20002</port>
 	</module>
 	<module>
-		<name>user.register</name>
-		<invoke>modules.user.register.RegisterUser</invoke>
-		<port>20001</port>
+		<name>Send Email</name>
+		<invoke>modules.email.send.SendEmail</invoke>
+		<port>20005</port>
 	</module>
 </modules>

@@ -10,8 +10,6 @@ import lib.*;
 public class Server extends JFrame {
 	private ArrayList<Process> activeProcesses;
 	private ModuleManager manager;
-	
-	public static JTextArea console = new JTextArea();
 
 	/*
     * Default constructor for this class.
@@ -73,19 +71,12 @@ public class Server extends JFrame {
 		_server.add(_exit);
 		
 		JMenu _modules = new JMenu("Modules");
-		JMenuItem _registerModules = new JMenuItem("Registration");
 		JMenuItem _manageModules   = new JMenuItem("Management");
-		_modules.add(_registerModules);
 		_modules.add(_manageModules);
-		
-		_registerModules.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-				manager.getAddModuleDialog();
-			}	// end method actionPerformed
-		});
 		
 		_manageModules.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
+				// Add through new module addition
 				manager.getManageModuleDialog();
 			}	// end method actionPerformed
 		});
@@ -106,7 +97,7 @@ public class Server extends JFrame {
 		_menuBar.add(_help);
 		
 		JPanel _layoutPanel = new JPanel(new BorderLayout());
-		JScrollPane scroller = new JScrollPane(Server.console);
+		JScrollPane scroller = new JScrollPane(ServerConsole.console);
 		_layoutPanel.add(scroller, BorderLayout.CENTER);
 		
 		this.setJMenuBar(_menuBar);
@@ -129,8 +120,7 @@ public class Server extends JFrame {
 	public void startup() {
 		ArrayList<Module> modules = this.manager.getModules();
 		
-		String msg = "System startup in progress...\n";
-		Server.console.setText(Server.console.getText().concat(msg));
+		ServerConsole.post("System startup in progress...\n");
 		
 		// Cycle through all available modules and start their process
 		for(int i = 0; i < modules.size(); i++) {
@@ -146,8 +136,7 @@ public class Server extends JFrame {
 				Process p = pb.start();
 				activeProcesses.add(p);
 				
-				msg = "Module Listening: [" + modules.get(i).getName() + "]; Port: [" + modules.get(i).getPort() + "]\n";
-				Server.console.setText(Server.console.getText().concat(msg));
+				ServerConsole.post("Module Listening: [" + modules.get(i).getName() + "]; Port: [" + modules.get(i).getPort() + "]\n");
 			} catch(Exception e) {
 				e.printStackTrace();
 			}	// end try/catch
@@ -158,8 +147,7 @@ public class Server extends JFrame {
 	 * Shuts down all the processes.
 	 */
 	public void shutdown() {
-		String msg = "System shutdown in progress...\n";
-		Server.console.setText(Server.console.getText().concat(msg));
+		ServerConsole.post("System shutdown in progress...\n");
 		for(int i = 0; i < activeProcesses.size(); i++)
 		{
 			this.activeProcesses.get(i).destroy();

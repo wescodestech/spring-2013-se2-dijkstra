@@ -25,11 +25,19 @@ import org.w3c.dom.*;
 public class ModuleManager extends JDialog {
 	public ArrayList<Module> modules = new ArrayList<Module>();
 
-	private JDialog dialog;
+	private JDialog    _addDialog;
+	private JDialog    _modDialog;
 	private JTextField _fileInput;
 	private JTextField _nameInput;
 	private JTextField _portInput;
 	private JButton    _removeModule;
+	private JButton    _modifyModule;
+	private JButton    _saveModules;
+	private JList      moduleList;
+	private JPanel     _addLayout;
+	private JPanel     _manageLayout;
+	
+	private Module _temp;
 
 	/**
      * Default, unargumented constructor for this class.
@@ -43,10 +51,12 @@ public class ModuleManager extends JDialog {
 	 * that are registered with the server.
 	 */
 	public void getManageModuleDialog() {
-		JPanel _main = new JPanel(new BorderLayout());
+		_modDialog    = new JDialog();
+		_manageLayout = new JPanel(null);
 		
 		DefaultListModel<String> listModel = new DefaultListModel<String>();
-		JList moduleList = new JList(listModel);
+		moduleList = new JList(listModel);
+		moduleList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		JScrollPane scroller = new JScrollPane(moduleList);
 		
 		// Add all the modules to the list model
@@ -54,51 +64,103 @@ public class ModuleManager extends JDialog {
 			listModel.addElement(this.modules.get(i).getName());
 		}	// end for loop
 		
+		JButton _addButton = new JButton("Register");
 		_removeModule = new JButton("Remove");
+		_modifyModule = new JButton("Modify");
+		_saveModules  = new JButton("Save");
+		JButton _cancelButton = new JButton("Cancel");
 		
-		/*
-		moduleList.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+		_removeModule.setEnabled(false);
+		_modifyModule.setEnabled(false);
+		
+		// List Selection for button activation
+		moduleList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent lse) {
-				if(((ListSelectionModel).lse.getSource()).isSelectionEmpty()) {
-					_removeModule.setEnabled(false);
-				} else {
-					_removeModule.setEnabled(true);
-				}
-			}
-		});*/
+				if(lse.getValueIsAdjusting() == false) {
+					if(moduleList.getSelectedIndex() == -1) {
+						_removeModule.setEnabled(false);
+						_modifyModule.setEnabled(false);
+					} else {
+						_removeModule.setEnabled(true);
+						_modifyModule.setEnabled(true);
+					}	// end if-else
+				}	// end if
+			}	// end method valueChanged
+		});
 		
-		JButton _saveModules = new JButton("Save");
+		// Add button action listener
+		_addButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				_modDialog.setVisible(false);
+				getAddModuleDialog();
+			}	// end method actionPerformed
+		});
+		
 		_saveModules.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				boolean status = storeModules("config/modules.xml");
 				
 				if(status) {
 					JOptionPane.showMessageDialog(((JButton)ae.getSource()).getRootPane(), "Modules updated successfully!");
+					_modDialog.dispose();
 				} else {
 					JOptionPane.showMessageDialog(((JButton)ae.getSource()).getRootPane(), "Unable to update modules.  Please see console output.", "Module Management Error", JOptionPane.ERROR_MESSAGE);
+					_modDialog.dispose();
 				}	// end if-else
 			}	// end method actionPerformed
 		});
 		
-		_main.setBorder(BorderFactory.createTitledBorder("Module Management"));
-		_main.add(scroller, BorderLayout.CENTER);
-		_main.add(_saveModules, BorderLayout.SOUTH);
+		_modifyModule.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				Module _selected = getModule((String)moduleList.getSelectedValue());
+				getAddModuleDialog(_selected.getName(), _selected.getInvocation(), _selected.getPort());
+				_modDialog.setVisible(false);
+			}	// end method actionPerformed
+		});
 		
-		this.add(_main);
+		_manageLayout.setBorder(BorderFactory.createTitledBorder("Module Management"));
+		
+		scroller.setBounds(20, 20, 200, 300);
+		_addButton.setBounds(230, 20, 100, 20);
+		_modifyModule.setBounds(230, 45, 100, 20);
+		_removeModule.setBounds(230, 70, 100, 20);
+		_saveModules.setBounds(230, 300, 100, 20);
+		_cancelButton.setBounds(230, 275, 100, 20);
+		
+		_manageLayout.add(scroller);
+		_manageLayout.add(_addButton);
+		_manageLayout.add(_modifyModule);
+		_manageLayout.add(_removeModule);
+		_manageLayout.add(_saveModules);
+		_manageLayout.add(_cancelButton);
+		
+		_modDialog.add(_manageLayout);
 		
 		int width  = Toolkit.getDefaultToolkit().getScreenSize().width;
 		int height = Toolkit.getDefaultToolkit().getScreenSize().height;
-		this.setBounds(width/2-300, height/2-200, 600, 400);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setVisible(true);
+		_modDialog.setBounds(width/2-185, height/2-190, 370, 380);
+		_modDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		_modDialog.setVisible(true);
 	}	// end method getManageModuleDialog
 	
 	/**
-	  * Acquires the dialog that will allow a user to register a module with the 
-      * server for monitoring.
-	  */
+	 * Overloaded getAddModuleDialog that will get the "ADD" action to a module.
+	 */
 	public void getAddModuleDialog() {
-		JPanel _main = new JPanel();		
+		getAddModuleDialog(null, null, null);
+	}	// end method getAddModuleDialog
+	
+	/**
+	  * Acquires the dialog that will allow a user to register a module with the 
+      * server for monitoring.  EDIT by default for parameters passed.
+	  */
+	public void getAddModuleDialog(String t_name, String t_invoke, String t_port) {
+		final String _name = t_name;
+		final String _invoke = t_invoke;
+		final String _port = t_port;
+		
+		_addLayout = new JPanel(null);
+		_addDialog = new JDialog();
 
 		JLabel _nameLabel   = new JLabel("Module Name:");
 		JLabel _invokeLabel = new JLabel("Script to Invoke:");
@@ -108,13 +170,25 @@ public class ModuleManager extends JDialog {
 		_fileInput  = new JTextField();
 		_portInput  = new JTextField();
 
-		JButton _fileSelect       = new JButton("Select File...");
-		JButton _saveModuleButton = new JButton("Save Module");
+		// Determine if we are editing or it is a new entry
+		if((_name != null) && (_invoke != null) && (_port != null)) {
+			_nameInput.setText(_name);
+			_fileInput.setText(_invoke);
+			_portInput.setText(_port);
+			
+			// Temporarily store the old name to ensure it's removal if edited.
+			_temp = getModule(_name);
+			removeModule(_name);
+		}	// end if
+		
+		JButton _fileSelect       = new JButton("Select...");
+		JButton _saveModuleButton = new JButton("Save");
+		JButton _cancelButton     = new JButton("Cancel");
 
 		_fileSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae)	{
 				JFileChooser chooser = new JFileChooser(".");
-				int val = chooser.showOpenDialog(dialog);
+				int val = chooser.showOpenDialog(_addDialog);
 				
 				if(val == JFileChooser.APPROVE_OPTION) {
 					String filePath      = chooser.getSelectedFile().getPath();
@@ -131,6 +205,7 @@ public class ModuleManager extends JDialog {
 			}	// end method actionPerformed
 		});
 
+		// The save action against the new module.
 		_saveModuleButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent ae)
@@ -140,67 +215,69 @@ public class ModuleManager extends JDialog {
 				module.setInvocation(_fileInput.getText());
 				module.setPort(_portInput.getText());
 
+				// Remove the old module if declared and reset the name handler
+				if(_temp != null) {
+					_temp = null;
+				}	// end if
+				
+				// Add the module and dispose of the window
 				addModule(module);
+				_addDialog.dispose();
+				
+				getManageModuleDialog();
+			}	// end method actionPerformed
+		});
+		
+		/**
+		 * ActionListener for the cancel button that will discard any changes that
+		 * occured to the module, and dispose of the frame.
+		 */
+		_cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				if(_temp != null) {
+					addModule(_temp);
+					_temp = null;
+				}
+				_addDialog.dispose();
+				getManageModuleDialog();
 			}	// end method actionPerformed
 		});
 
-		GridBagConstraints gc = new GridBagConstraints();
-		GridBagLayout gbl = new GridBagLayout();
-		_main.setLayout(gbl);
-
-		gc.fill = GridBagConstraints.NONE;
-		gc.weightx = 0.0;
-		gc.gridx = 1;
-		gc.gridy = 1;
-		_main.add(_nameLabel, gc);		
-
-		gc.fill = GridBagConstraints.HORIZONTAL;
-		gc.weightx = 1.0;
-		gc.gridx = 2;
-		gc.gridwidth = 2;
-		_main.add(_nameInput, gc);
-
-		gc.fill = GridBagConstraints.NONE;
-		gc.weightx = 0.0;
-		gc.gridx = 1;
-		gc.gridy = 2;
-		gc.gridwidth = 1;
-		_main.add(_invokeLabel, gc);
-
-		gc.fill = GridBagConstraints.HORIZONTAL;
-		gc.weightx = 1.0;
-		gc.gridx = 2;
-		_main.add(_fileInput, gc);
-
-		gc.fill = GridBagConstraints.NONE;
-		gc.weightx = 0.0;
-		gc.gridx = 3;
-		_main.add(_fileSelect, gc);
-
-		gc.gridy = 3;
-		gc.gridx = 1;
-		_main.add(_portLabel, gc);
-	
-		gc.gridx = 2;
-		gc.gridwidth = 2;
-		gc.fill = GridBagConstraints.HORIZONTAL;
-		_main.add(_portInput, gc);
-	
-		gc.gridx = 3;
-		gc.gridy = 4;
-		gc.gridwidth = 1;
-		gc.weighty = 1.0;
-		gc.fill = GridBagConstraints.VERTICAL;
-		_main.add(_saveModuleButton, gc);
+		_nameLabel.setBounds(20, 20, 100, 20);
+		_invokeLabel.setBounds(20, 45, 100, 20);
+		_portLabel.setBounds(20, 70, 100, 20);
 		
-		_main.setBorder(BorderFactory.createTitledBorder("Register Module"));
+		_nameInput.setBounds(130, 20, 150, 20);
+		_fileInput.setBounds(130, 45, 150, 20);
+		_portInput.setBounds(130, 70, 150, 20);
 		
-		this.add(_main);
-		this.setBounds(0,0, 400, 150);
-		this.setResizable(false);
-		this.setVisible(true);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	}
+		_fileSelect.setBounds(290, 45, 100, 20);
+		
+		_addLayout.add(_nameLabel);
+		_addLayout.add(_nameInput);
+		_addLayout.add(_invokeLabel);
+		_addLayout.add(_fileInput);
+		_addLayout.add(_fileSelect);
+		_addLayout.add(_portLabel);
+		_addLayout.add(_portInput);
+		
+		JSeparator sep = new JSeparator();
+		sep.setBounds(20, 95, 380, 2);
+		_addLayout.add(sep);
+		
+		_cancelButton.setBounds(190, 105, 100, 20);
+		_addLayout.add(_cancelButton);
+		_saveModuleButton.setBounds(300, 105, 100, 20);
+		_addLayout.add(_saveModuleButton);
+		
+		_addLayout.setBorder(BorderFactory.createTitledBorder("Register Module"));
+		
+		_addDialog.add(_addLayout);
+		_addDialog.setBounds(0,0, 420, 170);
+		_addDialog.setResizable(false);
+		_addDialog.setVisible(true);
+		_addDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	}	// end method getAddModuleDialog
 
 	/**
 	  * Adds a module to the modules list.
@@ -233,7 +310,7 @@ public class ModuleManager extends JDialog {
 		boolean removed = false;
 
 		for(int i = 0; i < this.modules.size(); i++) {
-			if(this.modules.get(i).getName().toLowerCase() == name.toLowerCase()) {
+			if(this.modules.get(i).getName().toLowerCase().equals(name.toLowerCase())) {
 				this.modules.remove(i);
 				removed = true;
 			}	// end if
@@ -241,6 +318,19 @@ public class ModuleManager extends JDialog {
 		
 		return removed;
 	}	// end method removeModule
+	
+	/**
+	 * Acquires a module by its name.
+	 */
+	public Module getModule(String name) {
+		for(int i = 0; i < this.modules.size(); i++) {
+			if(this.modules.get(i).getName().toLowerCase().equals(name.toLowerCase())) {
+				return this.modules.get(i);
+			}	// end if
+		}	// end for loop
+		
+		return null;
+	}	// end method getModule
 		
 	/**
      * Loads the modules from a persistent XML storage file.
