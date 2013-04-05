@@ -18,15 +18,25 @@ To start the client, you must make sure that the path to your ACL2 binary is reg
 
 The Java SDK 1.7 is also required for development, but not deployment as we will only be required to use the Java Runtime 1.7 instead.  Regardless, if by typing `java` in the console of your choice, you are able to invoke the java application, your computer is properly set up to start the server process.  If not, you need to register the path variable to the location of your java SDK/RE.  A similar process is required for the `javac` command.
 
-Starting the server GUI only involves one command:
+In order to run the program, you need to ensure that all the java source code is compiled. The following directories contain java files for this program: 
+
+client
+client -> modules -> email -> action
+client -> modules -> user -> register
+
+Once these are compiled, starting the server GUI only involves one command from the client root directory:
 
 {{{ java ACL2Email }}}
 
 By typing this in the console you should be able to start the GUI. From the main window of the GUI, you should be able to send and receive email messages. Using the appropriate buttons, you will be able to connect to the server and process email messages. 
 
+The first thing you will need to do is register. Press the register client button, and enter information when prompted, by default, you should use "localhost" for your domain.
+
 To obtain email messages waiting on the server: Press the Get Email button. This will call the server program and get the email XML files from the server. These files are then handed off to ACL2 where they are processed into your inbox as HTML files. 
 
-To send and email. Press the New Message button and fill out the form. When the send button is pressed, ACL2 is called to create the XML files for the email message(s). Multiple recipients are allowed in emails and email addresses must be comma "," separated. 
+To send and email. Press the New Message button and fill out the form. When the send button is pressed, ACL2 is called to create the XML files for the email message(s). Multiple recipients are allowed in emails and email addresses must be comma "," separated.
+
+NOTE: you will need to have the server program started in order for the client to be operable.  
 
 =Modules=
 
@@ -38,7 +48,6 @@ The client currently consists of 3 basic modules:
 Each module is considered to be a standalone program and and run on its own without the client GUI.  
 
 As stated previously, each program is invoked through a new process and ideally the programmer dumps the log information to the logs folder which is similar to the path required to find the module (for instance modules/email/ is located under the logs/email/acl2_log.txt file.)  Because of this, the other modules in the GUI can still operate, even if one of the modules fail the programmer can update the failing program without having to recompile the entire program. 
-
 
 
 === Constructing a Module ===
