@@ -1,4 +1,3 @@
-<<<<<<< .mine
 ACL2_SYSTEM_BOOKS=C:/ACL2/books/
 saved_dir=C:/ACL2/books/
 Welcome to Clozure Common Lisp Version 1.8-r15286M  (WindowsX8664)!
@@ -72,7 +71,7 @@ Summary
 Form:  ( INCLUDE-BOOK "modules/user/verify/verify-user" ...)
 Rules: NIL
 Warnings:  Uncertified and Compiled file
-Time:  0.20 seconds (prove: 0.00, print: 0.00, other: 0.20)
+Time:  0.19 seconds (prove: 0.00, print: 0.00, other: 0.19)
  "C:/Users/Matthew/Documents/My Projects/Software Engineering II/server/modules/user/verify/verify-user.lisp"
 ACL2 !> "ACL2"
 ACL2 !> T
@@ -83,91 +82,3 @@ violations, :SET-GUARD-CHECKING NIL.  See :DOC set-guard-checking.
 
 ACL2 >("Action written successfully!" <state>)
 ACL2 >
-=======
-==> This saved_acl2 script is for compatibility with Makefiles, etc.     <==
-==> Use run_acl2 instead to automatically detect & adapt to being moved. <==
-
-Welcome to Clozure Common Lisp Version 1.7-r14925M  (DarwinX8632)!
-
- ACL2 Version 4.3 built September 12, 2011  02:13:47.
- Copyright (C) 2011  University of Texas at Austin
- ACL2 comes with ABSOLUTELY NO WARRANTY.  This is free software and you
- are welcome to redistribute it under certain conditions.  For details,
- see the GNU General Public License.
-
- Initialized with (INITIALIZE-ACL2 'INCLUDE-BOOK *ACL2-PASS-2-FILES*).
- See the documentation topic note-4-3 for recent changes.
- Note: We have modified the prompt in some underlying Lisps to further
- distinguish it from the ACL2 prompt.
-
-ACL2 Version 4.3.  Level 1.  Cbd 
-"/Users/w_howell/code/spring-2013-se2-dijkstra/server/".
-Distributed books directory 
-"/Users/w_howell/Desktop/acl2-image-4.3.0/books/".
-Type :help for help.
-Type (good-bye) to quit completely out of ACL2.
-
-ACL2 !>
-ACL2 Warning [Compiled file] in ( INCLUDE-BOOK 
-"modules/user/verify/verify-user" ...):  Unable to load compiled file
-for book
-  /Users/w_howell/code/spring-2013-se2-dijkstra/server/modules/user/verify/ver\
-ify-user.lisp
-because that book is not certified.  See :DOC include-book.  No load
-was in progress for any parent book.
-
-
-ACL2 Warning [Uncertified] in ( INCLUDE-BOOK 
-"modules/user/verify/verify-user" ...):  There is no certificate on
-file for 
-"/Users/w_howell/code/spring-2013-se2-dijkstra/server/modules/user/verify/verify-user.lisp".
-
-
-
-ACL2 Warning [Uncertified] in ( INCLUDE-BOOK "../../../include/io-utilities"
-...):  There is no certificate on file for 
-"/Users/w_howell/code/spring-2013-se2-dijkstra/server/include/io-utilities.lisp".
-
-
-
-ACL2 Warning [Uncertified] in ( INCLUDE-BOOK "list-utilities" ...):
-There is no certificate on file for 
-"/Users/w_howell/code/spring-2013-se2-dijkstra/server/include/list-utilities.lisp".
-
-
-
-ACL2 Warning [Uncertified] in ( INCLUDE-BOOK 
-"../../../include/remote-actions" ...):  There is no certificate on
-file for 
-"/Users/w_howell/code/spring-2013-se2-dijkstra/server/include/remote-actions.lisp".
-
-
-
-ACL2 Warning [Uncertified] in ( INCLUDE-BOOK "../../../include/xml-scanner"
-...):  There is no certificate on file for 
-"/Users/w_howell/code/spring-2013-se2-dijkstra/server/include/xml-scanner.lisp".
-
-
-
-ACL2 Warning [Uncertified] in ( INCLUDE-BOOK "../address-book" ...):
-There is no certificate on file for 
-"/Users/w_howell/code/spring-2013-se2-dijkstra/server/modules/user/address-book.lisp".
-
-
-
-Summary
-Form:  ( INCLUDE-BOOK "modules/user/verify/verify-user" ...)
-Rules: NIL
-Warnings:  Uncertified and Compiled file
-Time:  0.12 seconds (prove: 0.00, print: 0.00, other: 0.12)
- "/Users/w_howell/code/spring-2013-se2-dijkstra/server/modules/user/verify/verify-user.lisp"
-ACL2 !> "ACL2"
-ACL2 !> T
-ACL2 !>
-Turning off guard checking entirely.  To allow execution in raw Lisp
-for functions with guards other than T, while continuing to mask guard
-violations, :SET-GUARD-CHECKING NIL.  See :DOC set-guard-checking.
-
-ACL2 >("Action written successfully!" <state>)
-ACL2 >
->>>>>>> .r112
