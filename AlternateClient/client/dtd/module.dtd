@@ -1,0 +1,4 @@
+<!ELEMENT module (name, invoke, port)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT invoke (#PCDATA)>
+<!ELEMENT port (#PCDATA)>

@@ -1,20 +1,9 @@
+package modules.email.send;
 
-
-import modules.email.action.*;
-import javax.swing.JDialog;
-import javax.swing.JTextField;
-import javax.swing.JTextArea;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JButton;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import javax.swing.ImageIcon;
-import java.awt.Color;
+import javax.swing.*;
+import java.awt.event.*;
+import java.io.*;
+import java.awt.*;
 
 /**
  * New Message Dialog box
@@ -27,7 +16,7 @@ import java.awt.Color;
  *
  */
 
-public class newMessage extends JDialog {
+public class NewEmail extends JDialog {
         /**
          * 
          */
@@ -36,7 +25,7 @@ public class newMessage extends JDialog {
         private JTextField txtFdFrom;
         private JTextField txtFdSubject;
         private JTextArea textArea;
-        public newMessage() {
+        public NewEmail() {
                 getContentPane().setBackground(Color.LIGHT_GRAY);
                 setResizable(false);
                 setTitle("New Message - ACL2 Email System\n");

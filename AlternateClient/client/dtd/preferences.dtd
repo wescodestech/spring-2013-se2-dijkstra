@@ -1,0 +1,4 @@
+<!ELEMENT preferences (preference*)>
+<!ELEMENT preference (key, value)>
+<!ELEMENT key (#PCDATA)>
+<!ELEMENT value (#PCDATA)>

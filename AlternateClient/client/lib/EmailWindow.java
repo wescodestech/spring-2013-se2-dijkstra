@@ -1,24 +1,15 @@
+package lib;
+
 import modules.email.action.*;
+import modules.email.send.*;
 import modules.user.register.*;
+
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-
-import java.io.InputStreamReader;import javax.swing.event.ListSelectionListener;
-import javax.swing.event.ListSelectionEvent;
-
-import javax.swing.border.EtchedBorder;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.Toolkit;
-import java.awt.Color;
-
+import javax.swing.event.*;
 
 /**
  * email Window
@@ -33,71 +24,127 @@ import java.awt.Color;
  * March 13, 2013
  * @version 1.0
  * @author Wesley R. Howell
+ * 
+ * CHANGE LOG:
+ * ------------------------------------------------------------------------
+ * 2013-04-08	-	Add more functionality to the Email Window, modified location, added package.
  *
  */
 
-public class emailWindow extends JFrame {
-
-        private static final long serialVersionUID = 1L;
-        private  File [] listofFiles;
-        private String [] names;
-        private String currentUser     = "";
-        private String currentDomain   = "";
-        private String currentPassword = "";
+public class EmailWindow extends JFrame {
+	private JFrame _self;
+    private JList emailList;
+    private JSplitPane splitPane;
+    private JToolBar toolBar;
+    private JMenuBar menuBar;
+    private JEditorPane previewPane;
+    
+    private JButton newEmail;
+    private JButton getEmail;
+    
+    private final int screen_width = Toolkit.getDefaultToolkit().getScreenSize().width;
+    private final int screen_height = Toolkit.getDefaultToolkit().getScreenSize().height;
         
+    /**
+      * Run The Email Window object. Most of the code will be handled here.
+      */
+    public EmailWindow() {
+    	_self = this;
+    	
+    	// New email button
+    	this.newEmail = new JButton(new ImageIcon("lib/email_edit.png"));
+    	this.newEmail.setToolTipText("Create New Email");
+    	this.getEmail = new JButton(new ImageIcon("lib/email_open.png"));
+    	this.getEmail.setToolTipText("Get Email");
+    	
+    	// The newEmail actions
+    	this.newEmail.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent ae) {
+    			new NewEmail();
+    		}	// end method actionPerformed
+    	});
+    	
+    	// The top toolbar
+    	this.toolBar = new JToolBar("Email Actions");
+    	this.toolBar.setFloatable(false);
+    	
+    	this.toolBar.add(newEmail);
+    	this.toolBar.addSeparator();
+    	//this.toolBar.add(getEmail);
+    	
+    	// Preview Pane for emails
+    	this.previewPane = new JEditorPane();
+    	
+    	// Content Arrangement
+    	this.splitPane = new JSplitPane();
+    	this.splitPane.setDividerLocation(screen_height / 2 - 150);
+    	this.splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+  
+    	this.splitPane.add(new JScrollPane(this.emailList), JSplitPane.TOP);
+    	this.splitPane.add(new JScrollPane(this.previewPane), JSplitPane.BOTTOM);
+    	
+    	JMenu _file = new JMenu("File");
+    	JMenuItem _exit = new JMenuItem("Exit");
+    	JMenuItem _prefs = new JMenuItem("Accounts");
+    	
+    	// _exit action
+    	_exit.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent ae) {
+    			dispose();
+    			System.exit(0);
+    		}	// end method actionPerformed
+    	});
+    	
+    	// _prefs action
+    	_prefs.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent ae) {
+    			ConfigManager.getConfigurationWindow(_self);
+    		}	// end method actionPerformed
+    	});
+    	
+    	_file.add(_prefs);
+    	_file.addSeparator();
+    	_file.add(_exit);
+    	
+    	JMenu _email = new JMenu("Email");
+    	this.menuBar = new JMenuBar();
+    	this.menuBar.add(_file);
+    	
+    	// Window Properties
+    	this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+    	this.setIconImage(Toolkit.getDefaultToolkit().getImage("lib/icon.gif"));
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLayout(new BorderLayout());
+        this.setJMenuBar(this.menuBar);
+        this.setTitle("ACL2 Email System");
+                
+        this.add(this.toolBar, BorderLayout.PAGE_START);
+        this.add(this.splitPane, BorderLayout.CENTER);
+        
+        this.setVisible(true);
+        
+        /*
+        emailsList = new JList();
+        emailslist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        emailslist.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
+        final JLabel lblBlah = new JLabel();
+        lblBlah.setBackground(Color.WHITE);
+        JButton btnGetEmail = new JButton("Get Email");
+        btnGetEmail.setIcon(new ImageIcon("lib/email_open.png"));
+                
+                
         /**
-         * Run The Email Window object. Most of the code will be handled here.
-         */
-        public emailWindow() {
-                getContentPane().setBackground(new Color(192, 192, 192));
-                setIconImage(Toolkit.getDefaultToolkit().getImage("lib/icon.gif"));
-                /**
-                 * Close the application when the window closes.
-                 */
-                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        btnGetEmail.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		String s;
+        		GetEmail.getEmail(currentUser, currentDomain, currentPassword);
                 
-                /**
-                 * Setup Code
-                 */
-                setTitle("ACL2 Email System\n");
-                getContentPane().setLayout(null);
-                final JList list = new JList();
-                list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-                list.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
-                final JLabel lblBlah = new JLabel();
-                lblBlah.setBackground(Color.WHITE);
-                JButton btnGetEmail = new JButton("Get Email");
-                btnGetEmail.setIcon(new ImageIcon("lib/email_open.png"));
-                
-                
-                /**
-                 * Get Email Button Action
-                 */
-                btnGetEmail.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent arg0) {
-                                String s;
-//                                
-                                //GetEmail.getEmail("matthew.crist", "localhost", "simulation");
-                                GetEmail.getEmail(currentUser, currentDomain, currentPassword);
-                                try{
-                                Thread.sleep(2000);
-                                } catch (InterruptedException e){
-                                	e.printStackTrace();
-                                }
-                                //try {
-//                                        Process p = Runtime.getRuntime().exec(
-//                                                        "sh /Users/w_howell/code/spring-2013-se2-dijkstra/client/modules/email/email-action/java-email.sh");
-//                                        BufferedReader err = new BufferedReader (
-//                                                        new InputStreamReader (p.getErrorStream()));
-//                                        while ((s = err.readLine()) != null) {
-//                                                System.out.println(s);
-//                                        }
-//                                }
-//                                catch (Exception e) {
-//                                        e.printStackTrace();
-//                                }
+        		try {
+        			Thread.sleep(2000);
+        		} catch (InterruptedException e) {
+        			e.printStackTrace();
+        		}
                                 
-                                //Update Jlist
                                 File folder = new File("store/email/inbox");
 								folder.mkdirs();
                         File [] rawContents = folder.listFiles();
@@ -110,7 +157,7 @@ public class emailWindow extends JFrame {
                                         names[i] = getEmailHeader(listofFiles[i]);
                                 }
                         }
-                        list.setListData(names);
+                        emailsList.setListData(names);
                         }
                 });
                 btnGetEmail.setBounds(16, 6, 117, 29);
@@ -120,8 +167,6 @@ public class emailWindow extends JFrame {
                 
                 
                 /**
-                 * Load the Files in the inbox and add to the list of input
-                 */
                 File folder = new File("store/email/inbox");
         File [] rawContents = folder.listFiles();
         listofFiles = new File[rawContents.length];
@@ -138,17 +183,15 @@ public class emailWindow extends JFrame {
         
         
                 /**
-                 * Read in the email message when it is clicked
-                 */
-                list.addListSelectionListener(new ListSelectionListener() {
+                emailsList.addListSelectionListener(new ListSelectionListener() {
                         public void valueChanged(ListSelectionEvent arg0) {
                                 //Open file and get text!
                                 
                                 BufferedReader reader;
                                 try {
                                         StringBuilder  stringBuilder = new StringBuilder();
-                                        if(list.getSelectedIndex() != -1){
-                                        reader = new BufferedReader( new FileReader (listofFiles[list.getSelectedIndex()]));
+                                        if(emailsList.getSelectedIndex() != -1){
+                                        reader = new BufferedReader( new FileReader (listofFiles[emailsList.getSelectedIndex()]));
                                          String         line = null;
                                             
                                             String         ls = System.getProperty("line.separator");
@@ -170,14 +213,13 @@ public class emailWindow extends JFrame {
                            
                         }
                 });
-                list.setBounds(16, 44, 315, 612);
-                list.setListData(names);
-                getContentPane().add(list);
+                emailsList.setBounds(16, 44, 315, 612);
+                emailsList.setListData(names);
+                getContentPane().add(emailsList);
                 
                 
                 /**
-                 * Extra "eye candy" in the window 
-                 */
+
                 JPanel panel = new JPanel();
                 panel.setBackground(Color.WHITE);
                 panel.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
@@ -187,8 +229,6 @@ public class emailWindow extends JFrame {
                 
                 
                 /**
-                 * Setup for Email Viewer
-                 */
                 lblBlah.setVerticalAlignment(SwingConstants.TOP);
                 lblBlah.setBounds(6, 6, 670, 669);
                 panel.add(lblBlah);
@@ -215,8 +255,7 @@ public class emailWindow extends JFrame {
                 getContentPane().add(lblAcl);
                 
                 /**
-                 * New Email Message Button
-                 */
+
                 JButton btnNewMessage = new JButton("New Message");
                 btnNewMessage.setIcon(new ImageIcon("lib/email_edit.png"));
                 btnNewMessage.addActionListener(new ActionListener() {
@@ -247,16 +286,14 @@ public class emailWindow extends JFrame {
                 });
                 
                 /**
-                 * Link to Google Page
-                 */
+
                 lblcodegooglecompspringsedijkstra.setVerticalAlignment(SwingConstants.TOP);
                 lblcodegooglecompspringsedijkstra.setBounds(688, 737, 330, 25);
                 getContentPane().add(lblcodegooglecompspringsedijkstra);
                 
                 
                 /**
-                 * Register Email button
-                 */
+
                 JButton btnRegister = new JButton("Register");
                 btnRegister.addActionListener(new ActionListener() {
                 	public void actionPerformed(ActionEvent e) {
@@ -274,7 +311,7 @@ public class emailWindow extends JFrame {
 		btnNewButton.setIcon(new ImageIcon("lib/email_delete.png"));
                 btnNewButton.addActionListener(new ActionListener() {
                 	public void actionPerformed(ActionEvent e) {
-			    int currentlySelected = list.getSelectedIndex();
+			    int currentlySelected = emailsList.getSelectedIndex();
 			    listofFiles[currentlySelected].delete();
 
 
@@ -291,11 +328,11 @@ public class emailWindow extends JFrame {
                                         names[i] = getEmailHeader(listofFiles[i]);
                                 }
 			    }
-			    list.setListData(names);
+			    emailsList.setListData(names);
                 	}
                 });
                 btnNewButton.setBounds(16, 657, 315, 29);
-                getContentPane().add(btnNewButton);
+                getContentPane().add(btnNewButton);*/
 		
 
         }

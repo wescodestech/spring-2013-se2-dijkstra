@@ -1,0 +1,4 @@
+<!ELEMENT address* (name, domain, password)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT domain (#PCDATA)>
+<!ELEMENT password (#PCDATA)>
