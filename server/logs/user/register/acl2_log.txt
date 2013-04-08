@@ -64,7 +64,7 @@ Summary
 Form:  ( INCLUDE-BOOK "modules/user/register/register-user" ...)
 Rules: NIL
 Warnings:  Uncertified and Compiled file
-Time:  0.17 seconds (prove: 0.00, print: 0.00, other: 0.17)
+Time:  0.20 seconds (prove: 0.00, print: 0.00, other: 0.20)
  "C:/Users/Matthew/Documents/My Projects/Software Engineering II/server/modules/user/register/register-user.lisp"
 ACL2 !> "ACL2"
 ACL2 !>("Wrote temp_address-book.xml successfully" <state>)

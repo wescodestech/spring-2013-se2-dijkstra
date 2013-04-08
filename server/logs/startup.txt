@@ -1,34 +1,3 @@
-<<<<<<< .mine
-Executing ACL2 runtime for RegisterUser...
-java.io.IOException: Cannot run program "acl2": The system cannot find the path specified
-	at java.lang.ProcessBuilder.start(Unknown Source)
-	at modules.user.register.RegisterUser.main(RegisterUser.java:74)
-Caused by: java.io.IOException: The system cannot find the path specified
-	at java.lang.ProcessImpl.openForAtomicAppend(Native Method)
-	at java.lang.ProcessImpl.newFileOutputStream(Unknown Source)
-	at java.lang.ProcessImpl.start(Unknown Source)
-	... 2 more
-(include-book "modules/user/verify/verify-user")(in-package "ACL2")(set-state-ok t)(set-guard-checking :none)(testUser "<?xml version='1.0'?><verify>	<domain>localhost</domain>	<name>matthew.crist</name>	<password>simulation</password></verify>" "<?xml version='1.0'?><!DOCTYPE addresses SYSTEM '../../../dtd/address-book.dtd'><addresses>	<address>		<domain>localhost</domain>		<name>matthew.crist</name>		<password>simulation</password>	</address></addresses>" state)
-Executing process...
-Done...
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
 java.net.BindException: Address already in use: JVM_Bind
 	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
 	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
@@ -46,7 +15,8 @@ java.net.BindException: Address already in use: JVM_Bind
 	at java.net.ServerSocket.bind(Unknown Source)
 	at java.net.ServerSocket.<init>(Unknown Source)
 	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.verify.VerifyUser.main(VerifyUser.java:39)
+	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
+Address already in use: JVM_Bind
 java.net.BindException: Address already in use: JVM_Bind
 	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
 	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
@@ -55,51 +25,35 @@ java.net.BindException: Address already in use: JVM_Bind
 	at java.net.ServerSocket.bind(Unknown Source)
 	at java.net.ServerSocket.<init>(Unknown Source)
 	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
+	at modules.user.verify.VerifyUser.main(VerifyUser.java:79)
+User verification request accepted.  Processing...
 Executing ACL2 runtime for User Verification...
 Determining if login information is correct.
+User verified successfully!
 Sending emails from store\email\localhost\matthew.crist
 Writing emails to client.
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.verify.VerifyUser.main(VerifyUser.java:39)
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.email.send.SendEmail.main(SendEmail.java:41)
+User verification bound to post 20002.
+
+User verification request accepted.  Processing...
 Executing ACL2 runtime for User Verification...
 Determining if login information is correct.
+User verified successfully!
 Sending emails from store\email\localhost\matthew.crist
 Writing emails to client.
+User verification bound to post 20002.
+
+User verification request accepted.  Processing...
+Executing ACL2 runtime for User Verification...
+Determining if login information is correct.
+User verified successfully!
+Sending emails from store\email
+Writing emails to client.
+store\email\localhost (Access is denied)
+java.io.FileNotFoundException: store\email\localhost (Access is denied)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(Unknown Source)
+	at java.io.FileReader.<init>(Unknown Source)
+	at modules.user.verify.VerifyUser.main(VerifyUser.java:249)
 java.net.BindException: Address already in use: JVM_Bind
 	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
 	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
@@ -117,7 +71,14 @@ java.net.BindException: Address already in use: JVM_Bind
 	at java.net.ServerSocket.bind(Unknown Source)
 	at java.net.ServerSocket.<init>(Unknown Source)
 	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
+	at modules.email.send.SendEmail.main(SendEmail.java:41)
+User verification bound to post 20002.
+
+User verification request accepted.  Processing...
+Executing ACL2 runtime for User Verification...
+Determining if login information is correct.
+User verification bound to post 20002.
+
 java.net.BindException: Address already in use: JVM_Bind
 	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
 	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
@@ -135,7 +96,8 @@ java.net.BindException: Address already in use: JVM_Bind
 	at java.net.ServerSocket.bind(Unknown Source)
 	at java.net.ServerSocket.<init>(Unknown Source)
 	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
+	at modules.email.send.SendEmail.main(SendEmail.java:41)
+Address already in use: JVM_Bind
 java.net.BindException: Address already in use: JVM_Bind
 	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
 	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
@@ -144,363 +106,15 @@ java.net.BindException: Address already in use: JVM_Bind
 	at java.net.ServerSocket.bind(Unknown Source)
 	at java.net.ServerSocket.<init>(Unknown Source)
 	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
+	at modules.user.verify.VerifyUser.main(VerifyUser.java:79)
+User verification request accepted.  Processing...
+Executing ACL2 runtime for User Verification...
+Determining if login information is correct.
+User verified successfully!
+Sending emails from store\email\localhost\matthew.crist
+Writing emails to client.
+User verification bound to post 20002.
+
 Executing ACL2 runtime for RegisterUser...
-Old Store Size: 313
-New Store Size: 316
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
-Exception in thread "main" java.lang.NullPointerException
-	at java.lang.String.concat(Unknown Source)
-	at lib.ServerConsole.post(ServerConsole.java:9)
-	at modules.user.verify.VerifyUser.main(VerifyUser.java:212)
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.email.send.SendEmail.main(SendEmail.java:41)
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-java.net.BindException: Address already in use: JVM_Bind	at java.net.PlainSocketImpl.bind(Unknown Source)
-
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)	at modules.user.verify.VerifyUser.main(VerifyUser.java:45)
-
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.email.send.SendEmail.main(SendEmail.java:41)
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.verify.VerifyUser.main(VerifyUser.java:45)
-java.net.BindException: Address already in use: JVM_Bindjava.net.BindException: Address already in use: JVM_Bind
-
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-
-	at java.net.PlainSocketImpl.bind(Unknown Source)	at java.net.PlainSocketImpl.bind(Unknown Source)
-
-	at java.net.ServerSocket.bind(Unknown Source)	at java.net.ServerSocket.bind(Unknown Source)
-
-	at java.net.ServerSocket.<init>(Unknown Source)	at java.net.ServerSocket.<init>(Unknown Source)
-
-	at java.net.ServerSocket.<init>(Unknown Source)	at java.net.ServerSocket.<init>(Unknown Source)
-
-	at modules.email.send.SendEmail.main(SendEmail.java:41)	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
-
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.verify.VerifyUser.main(VerifyUser.java:88)
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.email.send.SendEmail.main(SendEmail.java:41)
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.verify.VerifyUser.main(VerifyUser.java:88)
-Exception in thread "main" java.lang.NullPointerException
-	at java.lang.String.concat(Unknown Source)
-	at lib.ServerConsole.post(ServerConsole.java:9)
-	at modules.user.verify.VerifyUser.main(VerifyUser.java:212)
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
-Exception in thread "main" java.lang.NullPointerException
-	at java.lang.String.concat(Unknown Source)
-	at lib.ServerConsole.post(ServerConsole.java:9)
-	at modules.user.verify.VerifyUser.main(VerifyUser.java:212)
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.email.send.SendEmail.main(SendEmail.java:41)
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.verify.VerifyUser.main(VerifyUser.java:88)
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.email.send.SendEmail.main(SendEmail.java:41)
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.verify.VerifyUser.main(VerifyUser.java:88)
-java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
-	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
-	at java.net.PlainSocketImpl.bind(Unknown Source)
-	at java.net.ServerSocket.bind(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at java.net.ServerSocket.<init>(Unknown Source)
-	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
-=======
-java.net.BindException: Address already in use
-	at java.net.PlainSocketImpl.socketBind(Native Method)
-	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:376)
-	at java.net.ServerSocket.bind(ServerSocket.java:376)
-	at java.net.ServerSocket.<init>(ServerSocket.java:237)
-	at java.net.ServerSocket.<init>(ServerSocket.java:128)
-	at modules.email.send.SendEmail.main(SendEmail.java:41)
-java.net.BindException: Address already in use
-	at java.net.PlainSocketImpl.socketBind(Native Method)
-	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:376)
-	at java.net.ServerSocket.bind(ServerSocket.java:376)
-	at java.net.ServerSocket.<init>(ServerSocket.java:237)
-	at java.net.ServerSocket.<init>(ServerSocket.java:128)
-	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
-java.net.BindException: Address already in use
-	at java.net.PlainSocketImpl.socketBind(Native Method)
-	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:376)
-	at java.net.ServerSocket.bind(ServerSocket.java:376)
-	at java.net.ServerSocket.<init>(ServerSocket.java:237)
-	at java.net.ServerSocket.<init>(ServerSocket.java:128)
-	at modules.user.verify.VerifyUser.main(VerifyUser.java:40)
-<?xml version='1.0'?>
-<!DOCTYPE user SYSTEM '../../../dtd/register-user.dtd'>
-<user>
-<domain>localhost</domain>
-<name>wesley.howell</name>
-<password>password</password>
-</user>
-Executing ACL2 runtime for RegisterUser...
-Old Store Size: 507
-New Store Size: 511
-<?xml version='1.0'?>
-<!DOCTYPE user SYSTEM '../../../dtd/register-user.dtd'>
-<user>
-<domain>localhost</domain>
-<name>wesley.howell</name>
-<password>simulation</password>
-</user>
-Executing ACL2 runtime for RegisterUser...
-FinishedACL2
-Executing ACL2 runtime for SendEmail...
-java.net.BindException: Address already in use
-	at java.net.PlainSocketImpl.socketBind(Native Method)
-	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:376)
-	at java.net.ServerSocket.bind(ServerSocket.java:376)
-	at java.net.ServerSocket.<init>(ServerSocket.java:237)
-	at java.net.ServerSocket.<init>(ServerSocket.java:128)
-	at modules.user.verify.VerifyUser.main(VerifyUser.java:40)
-java.net.BindException: Address already in use
-	at java.net.PlainSocketImpl.socketBind(Native Method)
-	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:376)
-	at java.net.ServerSocket.bind(ServerSocket.java:376)
-	at java.net.ServerSocket.<init>(ServerSocket.java:237)
-	at java.net.ServerSocket.<init>(ServerSocket.java:128)
-	at modules.email.send.SendEmail.main(SendEmail.java:41)
-java.net.BindException: Address already in use
-	at java.net.PlainSocketImpl.socketBind(Native Method)
-	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:376)
-	at java.net.ServerSocket.bind(ServerSocket.java:376)
-	at java.net.ServerSocket.<init>(ServerSocket.java:237)
-	at java.net.ServerSocket.<init>(ServerSocket.java:128)
-	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
-java.net.BindException: Address already in use
-	at java.net.PlainSocketImpl.socketBind(Native Method)
-	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:376)
-	at java.net.ServerSocket.bind(ServerSocket.java:376)
-	at java.net.ServerSocket.<init>(ServerSocket.java:237)
-	at java.net.ServerSocket.<init>(ServerSocket.java:128)
-	at modules.email.send.SendEmail.main(SendEmail.java:41)
-java.net.BindException: Address already in use
-	at java.net.PlainSocketImpl.socketBind(Native Method)
-	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:376)
-	at java.net.ServerSocket.bind(ServerSocket.java:376)
-	at java.net.ServerSocket.<init>(ServerSocket.java:237)
-	at java.net.ServerSocket.<init>(ServerSocket.java:128)
-	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
-java.net.BindException: Address already in use
-	at java.net.PlainSocketImpl.socketBind(Native Method)
-	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:376)
-	at java.net.ServerSocket.bind(ServerSocket.java:376)
-	at java.net.ServerSocket.<init>(ServerSocket.java:237)
-	at java.net.ServerSocket.<init>(ServerSocket.java:128)
-	at modules.user.verify.VerifyUser.main(VerifyUser.java:40)
-java.net.BindException: Address already in use
-	at java.net.PlainSocketImpl.socketBind(Native Method)
-	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:376)
-	at java.net.ServerSocket.bind(ServerSocket.java:376)
-	at java.net.ServerSocket.<init>(ServerSocket.java:237)
-	at java.net.ServerSocket.<init>(ServerSocket.java:128)
-	at modules.email.send.SendEmail.main(SendEmail.java:41)
-java.net.BindException: Address already in use
-	at java.net.PlainSocketImpl.socketBind(Native Method)
-	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:376)
-	at java.net.ServerSocket.bind(ServerSocket.java:376)
-	at java.net.ServerSocket.<init>(ServerSocket.java:237)
-	at java.net.ServerSocket.<init>(ServerSocket.java:128)
-	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
-java.net.BindException: Address already in use
-	at java.net.PlainSocketImpl.socketBind(Native Method)
-	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:376)
-	at java.net.ServerSocket.bind(ServerSocket.java:376)
-	at java.net.ServerSocket.<init>(ServerSocket.java:237)
-	at java.net.ServerSocket.<init>(ServerSocket.java:128)
-	at modules.user.verify.VerifyUser.main(VerifyUser.java:40)
-java.net.BindException: Address already in use
-	at java.net.PlainSocketImpl.socketBind(Native Method)
-	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:376)
-	at java.net.ServerSocket.bind(ServerSocket.java:376)
-	at java.net.ServerSocket.<init>(ServerSocket.java:237)
-	at java.net.ServerSocket.<init>(ServerSocket.java:128)
-	at modules.email.send.SendEmail.main(SendEmail.java:41)
-java.net.BindException: Address already in use
-	at java.net.PlainSocketImpl.socketBind(Native Method)
-	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:376)
-	at java.net.ServerSocket.bind(ServerSocket.java:376)
-	at java.net.ServerSocket.<init>(ServerSocket.java:237)
-	at java.net.ServerSocket.<init>(ServerSocket.java:128)
-	at modules.user.register.RegisterUser.main(RegisterUser.java:39)
-java.net.BindException: Address already in use
-	at java.net.PlainSocketImpl.socketBind(Native Method)
-	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:376)
-	at java.net.ServerSocket.bind(ServerSocket.java:376)
-	at java.net.ServerSocket.<init>(ServerSocket.java:237)
-	at java.net.ServerSocket.<init>(ServerSocket.java:128)
-	at modules.user.verify.VerifyUser.main(VerifyUser.java:40)
-<?xml version='1.0'?>
-<!DOCTYPE user SYSTEM '../../../dtd/register-user.dtd'>
-<user>
-<domain>localhost</domain>
-<name>wesley.h</name>
-<password>something</password>
-</user>
-Executing ACL2 runtime for RegisterUser...
-FinishedACL2
-Executing ACL2 runtime for SendEmail...
->>>>>>> .r112
+Old Store Size: 614
+New Store Size: 396

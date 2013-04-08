@@ -41,9 +41,9 @@ public class emailWindow extends JFrame {
         private static final long serialVersionUID = 1L;
         private  File [] listofFiles;
         private String [] names;
-        private String currentUser     = "";
-        private String currentDomain   = "";
-        private String currentPassword = "";
+        private String currentUser     = "matthew.crist";
+        private String currentDomain   = "localhost";
+        private String currentPassword = "simulation";
         
         /**
          * Run The Email Window object. Most of the code will be handled here.

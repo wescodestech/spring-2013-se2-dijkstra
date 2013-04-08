@@ -82,11 +82,11 @@ public class VerifyUser {
  
                         while(listening) {
  
-                                ServerConsole.post("User verification bound to post 20002.\n");
+                                System.out.println("User verification bound to post 20002.\n");
  
                                 Socket client = server.accept();
  
-                                ServerConsole.post("User verification request accepted.  Processing...");
+                                System.out.println("User verification request accepted.  Processing...");
  
 
  
@@ -138,7 +138,7 @@ public class VerifyUser {
  
                                 // Proceed to spur the ACL2 process and place a wrapper on the IO
  
-                                ServerConsole.post("Executing ACL2 runtime for User Verification...");
+                                System.out.println("Executing ACL2 runtime for User Verification...");
  
                                 ProcessBuilder processBuilder = new ProcessBuilder("acl2");
  
@@ -180,7 +180,7 @@ public class VerifyUser {
  
                                 
  
-                                ServerConsole.post("Determining if login information is correct.");
+                                System.out.println("Determining if login information is correct.");
  
                                 
  
@@ -192,7 +192,7 @@ public class VerifyUser {
  
                                                 proceed = true;
  
-                                                ServerConsole.post("User verified successfully!");
+                                                System.out.println("User verified successfully!");
  
                                         } else {
  
@@ -222,7 +222,7 @@ public class VerifyUser {
  
                                         
  
-                                        ServerConsole.post("Sending emails from " + emailDirectory.getPath());
+                                        System.out.println("Sending emails from " + emailDirectory.getPath());
  
                                         
  
@@ -238,7 +238,7 @@ public class VerifyUser {
  
                                                 
  
-                                                ServerConsole.post("Writing emails to client.");
+                                                System.out.println("Writing emails to client.");
  
                                                 // Read the contents of each email and transmit them to the client.
  
@@ -288,7 +288,7 @@ public class VerifyUser {
  
                                                 
  
-                                                ServerConsole.post("There was an internal server error: Inbox does not exist!\n");
+                                                System.out.println("There was an internal server error: Inbox does not exist!\n");
  
                                                 out.write("END");
  
@@ -324,7 +324,7 @@ public class VerifyUser {
  
                 } catch(Exception e) {
  
-                        ServerConsole.post(e.getMessage());
+                        System.out.println(e.getMessage());
  
                         e.printStackTrace();
  
