@@ -1,0 +1,94 @@
+#summary Definitions of the Email data structure, functions, and modules associated.
+#labels ACL2,XML,Email
+
+= Introduction =
+
+The Email (server module) will parse an incoming email message and the direct it to the specified client output folder.
+
+= Dependencies = 
+none.
+
+= Email Storage =
+
+_./$name.xml_ (File is defined by the name of the mailing list.)
+{{{
+<?xml version="1.0"?>
+<!DOCTYPE email SYSTEM "email.dtd">
+<email>
+	<to>wesley.howell@localhost</to>
+	<from>matthew.crist@localhost</from>
+	<subject>Message1 subject</subject>
+	<message>Test For a Message Would be Here</message>
+</email>
+}}}
+
+_http://localhost/dtd/mailing_list.dtd_
+{{{
+<!ELEMENT to (#PCDATA)>
+<!ELEMENT from (#PCDATA)>
+<!ELEMENT subject (#PCDATA)>
+<!ELEMENT message (#PCDATA)>
+}}}
+
+= Data Structure =
+{{{to}}} - address - The address(es) to send an email.
+
+{{{from}}} - address - The address that sent the email.
+
+{{{name}}} - string - The name portion of the email address.
+
+{{{domain}}} - string - The domain portion of the email address.
+
+{{{subject}}} - string - The subject of the email message.
+
+{{{message}}} - string - The content of the message.
+
+_((to1 to2 ... ton) from subject message)_
+
+=== Example ===
+From the xml file described above, the sample data structure would be:
+
+{{{
+( ("localhost" "matthew.crist") ("localhost" "adam.ghodratnama")) 
+  ("localhost" "wesley.howell")
+  "Message Subject"
+  "Email Message Content" )
+}}}
+
+= Function Definitions =
+{{{(defun getAddressTag (addr))}}} - This will process the "to" and "from" fields and create address objects.
+{{{(defun getToList (addr))}}} - This will parse the "To" field of the email.
+{{{(defun extractEmail (xml))}}} - This will extract an individual email from the input XML file.
+{{{(defun generateEmailXML (to from subj msg))}}} - This will take the email for each client and generate XML file contents for the current output file.
+{{{(defun postClientEmail (xml file))}}} - This will output the XML file for each client in the appropriate directory.
+{{{(defun getClientEmail (file))}}} - This will process the incoming messages XML files.
+{{{(defun processEmail (in out))}}} - The "main" call that will process the current email queue.
+
+= File Information =
+*Lines of Code*: 69.
+
+*Functions*: Not defined.
+
+*Entry Point*: (getEmail tokXML)
+
+*File Location*: ./server/modules/email/server-email.lisp
+
+= External Functional References =
+{{{(defun processEmail (in out))}}} - Runs the current Email queue of incoming email messages to the server. This will take all the incoming messages, separate multiple message, and create an individual message for one sent to multiple recipients. This function will be generated from the shell as follows:
+
+ * _./server/modules/email/processEmail.lisp_
+ * _./server/modules/email/processEmail.sh_
+
+= Properties and Testing =
+
+(defproperty EmailXMLTest) – Test the email function to see that the XML is returned in the correct format. 
+  * Test that the input is an email structure and verify that the correct XML is outputted and that all tags are present
+
+(defproperty ContactStructureTest) – This will test the getContactStructure function and run test on the integrity of the input and outputted data structures to make sure they are in the correct format.
+  * Test that a correct contact structure, (name, domain) is returned for the input name@domain.
+
+(defproperty EmailStructureTest) – Verify that the email structure is correct for an inputted tokenized XML list
+  * Verify that the email message starts with <email> tag and closes with </email> tag.
+
+(defproperty consumptionTest) - Verify the consumeList will consume only one set of email tags from the xml token list.
+  * Verify the same conditions as EmailStructure test and that the first tag will be <email> or </messages>

@@ -1,0 +1,159 @@
+#summary Definitions of the address book data structure, functions, and modules associated.
+
+= Introduction =
+
+The Address Book contains the domain and names of all users that are registered with the email server.
+
+= Dependencies =
+
+This file does not contain any external dependencies.
+
+= Persistence =
+
+{{{
+
+<?xml version="1.0"?>
+<!DOCTYPE addresses SYSTEM "../../../dtd/address-book.dtd">
+<addresses>
+	<address>
+		<domain>localhost</domain>
+		<name>Matthew.Crist</name>
+	</address>
+	<address>
+		<domain>localhost</domain>
+		<name>Wesley.Howell</name>
+	</address>
+	<address>
+		<domain>localhost</domain>
+		<name>Adam.Ghodratnama</name>
+	</address>
+</addresses>
+}}}
+
+./server/dtd/addresses.dtd
+
+{{{	
+<!ELEMENT address*(name, domain)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT domain (#PCDATA)>
+}}}
+
+= Data Structure =
+
+name – String – The name portion of the email address
+
+domain – String – The domain portion of the email address
+
+_((domain name),,0,, (domain name),,1,, ... (domain name),,n,,)_
+
+= Example =
+
+From the xml file described above, the sample data structures would be:
+
+((“localhost” “Matthew.Crist” ) ("localhost" "Wesley.Howell") ("localhost" "Adam.Ghodratnama"))
+
+= Function Definitions =
+
+==(getAddress tokens)== 
+Acquires the address structure for an address entry that exists in the address book. (domain name) form.
+
+Estimated Lines of Code: 9, 
+Type: Non IO, 
+Actual Lines of Code: 10
+
+==(parseAddresses tokens)== 
+Acquires all the addresss that are present in the tokenized XML string and returns the list of the addresses to the requester.
+
+Estimated Lines of Code: 6, 
+Type: Non IO, 
+Actual Lines of Code: 6
+
+==(getAddressBook tokens)== 
+Acquires the address book - point of entry for address book acquisition.
+
+Estimated Lines of Code: 6, 
+Type: Non IO, 
+Actual Lines of Code: 5
+
+==(addressXML address)==
+Generates the XML form for an address from the address structure.
+
+Estimated Lines of Code: 18, 
+Type: Non IO, 
+Actual Lines of Code: 10
+
+==(addressBookXML addressBook)==
+Generates the non header portion of the XML address book output.
+
+Estimated Lines of Code: 9, 
+Type: Non IO, 
+Actual Lines of Code: 5
+
+==(getAddressBookXML addressBook)== 
+Converts the address book data structure into XML that can be stored to a document.
+
+Estimated Lines of Code: 9, 
+Type: Non IO, 
+Actual Lines of Code: 10
+
+==(isInAddressBook addressBook address)==
+Predicate to determine if an address is in the address book.
+
+Estimated Lines of Code: 6, 
+Type: Non IO, 
+Actual Lines of Code: 6
+
+==(addAddress addressBook address)==
+Appends an address onto the end of the address book structure.  If the user is already in the address book, then the return is the original address book.
+
+Estimated Lines of Code: 4, 
+Type: Non IO, 
+Actual Lines of Code: 4
+
+==(removeAddress addressBook address)== 
+Removes an address from the address book.
+
+Estimated Lines of Code: 6, 
+Type: Non IO, 
+Actual Lines of Code: 7
+
+= File Information =
+
+Lines of Code: 62
+
+Functions: 9
+
+Entry Point: 
+_(getAddressBookXML addressBook)_, 
+_(addAddress addressBook address)_, 
+_(removeAddress addressBook address)_
+
+File Location: ./server/modules/user/address-book.lisp
+
+= Theorems =
+
+== address-is-in-book-adding-returns-original-book ==
+
+_If the address is in the address book, then adding the address to the address book results in the same address book._
+
+== address-is-not-in-book-add-length-test ==
+
+_If the address is not in the address book, then adding the address to the address book will return an address book with the length of the original address book + 1._
+
+== address-is-in-book-remove-length-test ==
+
+_If the address is in the address book, then removing the address from the address book will return an address book with the length of the original address book - 1._
+
+== address-is-not-in-address-book-remove-returns-original-book-test ==
+
+_If the address is not in the address book, then remove the address from the address book results in the original address book (lengths are equivalent)._
+
+= CHANGE LOG =
+
+Name: Matthew Crist, 
+Date: 2012-02-19, 
+Comment: Added predicate test to addAddress function that would determine if the address was already in the address book.
+
+Name: Matthew Crist, 
+Date: 2012-02-19, 
+Comment: Predicate isInAdressBook was making incorrect reference to variable address when checking endp for recursion. This caused stack overflow.  Corrected to endp addressBook.

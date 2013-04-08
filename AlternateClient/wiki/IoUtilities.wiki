@@ -1,0 +1,14 @@
+#summary IO Utilities is a package that was submitted to us via Dr. Rex Page for usage in the ACL2 environment for Software Engineering at the University of Oklahoma.
+
+= Introduction =
+
+IO Utilities is a package that was submitted to us via Dr. Rex Page for usage in the ACL2 environment for Software Engineering at the University of Oklahoma.  it is used explicitly for reading information from a file and writing information to a file.  There are a few functions within the file itself that allow for data conversion between rational numbers and strings.  There are also some helper functions to allow for the reading and writing of information which are implemented internally but may be used separately if the need arises.
+
+
+= Details =
+
+This file will not be documented here as it is currently documented within the file itself.  We do not claim any credit for its production or the results that it produces.  For questions, please contact Dr. Rex Page for information.
+
+There is an important thing to address regarding this file with relation to file processing.  The default location from which a file is loaded is the path in which ACL2 was invoked.  In our case, it is the root of the server folder or the client folder, which requires us to use this as the relative path for finding files.  You can use an absolute path, but this is discouraged as it does not allow for interoperability.  The structure of the program will remain constant as file systems change.
+
+This is not the case when including LISP files.  The includes need to occur relative to the location of the LISP file.

@@ -1,0 +1,25 @@
+<?xml version='1.0'?>
+<!DOCTYPE mailing_list SYSTEM '../../dtd/mailing-list.dtd'>
+<mailing_list>
+	<list_name>Test Mailing List</list_name>
+	<addresses>
+		<address>
+			<domain>localhost</domain>
+			<name>matthew.crist</name>
+		</address>
+		<address>
+			<domain>localhost</domain>
+			<name>wesley.howell</name>
+		</address>
+		<address>
+			<domain>localhost</domain>
+			<name>adam.ghodratnama</name>
+		</address>
+	</addresses>
+	<owners>
+		<owner>
+			<name>matthew.crist</name>
+			<password>mypassword123</password>
+		</owner>
+	</owners>
+</mailing_list>

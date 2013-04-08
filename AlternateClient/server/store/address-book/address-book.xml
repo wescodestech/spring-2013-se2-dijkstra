@@ -1,0 +1,9 @@
+<?xml version='1.0'?>
+<!DOCTYPE addresses SYSTEM '../../dtd/address-book.dtd'>
+<addresses>
+<address><domain>localhost</domain><name>matthew.crist</name><password>simulation</password></address>
+<address><domain>localhost</domain><name>adam.ghodratnama</name><password>simulation</password></address>
+<address><domain>localhost</domain><name>Wesley</name><password>testpwd</password></address>
+<address><domain>localhost</domain><name>wesley.howell.h</name><password>simulation</password></address>
+<address><domain>localhost</domain><name>wesley.howell</name><password>simulation</password></address>
+</addresses>

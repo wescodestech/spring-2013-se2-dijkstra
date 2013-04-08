@@ -1,0 +1,51 @@
+#summary Manages the creation and the verification of users registered with the server.
+
+= Introduction =
+
+The user module will manage the verification of a user and the creation of those users that will be populated in the address-book that is used by the server to determine the validity of login information.  it is worth noting that all information is stored via flat file (which is typically not the secure standard for sensitive information).
+
+  * [ServerUser#User_Registration User Registration]
+    * [ServerUser#XML_Transmission_Data_Format Input Format]
+    * [ServerUser#Server_Response_for_User_Registration Output Format]
+  * [ServerUser#User_Verification User Verification]
+
+= User Registration =
+User registration is done via the network by a client request.  All information regarding the registration request is acquired by the client and transmitted to the server via port 20001.  This module has been registered with this port and will listen for a specific data structure defined by the `dtd/register-user.dtd` data structure.  While the DTD is not specifically used to enforce the data structure via XML parser, it serves as a guide to the validation of the structure.  This can be checked by opening the file in a browser to ensure the XML is parsed correctly and an error is not returned.  If an error is returned, the XML is invalid input for the ACL2.
+
+=== XML Tramission Data Format ===
+
+The format for the XML that will be transmitted to the server is as follows:
+
+{{{
+<?xml version='1.0'?>
+<!DOCTYPE register SYSTEM 'dtd/register-user.dtd'>
+<register>
+   <domain>domain_namespace</domain>
+   <name>username</name>
+   <password>chosen_password</password>
+</register>
+}}}
+
+The domain determines the scope of which the name will be placed.  It is likely to have same names, on different domains or different names on the same domain.  Typically the domain (of an email address) is the part just after the @ sign.
+
+The name is the name that the user name that appears before the @ portion of the composition of the email address.
+
+The password is the password that will be used to become verified on the server to receive email information.
+
+=== Server Response for User Registration ===
+
+When the user is registered, it is safe to assume the registration process was successful, but a response is warranted from the server in order to progress the client side.  The feedback will allow the client side to stop its listening process and terminate the request.
+
+Format for the response is as follows:
+
+{{{
+<?xml version='1.0'?>
+<!DOCTYPE response SYSTEM 'dtd/response.dtd'>
+<response>
+   <message>ACCEPT</message>
+</response>
+}}}
+
+Reponse dtd defines that there should only be one element to this XML document with either ACCEPT or REJECT as the message.  Reason codes could be something that can be expanded upon, but since this does not contribute to the LOC of the project, the scope of this has been minimized.
+
+= User Verification =

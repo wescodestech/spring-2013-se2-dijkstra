@@ -1,0 +1,67 @@
+name: Adam Ghodratnama
+date: March 28, 2012
+program: Email Client Server System
+instructor: Dr. Rex Page
+language: ACL2
+
+actual added lines: 114
+actual base lines: 0
+actual modified lines: 0
+actual removed lines: 0
+
+time log:
+
+       - date: March 7, 2013
+	 start time: 7:30PM
+	 end time: 8:30PM
+	 phase: Conceptual
+	 comment:  Creation of the create-user-request.lisp file. Planning how to generate XML for user access requests
+
+	- date: March 10, 2013
+	 start time: 5:30PM
+	 end time: 7:30PM
+	 phase: Coding
+	 comment:  Completion of createRequests function in create-user-request.lisp. Creation of the create-user-request.sh script. This script invokes the create-user-request.lisp file
+
+       - date: March 17, 2013
+	 start time: 9:30PM
+	 end time: 10:00PM
+	 phase: Coding
+	 comment:  Changed parameters of createRequests function to accept an argument for the time stamp of creation used by the create-user-request.sh script
+
+       - date: March 25, 2013
+	 start time: 7:30PM
+	 end time: 8:30PM
+	 phase: Conceptual
+	 comment:  Creation of the create-block-request.lisp file.  Planning how to generate XML for requests to block users
+
+       - date: March 25, 2013
+	 start time: 9:30PM
+	 end time: 11:00PM
+	 phase: Coding
+	 comment:  Completion of the function responsible for generating xml for creating requests to block users as well as I/O functions
+
+       - date: March 25, 2013
+	 start time: 11:30PM
+	 end time: 11:59PM
+	 phase: Coding
+	 comment:  Creation of create-block-request.sh script.  This script invokes the create-block-request.lisp file
+
+	- date: March 27, 2013
+	 start time: 9:30PM
+	 end time: 10:30PM
+	 phase: Coding
+	 comment:  Creation of create-mailing-list.lisp file. Creation of the XML Generating functions addressesXML and ownerXML
+
+	- date: March 28, 2013
+	 start time: 7:00AM
+	 end time: 8:00AM
+	 phase: Coding
+	 comment:  Creation of file output method
+
+defect log:
+
+	- date: Mar 27, 2013
+	  type: Design
+	  fix time: 00
+	  comment: Need to restructure the create-mailing-list.lisp file to handle multiple addresses and multiple owners.  

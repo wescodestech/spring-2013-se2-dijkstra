@@ -1,0 +1,123 @@
+name: Matthew A. Crist
+date: February 10, 2013
+program: Email with ACL2
+instructor: Dr. Rex Page
+language: ACL2, C++, Shell Scripting, XML
+
+actual added lines: 105
+actual base lines: 0
+actual modified lines: 8
+actual removed lines: 4
+
+time log:
+	-	date: February 14, 2013 
+		start time: 12:15am
+		end time: 12:30am
+		phase: Conception
+		comment: Derived the format, in XML, for the transportation of the registration of a user into the address book for the server.  Also formulated the steps to be involved in order to invoke the appropriate modules.
+
+	-	date: February 14, 2013
+		start time: 12:30am
+		end time: 1:45am
+		phase: Coding
+		comment: Wrote the shell script that acquired the contents of the source file (ACL2 definitions) and compiled a function invocation to be written to a temporary file, input directed into ACL2 and removal of the temporary file created.  Considering just including the book to the source file and writing a new temporary file that invokes the function and includes to appropriate books in order to not manipulate the source files for unexpected results.
+
+	-	date: February 14, 2013
+		start time: 2:00am
+		end time: 4:00am
+		phase: Coding
+		comment: Created functions for managing address-book.  getAddress, parseAddresses, getAddressBook acquire values from the XML that was passed to the script via redirection through the XML that was acquired through the shell scripting.
+
+	-	date: February 14, 2013
+		start time: 6:15am
+		end time: 8:00am
+		phase: Coding
+		comment:	Created the functions for managing output of the address-book data structure.  addressXML, addressBookXML and getAddressBookXML will acquire the XML for the structure to be written back to the xml data file.  Determined that I will need to write to a temporary file and delete the original source, and rename the temporary file to the permanent persistent file in order to allow for the file to be updated (since I cannot write back to a read file).  Updated shell script to reflect these changes in ./server/modules/user/register/register-user.sh.
+
+	-	date: February 16, 2013
+		start time: 1:15am
+		end time: 3:00am
+		phase: Coding
+		comment: Added functions that acquires the contents of the tokens passed by parsing the XML information.  getDomain, getName, getPassword all use these tokens in order to extract the information from the registration file that will be used to determine what information needs to be added to the address-book.
+
+	-	date: February 16, 2013
+		start time: 3:00am
+		end time: 5:00am
+		phase: Coding
+		comment: Added functions that will test the address existence (to prevent duplication) and add/remove an address from the address-book.  isInAddressBook tests the predicate conditions to determine if an address can be added/removed by addAddress/removeAddress functions.
+
+	-	date: February 19, 2013
+		start time: 9:00am
+		end time: 10:30am
+		phase: Coding
+		comment: Updated shell script to generate static script that will invoke the registerUser function also defined in the register-user.lisp file.  Temporary lisp file is generated with static XML information and then redirected into the ACL2 program in order to parse the information.  File input is delegated to the shell, file output is delegated to ACL2.
+
+	-	date: February 19, 2013
+		start time: 3:00pm
+		end time: 4:00pm
+		phase: Coding
+		comment: Corrected references the xml-scanner to ignore whitespace since some of the whitespace tokens that were being parsed were causing issues with the interpretation of the xml tokens.  user/registration module deemed complete at current point in time.
+
+new objects:
+	-	name: getAddress
+		estimated lines: 9
+		type: Non IO
+
+	-	name: parseAddresses
+		estimated lines: 6
+		type: Non IO
+
+	- 	name: getAddressBook
+		estimated lines: 6
+		type: Non IO
+
+	-	name: addressXML
+		estimated lines: 18
+		type: Non IO
+
+	-	name: addressBookXML
+		estimated lines: 6
+		type: Non IO
+
+	-	name: getAddressBookXML
+		estimated lines: 9
+		type: Non IO
+
+	-	name: isInAddressBook
+		estimated lines: 6
+		type: Non IO
+
+	-	name: addAddress
+		estimated lines: 4
+		type: Non IO
+
+	-	name: removeAddress
+		estimated lines: 6
+		type: Non IO
+
+	-	name: getDomain
+		estimated lines: 6
+		type: Non IO
+
+	-	name: getName
+		estimated lines: 6
+		type: Non IO
+
+	-	name: getPassword
+		estimated lines: 6
+		type: Non IO
+
+	-	name: registerUser
+		estimated lines: 14
+		type: IO
+
+defect log:
+	-	date: February 15, 2013
+		type: Coding
+		fix time: 10
+		comment: Made the decision to allow shell scripts to take care of much of the IO on the read side as possible and file operations would need to be done by the OS in order to keep correct RWE privs on the file for security purposes.  CHMOD properties will need to be determined at a different date, since access to store files has not been completely determined.  Best guess is that server will be the only one that needs read/write access to these files and no user group will need execution access.
+
+	- 	date: February 19, 2013
+		type:	Coding
+		fix time: 20
+		comment: Issue arose when parsing XML tokens that the whitespace in the document was being identified by #PCDATA token, which was incorrect.  This created a case where the next token to be identified was not was predicted thus returning a nil result when processing the address-book xml input.  Created a special case that modified around 8 lines of code to check if there exists a whitespace character outside of encapsulating brackets and if so, to ignore those values.  Had to remove 4 lines of old predicate for prediction of the next token to be < character.

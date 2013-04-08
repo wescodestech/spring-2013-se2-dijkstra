@@ -1,0 +1,130 @@
+name: Matthew A. Crist
+date: January 18, 2013
+program: Email with ACL2
+instructor: Dr. Rex Page
+language: ACL2, C++, Shell Scripting, XML
+
+actual added lines: 26
+actual base lines: 0
+actual modified lines: 0
+actual removed lines: 0
+
+time log:
+	- 	date: January 18, 2013
+		start time: 1:00am
+		end time: 2:00am
+		phase: Testing
+		comment: Tested network connectvity for ACL2 using various methods.  Found that through file streaming, we could transfer files through connected network drives.  We are not able to connect to a specific TCP/IP address or anything without a directory resolution on the network.  Example: \\MatthewCrist-Laptop would work, \\127.0.0.1 would work, but http://127.0.0.1 or \\127.0.0.1:80 would not yeild results.  I have determined that either we will need supplemental language in order to make the transfer or map network drives.
+
+	-	date: January 23, 2013
+		start time: 2:30am
+		end time: 4:00am
+		phase: Testing
+		comment: Attempted to research means by using Common Lisp to implement a layer for TCP/IP transfer to see if this is a viable alternative.  The solutions that are available seem to be beyond the scope to which we can implement.  It appears the network drive route is our best alternative.
+
+	- 	date: January 25, 2013
+		start time: 10:00am
+		end time: 10:20am
+		phase: Testing
+		comment: Researched event handling in ACL2 from previous project regarding "Blue Ball" scenario.  Determined that this could be used to implement the client side gestures for the chat messages to be sent and received.  Also noted that the primitive nature of the interface would require that we construct many of the GUI element ourselves.  I think we should be able to assign functions to these events to read and write files where necessary.
+
+	- 	date: January 29, 2013
+		start time: 12:00pm
+		end time: 2:30pm
+		phase: Conception
+		comment: After discussion with Rex Page regarding some of the features of ACL2, he described to us that ACL2 cannot use a GUI and write/read from files at the same time.  This has thrown us in a tizzy about writing a chat client.  After reassessment of the situation, we determined that we could salvage much of the information that we derived in previous sessions by using supplemental language, such as C to write the server and client interfaces that would invoke ACL2 executables on demand and have these applications handle the events for both client and server processes.  We could use folder monitoring on server side and invoke those modules that are created adding to the modularity of the application itself.  Isaac, Wes and I rewrote the design document so that it would be available for Thursday (January 31, 2013) for the presentation.  We also determined that Adam should be the one to give the overview of the application since he may want the extra speaking opportunity.
+
+	- 	date: January 30, 2013
+		start time: 4:00am
+		end time: 5:30am
+		phase: Conception
+		comment: Created the slides for the presentation that will be held tomorrow (January 31, 2013).  Used the design document as a point of reference for bullet points.  Also devided the slide information based on role (as opposed to design layer) to "sell" the idea to the end user and convey the purpose of the process we are intending to use.
+
+	-	date: January 31, 2013
+		start time: 8:00am
+		end time: 9:30am
+		phase: Testing
+		comment: Attempted to get Proofpad to function on my windows PC (Microsoft Windows 8) to no success.  Attempted to get it to work on my Linux partition as well (Ubuntu 11.04 LTS) with no such luck either.  Both result in NullPointerExceptions being tossed back by the application itself.  Unable to invoke ACL2 internally as a result.  Decided to do some testing with ACL2 command line and get familiar with the environment  Noticed that the teachpacks were not certified for io-utilities.lisp and list-utilities.lisp, so I had to include them in a subfolder and include them in the file directly.  Cannot use program mode in ACL2 and have to stay in logic mode else the files will not include correctly into the project.  Considering DrRacket as the IDE for development as a result.
+
+	- 	date: January 31, 2013
+		start time: 1:00pm
+		end time: 2:30pm
+		phase: Coding
+		comment: Started to develop the infrastructure for the server monitor program.  Determined that the use of processes and a dependency relationship was necessary to ensure that a process was complete before invoking a dependent processes.  Derived an XML DTD for the input format to load modules into the server environment for invocation.  Assigned names to modules in the format (program).(content).(action) naming convention, a folder to monitor for files, and a process to invoke when a file is detected.  Information has been updated on the wiki for reference on module creation under >> The Server Monitor.
+
+	-	date: February 1, 2013
+		start time: 4:30am
+		end time: 5:20am
+		phase: Coding
+		comment: Did some more work on the Server Monitor.  Wrote threading for directory monitoring and process invocation.  Have not tied module invocation directly to program yet, as I need to verify that executables can be effectively created from Racket.  File size seems to be rather large at the moment for just a hand full of code.  May consider an alternative approach.
+
+	- 	date: February 3, 2013
+		start time: 10:00am
+		end time: 12:30pm
+		phase: Testing
+		comment: Determined that executables in ACL2 is not a practical solution.  Tried invocations through redirection on the input method for ACL2 since the executable did not take any arguments.  So far I have had success.  Module invocation can occur through a shell script which does not require dependency checks (which will allow for linear execution.)  Reassessing the use of unsynchronized process invocation.  Perhaps synchronizing the main processing thread to halt while a process is running could be the best alternative.  Invocation of a shell script also alleviates the overhead that may have been involved and we can implement some of the operating system features to transfer information (such as ftp for file transfer).
+
+	- 	date: February 5, 2013
+		start time: 4:00am
+		end time: 5:30am
+		phase: Documentation
+		comment: Updated progress report with findings over the last two weeks for delivery to Dr. Page and the team.  Need to address issues with the change in the group make up, since Isaac will be unable to participate in the project until his personal issues are resolved.
+
+	- 	date: February 6, 2013
+		start time: 10:00am
+		end time: 11:00am
+		phase: Coding
+		comment: Reorganized server code into better directory management so ensure a structure that can be deployed more effectively.  Updated references to be on local scope, as opposed to global folder references for portability purpose.
+		
+	-	date: Februaru 7, 2013
+		start time: 6:30am
+		end time: 8:00am
+		phase: Coding
+		comment: Wrote scanner portion for the analyzer for XML content that can be parsed with ACL2.  Added consume, tag, pcData, nextToken, and tokenizeXML functions.  Entry point is tokenizeXML which takes a string of XML and will return a list of tokens and the token type.  This should then be added to a stack to verify xml correctness and can then be used to extract the PCDATA information contained between the brackets.
+
+new objects:
+	- 	name: consume
+		estimated lines: 6
+		type: Non IO
+	  
+	- 	name: tag
+		estimated lines: 6
+		type: Non IO
+		
+	- 	name: pcData
+		estimated lines: 4
+		type: Non IO
+		
+	-	name: nextToken
+		estimated lines: 9
+		type: Non IO
+		
+	-	name: tokenizeXML
+		estimated lines: 3
+		type: Non IO
+		
+defect log:
+	-	date: January 18, 2013
+		type: Networking
+		fix time: 60
+		comment: IP resolution cannot occur in ACL2 unless a network drive is mapped, after which you can call it by its network path.  Networking drives may be our resolution to this issue.
+		
+	- 	date: January 29, 2013
+		type: Conception
+		fix time: 150
+		comment: ACL2 cannot work with a GUI and IO at the same time.  Had to reevaluate how to salvage what we had regarding design.  Instead of real time chat, we would be sending email.  Instead of ACL2 interfaces, we would program them in C or C++.
+		
+	- 	date: January 31, 2013
+		type: Application Support
+		fix time: 90
+		comment: Unable to get Proofpad to work correctly on any of my computers.  Windows 8 and Ubuntu both show NullPointerExceptions when trying to implement ACL2 and Proofpad will not correctly identify with ACL2.  Opted to use Dracula instead.
+		
+	-	date: February 3, 2013
+		type: Conception
+		fix time: 150
+		comment: Determined that the size of the executables generated by ACL2 would not be a practical application for our program.  Opted to use input redirection into ACL2 prompt and shell script invocation.  Ubuntu would be the server platform and the two Macs would be used as clients to send and recieve information.
+		
+	-	date: February 5, 2013
+		type: Personnel
+		fix time: 15
+		comment: With the loss of Isaac from the team, modules had to be prioritized for completion and new due dates had to be set.  Determined that I would need to finish the XML Parser as quickly as possible to begin development in order to maintain deadlines.

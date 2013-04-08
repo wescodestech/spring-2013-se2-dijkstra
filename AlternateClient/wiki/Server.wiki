@@ -1,0 +1,181 @@
+#summary The Server manages the transmission of information and security associated with it.
+
+= Introduction =
+
+The server application is responsible for registering users, creating persistent storage, maintaining mailing lists and routing email that is sent by users.  Though the server does not adhere to current email system specifications, the premise is similar and can be thought of as a message routing system.
+
+*Topics Covered*
+  * [Server#Server Operation Server Operation]
+  * [Server#Modules Modules]
+    * [Server#The_Module_Storage_File Module Storage]
+    * [Server#Constructing_a_Module Constructing a Module]
+
+= Details =
+
+=== Server Operation ===
+To start the server, you must make sure that the path to your ACL2 binary is registered in the PATH variable.  This can be checked in DOS via the command `echo %PATH%` .  Under windows, you will be required to rename the ACL2 binary from `run_acl2.exe` to `acl2.exe` in order to conform to the interoperable standards of the application.  This is because the application is located simply by the `acl2` command from the console, so if by typing `acl2` in the console of the OS you have chosen, you can invoke ACL2, then your environment has been configured correctly for ACL2.
+
+The Java SDK is also required for development, but not deployment as we will only be required to use the Java Runtime instead.  Regardless, if by typing `java` in the console of your choice, you are able to invoke the java application, your computer is properly set up to start the server process.  If not, you need to register the path variable to the location of your java SDK/RE.  A similar process is required for the `javac` command.
+
+Starting the server GUI only involves one command:
+
+{{{ java Server }}}
+
+By typing this in the console you should be able to start the GUI.  Starting the processes requires manual intervention, as this is not done automatically.  This is because we allow the user to register modules with the server before starting the server.  A restart of the server application may be required to properly identify all modules that have been registered after startup.
+
+To start the modules, go to Server >> Start Server from the drop down menu.
+
+To stop the modules, go to Server >> Stop Server from the drop down menu.
+
+To restart the modules as they are currently running, go to Server >> Restart Server.
+
+To exit the server application, go to Server >> Exit.
+
+=Modules=
+
+The server currently consists of 3 basic modules:
+  * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerUser The User Module]
+  * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerEmail The Email Module]
+  * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerMailingList The Mailing List Module]
+
+Each module is considered to be a standalone program and and run on its own without the server.  The server program simply initializes these programs and maintains their running state.  The program is ran via processes which can be initiated via the start server command located under the System >> Start Server menu in the server application.
+
+As stated previously, each program is invoked through a new process and ideally the programmer dumps the log information to the logs folder which is similar to the path required to find the module (for instance modules/user/verify is located under the logs/user/verify/acl2_log.txt file.)  Because of this, the server can still operate, even if one of the modules fail and a simple restart of the modules will suffice in order to bring all modules back online.  While this was considered for automation, that feature was nixed for more verbous server error reporting.
+
+=== The Module Storage File ===
+When a module is registered, it is stored in a persistent file located under the config folder (config/modules.xml).  Each module adheres to a specific DTD requirement that is outlined in the dtd/module.dtd definitions.
+
+*Structure for a Module in XML:*
+
+{{{
+<module>
+   <name>Module Name</name>
+   <invoke>class.path.to.Module</invoke>
+   <port>20000</port>
+</module>
+}}}
+
+  * The `name` of the module is the actual visual name of the module as it would appear in the "modules" listing for management.
+  *The `invoke` of the modules is the actual package and class name for the program that will be invoked by the server.  This is written in Java and performs the action on the logic of the module (which will be discussed later in the document).
+  * The port is the TCP port that will be opened for the data to be received and transmitted upon.  While the server does not actually communicate with the clients, it will ensure that there are no conflicting ports when modules are registered via the GUI.
+
+Each module structure is encapsulated in the document data structure as defined by the dtd reference:
+
+{{{
+<?xml version='1.0'?>
+<!DOCTYPE modules SYSTEM '../dtd/module.dtd'>
+<modules>
+   <module>
+      <name>Module Name 1</name>
+      <invoke>class.path.to.Module1</invoke>
+      <port>20000</port>
+   </module>
+   <module>
+      <name>Module Name 2</name>
+      <invoke>class.path.to.Module1</invoke>
+      <port>20001</port>
+   </module>
+   ...
+</modules>
+}}}
+
+  _It is important to note that you MUST use single quotes in these documents.  When injecting XML into ACL2, you must have them escape sequenced or use singles._
+
+=== Constructing a Module ===
+
+Each module contains 3 basic parts:
+  # The Logic
+  # The Tests
+  # The Action
+
+The logic defines the ACL2 that may be performed on a data structure.  This explicitly does not contain any IO and will be used for testing purposes in order to determine the logically sound proof through Racket using Dracula.  The theoretical data structure for processing this information can be called up from the actions and the theorems in order to process what was intended.
+
+The tests are predicate based testing designed to prove the soundness of the logic behind the functions defined in the logic file.  The only include that should be required by this file is the logic file itself.  Typically these files are located next to each other in the `modules/module_name` folder.  The tests are ran separately and are not considered to be a functional part of the program itself, but ensures the results are to be as expected.  You can defined `defthm`, `defproperty` and `check-expects` in this file.
+
+The actions are the IO specific interfacing between the Java application and the logic defined in the logic file.  This is typically where ALL io must occur and any parsing form the input that is received from the Java application.
+
+Though not defined as a part of the module, the Java application that invokes the actions is the interfacing mechanism between the JVM and ACL2 runtime environments.  The Java application will start a process of the ACL2 environment and send ACL2 commands from the IO wrappers to the application spawned.
+
+_Basic Wrapper Requirements_
+
+** This code has been stripped and minimalized for brevity.  it will not compile since as listed, some of these values are not defined, but it will give you a basic sense of operation.
+
+{{{
+
+package modules.user.register;
+
+import java.io.*;
+import java.util.*;
+import java.net.*;
+
+public class RegisterUser {
+        public static void main(String[] args) {
+                boolean listening = true;
+                
+                try {
+                        // Acquire the listening port for connection to client.
+                        ServerSocket server = new ServerSocket(20001);
+                        
+                        while(listening) {
+                                // Wait until the client connects
+                                Socket client = server.accept();
+                                
+                                // Handles for input and output streams relating to the socket connection
+                                PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+                                BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                                
+                                // Buffers
+                                String input, store="", request="";
+                                
+                                // Read the input from the connection
+                                while((input = in.readLine()) != null) {
+                                        request += input;
+                                }       // end while
+                                
+                                // The ACL2 code to execute.
+                                String acl2 = "(include-book \"modules/user/register/register-user\")" +
+                                              "(in-package \"ACL2\")"            +
+                                                      "(registerUser \"" + request + "\" \"" + store + "\" state)";
+                                
+                                // Initialize ACL2 and dump its output to the log
+                                System.out.println("Executing ACL2 runtime for RegisterUser...");
+                                ProcessBuilder processBuilder = new ProcessBuilder("acl2");
+                                File log = new File("logs/user/register/acl2_log.txt");
+                                processBuilder.redirectErrorStream(true);
+                                processBuilder.redirectOutput(log);
+                                
+                                Process process = processBuilder.start();
+                                PrintWriter procIn = new PrintWriter(process.getOutputStream());
+                                
+                                // Write the ACL2 to the process, close ACL2
+                                procIn.println(acl2);
+                                procIn.println("(good-bye)");
+                                procIn.flush();
+                                procIn.close();
+                                
+                                // Close all streams
+                                out.close();
+                                in.close();
+                                client.close();
+                        }       // end while
+                } catch(Exception e) {
+                        e.printStackTrace();
+                }       // end try/catch
+        }       // end function main
+}       // end class RegisterUser
+
+}}}
+
+The package is the first thing to be defined.  In this example, the wrapper is in the `modules/user/register` directory.  The name of the class is `RegisterUser`.  We can select this file during module registration to invoke this class (file selected since we can parse the package name from the selection.)  This results in a binary after compilation being called by `java modules.user.register.RegisterUser` which is the location of the action file relative to the server invocation.
+
+How you structure your functions is completely up to you, but there must be a `main` statement for an execution point.  As stated previously, all modules are standalone applications in themselves and should run calling them directly.  If this is not the case, then they will not function properly on the server after being registered.
+
+The server module opens a server socket in order to provide a listening mechanism for the client to connect.  The server does not actually need to know the location of the client since the Socket class handles two way communication.  (Location was depreciated after the use of bash script was deemed insufficient. [https://code.google.com/p/spring-2013-se2-dijkstra/source/detail?r=64 See R64 for more information on transition])
+
+The wrappers are created for the IO between the client and server with `out` being the stream to write information to the client and `in` being data that can be read from the client.  It may be required to close the input stream in order to write information back to the client by invoking the `socket.shutdownOutput` on the client side.  This is due in part that the socket is listening for an EOF command, which may not be reached, but by shutting down the output after it is no longer required by the client, we can force the outputstream to post.
+
+We then use the ProcessBuilder to initialize the ACL2 environment and log that information to the log defined by the `log` variable.  You may be tempted to use the ProcessBuilder.Redirect class but this forces the requirement for the user to 1.7 SDK in Java and should be worth noting in your module.  It is assumed, at the time of this writing, that Java 1.7 is the standard (some mac computers may need to manually update this from the Oracle website).
+
+The input wrapper for the ACL2 process is them acquired and the ACL2 is dumped to the process.  It is important to note that you ARE require to call `(good-bye)` in order to exit the ACL2 program gracefully.  Not doing so may result in the module hanging and not exiting properly, disallowing the module to continue processing.
+
+After this, it is merely a matter of closing the data streams and exiting to module or cycling back for another iteration of listening.

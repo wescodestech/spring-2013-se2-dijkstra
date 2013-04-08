@@ -1,0 +1,78 @@
+#summary Definitions of the Email data structure, functions, and modules associated.
+#labels ACL2,XML,Email
+
+= Introduction =
+
+The Email (server module) will parse an incoming email message and the direct it to the specified client output folder.
+
+= Dependencies = 
+./client/include/xml-scanner.lisp
+./client/include/io-utilities.lisp
+
+= Email Storage =
+
+_./$name.xml_ (File is defined by the name of the mailing list.)
+{{{
+<?xml version="1.0"?>
+<!DOCTYPE email SYSTEM "email.dtd">
+<email>
+	<to>wesley.howell@localhost</to>
+	<from>matthew.crist@localhost</from>
+	<subject>Message1 subject</subject>
+	<message>Test For a Message Would be Here</message>
+</email>
+}}}
+
+_http://localhost/dtd/mailing_list.dtd_
+{{{
+<!ELEMENT to (#PCDATA)>
+<!ELEMENT from (#PCDATA)>
+<!ELEMENT subject (#PCDATA)>
+<!ELEMENT message (#PCDATA)>
+}}}
+
+= Data Structure =
+{{{to}}} - address - The address(es) to send an email.
+
+{{{from}}} - address - The address that sent the email.
+
+{{{name}}} - string - The name portion of the email address.
+
+{{{domain}}} - string - The domain portion of the email address.
+
+{{{subject}}} - string - The subject of the email message.
+
+{{{message}}} - string - The content of the message.
+
+_((to1 to2 ... ton) from subject message)_
+
+=== Example ===
+From the xml file described above, the sample data structure would be:
+
+{{{
+( ("localhost" "matthew.crist") ("localhost" "adam.ghodratnama")) 
+  ("localhost" "wesley.howell")
+  "Message Subject"
+  "Email Message Content" )
+}}}
+
+= Function Definitions =
+{{{(defun readEmailText (file state))}}} - Reads an email message, then outputs the contents to the console.
+{{{(defun writeEmailHTML (file state))}}} - Outputs the email HTML format text to the specified file.
+{{{(defun readEmail(fileIn fileOut state)}}} - Entry point for reading email from the server. Reads in the file and directs it to the clients inbox.
+{{{(defun writeEmailToFile(xmlStr to ts state)}}} - Writes an email based on strings to a file.
+{{{(defun writeMessage(to from sub msg state)}}} - Entry point for client writing. Writes an email message based on the string values of the parameters. 
+
+= File Information =
+*Lines of Code*: 51
+
+*Functions*: Not defined.
+
+*Entry Point*: (writeMessage (to from sub msg state)) and (readEmail (fin fout state))
+
+*File Location*: ./client/modules/email/send-email/rw-email.lisp
+
+
+= Properties and Testing =
+
+This file include IO functions. Since this function relies on something that might not be there, we therefore cannot test the IO capabilities by theorems. 

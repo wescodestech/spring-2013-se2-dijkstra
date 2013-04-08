@@ -1,0 +1,76 @@
+#summary Definitions of the Email data structure, functions, and modules associated.
+#labels ACL2,XML,Email
+
+= Introduction =
+
+The Email (server module) will parse an incoming email message and the direct it to the specified client output folder.
+
+= Dependencies = 
+./server/include/xml-scanner.lisp
+./server/include/io-utilities.lisp
+
+= Email Storage =
+
+_./$name.xml_ (File is defined by the name of the mailing list.)
+{{{
+<?xml version="1.0"?>
+<!DOCTYPE email SYSTEM "email.dtd">
+<email>
+	<to>wesley.howell@localhost</to>
+	<from>matthew.crist@localhost</from>
+	<subject>Message1 subject</subject>
+	<message>Test For a Message Would be Here</message>
+</email>
+}}}
+
+_http://localhost/dtd/mailing_list.dtd_
+{{{
+<!ELEMENT to (#PCDATA)>
+<!ELEMENT from (#PCDATA)>
+<!ELEMENT subject (#PCDATA)>
+<!ELEMENT message (#PCDATA)>
+}}}
+
+= Data Structure =
+{{{to}}} - address - The address(es) to send an email.
+
+{{{from}}} - address - The address that sent the email.
+
+{{{name}}} - string - The name portion of the email address.
+
+{{{domain}}} - string - The domain portion of the email address.
+
+{{{subject}}} - string - The subject of the email message.
+
+{{{message}}} - string - The content of the message.
+
+_((to1 to2 ... ton) from subject message)_
+
+=== Example ===
+From the xml file described above, the sample data structure would be:
+
+{{{
+( ("localhost" "matthew.crist") ("localhost" "adam.ghodratnama")) 
+  ("localhost" "wesley.howell")
+  "Message Subject"
+  "Email Message Content" )
+}}}
+
+= Function Definitions =
+{{{(defun writeEmail (XML state))}}} - Writes an email to a file based on the time and message subject
+{{{(defun getEmailTokens (addr))}}} - Reads in an XML file and parses the XML into tokens using list utilities.
+{{{(defun rwEmail (fileIn fileOut state)}}} - Main entry point. This will read in the specified file and output to the specified file.
+
+= File Information =
+*Lines of Code*: 48.
+
+*Functions*: Not defined.
+
+*Entry Point*: (rwEmail fileIn fileOut state)
+
+*File Location*: ./server/modules/email/send-email/server-email.lisp
+
+
+= Properties and Testing =
+
+This file include IO functions. Since this function relies on something that might not be there, we therefore cannot test the IO capabilities by theorems. 

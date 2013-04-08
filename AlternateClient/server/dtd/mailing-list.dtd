@@ -1,0 +1,9 @@
+<!ELEMENT addresses (address+)>
+<!ELEMENT owners (owner+)>
+<!ELEMENT list_name (#PCDATA)>
+<!ELEMENT address (name, domain)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT domain (#PCDATA)>
+<!ELEMENT owner (name, password)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT password (#PCDATA)>

@@ -1,0 +1,592 @@
+\documentclass[11pt, letterpaper]{report}
+\usepackage[hmargin=1in, vmargin=1in]{geometry}
+\usepackage[pdftex]{graphicx}
+\usepackage{pdfpages}
+\usepackage{listings}
+\usepackage{fixltx2e}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false}
+\hypersetup{%
+    pdfborder = {0 0 0}
+}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Team Dijkstra}
+\chead{t19 - Meeting Log}
+\rhead{Page \thepage}
+
+
+
+\begin{document}
+
+\title{\begin{center}
+\line(1,0){450}
+\end{center} \hfill \\ \Huge{Team Dijkstra }\\ \small{Crist - Ghodratnama - Howell } \\ \hfill \\ \hfill \\ \hfill \\ \huge{t19 - Meeting Log}  \\ \hfill \\ \hfill  \\ \Large{Software Engineering II} \\ \small{Spring 2013} \\ \begin{center}
+\line(1,0){450}
+\end{center}\small{\textit{``Elegance is not a dispensable luxury but a quality that decides between success and failure.'' \\- Edsger Dijkstra}}}
+\date{ }
+
+\maketitle
+\newpage
+
+\begin{description}
+
+\setcounter{page}{1}
+\pagenumbering{roman}
+
+\item[\Large{Table of Contents}] \hfill  
+\begin{itemize}
+\item \hyperlink{January 17, 2013}{\textcolor{blue}{\underline{January 17, 2013}}} \dotfill 1
+\item \hyperlink{January 22, 2013}{\textcolor{blue}{\underline{January 22, 2013}}} \dotfill 2
+\item \hyperlink{January 24, 2013}{\textcolor{blue}{\underline{January 24, 2013}}} \dotfill 3
+\item \hyperlink{January 29, 2013}{\textcolor{blue}{\underline{January 29, 2013}}} \dotfill 4
+\item \hyperlink{February 5, 2013}{\textcolor{blue}{\underline{February 5, 2013}}} \dotfill 5
+\item \hyperlink{February 7, 2013}{\textcolor{blue}{\underline{February 7, 2013}}} \dotfill 6
+\item \hyperlink{February 12, 2013}{\textcolor{blue}{\underline{February 12, 2013}}} \dotfill 7
+\item \hyperlink{February 14, 2013}{\textcolor{blue}{\underline{February 14, 2013}}} \dotfill 8
+\item \hyperlink{February 19, 2013}{\textcolor{blue}{\underline{February 19, 2013}}} \dotfill 9
+\item \hyperlink{February 21, 2013}{\textcolor{blue}{\underline{February 21, 2013}}} \dotfill 10
+\item \hyperlink{February 26, 2013}{\textcolor{blue}{\underline{February 26, 2013}}} \dotfill 11
+\item \hyperlink{February 28, 2013}{\textcolor{blue}{\underline{February 28, 2013}}} \dotfill 12
+\item \hyperlink{March 5, 2013}{\textcolor{blue}{\underline{March 5, 2013}}} \dotfill 13
+\item \hyperlink{March 7, 2013}{\textcolor{blue}{\underline{March 7, 2013}}} \dotfill 14
+\item \hyperlink{March 12, 2013}{\textcolor{blue}{\underline{March 12, 2013}}} \dotfill 15
+\item \hyperlink{March 14, 2013}{\textcolor{blue}{\underline{March 14, 2013}}} \dotfill 16
+\item \hyperlink{March 26, 2013}{\textcolor{blue}{\underline{March 26, 2013}}} \dotfill 17
+\item \hyperlink{March 28, 2013}{\textcolor{blue}{\underline{March 28, 2013}}} \dotfill 18
+\item \hyperlink{April 2, 2013}{\textcolor{blue}{\underline{April 2, 2013}}} \dotfill 19
+\\ \textcolor{gray}{
+\item April 4, 2013 \dotfill 21
+\item April 9, 2013 \dotfill 22
+\item April 11, 2013 \dotfill 23
+\item April 16, 2013 \dotfill 24
+\item April 18, 2013 \dotfill 25
+\item April 23, 2013 \dotfill 26
+\item April 25, 2013 \dotfill 27
+\item April 30, 2013 \dotfill 28
+\item May 2, 2013 \dotfill 29}
+
+
+\end{itemize}
+\newpage
+
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+\item[\Large January 17, 2013]
+\hypertarget{January 17, 2013} {}
+\item[Old Business] \hfill \\
+\subitem Personnel Change
+\item[New Business] \hfill \\
+\subitem Brainstorm Project Ideas
+\item[Notes] \hfill \\ \hfill \\
+Attendance: Matthew, Adam, Wesley, and Isaac were present \\ \\
+Project Ideas: 
+\subitem MUDD Text Adventure Game
+\subitem Chat Server/Client System \\ \\
+We decided to create use the Chat Server/Client System as our preferred project with the MUDD as the backup idea. There are several issues with the chat server/client system as to whether or not networking within ACL2 is feasible. Research into this topic needs to be investigated more.
+
+\newpage
+\item[\Large January 22, 2013] 
+\hypertarget{January 22, 2013} {}
+\item[Old Business] \hfill \\
+\subitem ACL2 and Lisp Networking Research
+\subsubitem Specifically will bridge in ACL2 perform the functions we need
+\subsubitem Alternatives
+\item[New Business] \hfill \\
+\subitem Project Ideas
+\subitem Project Design 
+\subsubitem High Level Design
+\subsubitem PROBE Estimate
+\subitem Project Proposal
+\subsubitem Document
+\subitem Project Proposal Presentation
+\subitem Project Engineering Standards
+\subsubitem List Standards and Document
+\item[Notes] \hfill \\ \hfill \\
+Attendance: Matthew, Wesley, Isaac, and Adam \\ \\
+Old Business: \\
+Using TCP/IP under ACL2 is not natively supported. In order to use TCP/IP we will need to implement some of this functionality within Common Lisp. Seeing that this type of project would be very unfeasible within the scope of this course. To make this type of application feasible within ACL2, we have decided to create a micro sub-network where we can have a common access to the server application. The communication between the client and servers will be done through intermediary file that contain the ``chat'' buffers for the communication. \\ \\
+New Business: \\
+The group decided to use this work around for the project and we will continue to work on the Client/Server chat program. \\ \\
+We will need to update the PROBE table with the final project from last semester. \\ \\ 
+The rest of the meeting was used to layout the high-level design of the program and determine the engineering standards of the program.\\ \\
+We need to look into whether or not a GUI would want to be included into the program. We need to research this and report back next class.
+
+
+\newpage
+\item[\Large January 24, 2013]
+\hypertarget{January 24, 2013} {}
+\item[Old Business] \hfill \\
+\subitem PROBE Table Update
+\subitem Design Changes and Updates
+\subitem GUI Research and Report
+\item[New Business] \hfill \\
+\subitem Project Design 
+\subsubitem High Level Design
+\subsubitem PROBE Estimate
+\subitem Project Proposal
+\subsubitem Document
+\subitem Project Proposal Presentation
+\subitem Project Engineering Standards
+\subsubitem List Standards and Document
+\item[Notes] \hfill \\ \hfill \\
+\textbf{Attendance:}  Matthew, Isaac, Wesley, Adam\\ \\
+\textbf{Old Business:} \\ 
+PROBE Table has been updated and posted to the group. \\ \\
+On the Design, add a network sub-layer to the proposal document to make the design choices more clear. \\ \\
+\textbf{New Business:} \\ 
+Work on the project design and project proposal document.\\ \\
+Isaac will work on the Engineering Standards document.\\ \\
+Work on program designs to get an accurate PROBE estimate\\ \\
+Adam will compile the PROBE estimate. \\ \\
+Wesley and Matthew will complete the proposal document.
+
+
+\newpage
+\item[\Large January 29, 2013]
+\hypertarget{January 29, 2013} {}
+\item[Old Business] \hfill \\
+\subitem Finish Proposal Doc
+\subitem Finish Engineering Standards
+\item[New Business] \hfill \\
+\subitem Begin Formal Project Design 
+\subsubitem PROBE Estimate
+\subitem Finish Project Proposal Presentation
+\subitem Complete Project Engineering Standards
+\subsubitem List Standards and Document
+\item[Notes] \hfill \\ \hfill \\
+Attendance:  Matthew, Wesley, Isaac, Adam\\ \\
+Old Business: \\ 
+We resolved connecting to the computers over the public Wi-Fi network. \\ 
+Drafts for the documents (Engineering Standards and Proposal) have been printed and we are working on revisions.
+\\ \\
+New Business: \\ 
+We discovered that File IO and GUI interactions do NOT work together in ACL2. For this reason, we are changing the project slightly.\\ \\
+We will be eliminating the GUI interaction and moving the project from an interactive chat client to a more static e-mail type messaging system. This will preserve most of our plans for the project. We will have to expand on this idea and rework parts of the proposal document. \\ \\
+This new program will have several ACL2 ``actions'' that will be invoked based on file input. The only external code will be to monitor input files for changes and appropriately calling the ACL2 actions in the program. This code will be very small in comparison to the project and will not be counted in the PROBE estimates or LoC requirements. \\ \\
+For Next Meeting we will formalize this design and expand it further.
+
+\newpage
+\item[\Large February 5, 2013]
+\hypertarget{February 5, 2013} {}
+\item[Old Business] \hfill \\
+\subitem Completed Proposal
+\subitem ACL2 invocation issues
+\item[New Business] \hfill \\
+\subitem Begin Formal Project Design 
+\subsubitem Expand project changes
+\subsubitem Formalize functions and ACL2 requirements.
+
+\item[Notes] \hfill \\ \hfill \\
+Attendance:  Matthew, Wesley, and Adam\\ \\
+Old Business: \\ 
+We had issues with invoking the ACL2 executables. The executables were not able to run on our system and were rather large files. This caused concern for when the program gets to a large amount of LOC. To work around this, we will be switching our system to a UNIX based server system with Mac Clients. This will allow us to use the ACL2 though the command line and write shell scripts to invoke the the .lisp files. 
+\\ \\
+New Business: \\ 
+We will be working on a formalized design. We now have a proof of concept that our application will work. With this, we will be able to expand the proposals initial requirements and include the detailed design of the each of the components. \\ \\
+The applications will now be ran on a POSIX system which will allow use of the UNIX shell. This is a more powerful way of using ACL2 since we will which will be a better way of running the program. Since this will execute directly on the system, performance will be the most optimal way of running the application with the amount of the processing needed in this application
+
+\newpage
+\item[\Large February 7, 2013]
+\hypertarget{February 7, 2013} {}
+\item[Old Business] \hfill \\
+\subitem Application framework
+\item[New Business] \hfill \\
+\subitem Work on Formal Project Design 
+\subsubitem Expand project changes
+\subsubitem Formalize functions and ACL2 requirements.
+\subsubitem Change all Windows Server designs to UNIX.
+
+\item[Notes] \hfill \\ \hfill \\
+Attendance:  Matthew, Wesley, and Adam\\ \\
+Old Business: \\
+Worked on developing designs for the application. We finished most of the conceptual overhead for the project regarding the server program.
+\\ \\
+New Business: \\
+Worked on the designs of the project. Worked on data structure designs for the ACL2 modules. These structures were defined to handle the data transfer between ACL2 functions. \\ \\
+Worked on defining XML requirements for the data structures. The XML will be used to input and output files for the final product. These formats will be used mainly by the XML parser program to extract the tags and content of the XML tags. \\ \\
+Worked on the project design. We outlined the format of the design and found that some components are mostly written in content from the proposal. We will be able to use this content and expand on it as needed. \\ \\
+We will spend the weekend finalizing the design and starting the code.
+
+
+
+\newpage
+\item[\Large February 12, 2013]
+\hypertarget{February 12, 2013} {}
+\item[Old Business] \hfill \\
+\subitem Project Design
+\subitem Completed Code
+\subitem Updated project on repository
+\item[New Business] \hfill \\
+\subitem Work on Project Design Review
+\subsubitem Find bugs based on current code
+\subsubitem Find where improvements can be made.
+
+\item[Notes] \hfill \\ \hfill \\
+Attendance:  Matthew, Wesley, and Adam\\ \\
+Old Business: \\
+We discussed the issues of the XML I/O format on the the wiki page and corrected issues so the format will be in correct XML data format.
+\\ \\
+New Business: \\
+We completed a design review for the t5 initial design. This is where we found the XML issue from above. We also found errors in several figures and issues with the design that did not incorporate the changes made in the last week. These changes were functional changes from where the Windows operating system was replaced with the UNIX OS in the design.
+
+
+\newpage
+\item[\Large February 14, 2013]
+\hypertarget{February 14, 2013} {}
+\item[Old Business] \hfill \\
+\subitem Project Design Review
+\subitem Completed Code
+\subitem Updated project on repository
+\item[New Business] \hfill \\
+\subitem Work on Project Design Revisions
+\subsubitem Find bugs based on current code
+\subsubitem Find where improvements can be made.
+\subsubitem Update the design from changes made.
+\subitem Work on Progress Report.
+
+\item[Notes] \hfill \\ \hfill \\
+Attendance:  Matthew, Wesley, and Adam\\ \\
+Old Business: 
+\\ \\
+New Business: 
+
+
+\newpage
+\item[\Large February 19, 2013]
+\hypertarget{February 19, 2013} {}
+\item[Old Business] \hfill \\
+\subitem Project Design Review
+\subitem Completed Code
+\subitem Updated project on repository
+\item[New Business] \hfill \\
+\subitem Progress Report.
+\subitem Work on Project Design Revisions
+\subsubitem Find bugs based on current code
+\subsubitem Find where improvements can be made.
+\subsubitem Update the design from changes made.
+
+
+\item[Notes] \hfill \\ \hfill \\
+Attendance:  Matthew, Wesley, Isaac, and Adam\\ \\
+Old Business: \\
+We have began writing code and updated the changes to the SVN repository. We have completed the design revisions and has been submitted. \\ \\
+The XML reader has been completed and we are working on the Server components and will finish this within the week.
+\\ \\
+New Business: \\
+We have revised the design and are working on ACL2 implementation. \\ \\
+Progress report has been submitted. \\ \\
+We will need to watch the SVN repository and make notes for each commit so the group knows what each update is for.
+
+
+
+
+
+\newpage
+\item[\Large February 21, 2013]
+\hypertarget{February 21, 2013} {}
+\item[Old Business] \hfill \\
+\subitem Completed Code
+\subitem Updated project on repository
+\item[New Business] \hfill \\
+\subitem Server Implementation
+\subitem Work on Project Design Revisions
+\subsubitem Find bugs based on current code
+\subsubitem Find where improvements can be made.
+\subsubitem Update the design from changes made.
+
+
+\item[Notes] \hfill \\ \hfill \\
+Attendance:  Wesley, Isaac, and Adam\\ \\
+Old Business: \\
+Matthew has completed the address book component and has uploaded it to the repository. \\
+Wesley is working on the email component of the server and will be finished by the weekend.\\
+Adam is working on the client side architecture and mailing list implementation\\
+Isaac is also working on the mailing list implementation and test. 
+\\ \\
+New Business: \\
+We are trying to finish the server implementation by the start of next week so we can start to focus on test and begin client side implementation. \\ \\
+We have made significant steps towards the server's implementation, once we get the core code written for the server. We then can test the code and write out the test and theorems to prove the functions written. 
+
+
+\newpage
+\item[\Large February 26, 2013]
+\hypertarget{February 26, 2013} {}
+\item[Old Business] \hfill \\
+\subitem Completed Code
+\subitem Updated project on repository
+\item[New Business] \hfill \\
+\subitem Design Review - II
+\subsubitem Address issues regarding the code that has already been implemented.
+\subitem Defect Database Design
+\subsubitem We have a Defect Database already on the Google Code project site, expand on this.
+
+
+\item[Notes] \hfill \\ \hfill \\
+Attendance:  Matthew and Wesley\\ \\
+Old Business: \\
+The server email module has been mostly completed. Only an IO issue is preventing this from being completed. The address book module for the server has also been completed. The SVN repository has been updated to reflect these changes as well as updated wiki pages.
+\\ \\
+New Business: \\
+We have made revisions to the design document to reflect recent changes to the projects design and to add a test suite section to include our testing suite design. \\ \\
+We looked at the issues with the email module and found that a similar issue was included with the xml reader. We will implement a similar approach to the email IO and see if that solves the issue. \\ \\
+We also worked on the defect database design. Since we are using the defect database on Google Code's repository, we will use this as a baseline for the defect database. We will also be tracking the issues in a change log from within each source code file.
+
+
+
+\newpage
+\item[\Large February 28, 2013]
+\hypertarget{February 28, 2013} {}
+\item[Old Business] \hfill \\
+\subitem Completed Code
+\subitem Updated project on repository
+\subitem Design Revisions
+\subitem Server Code and Test
+\item[New Business] \hfill \\
+\subitem Progress Report C
+\subsubitem We have the progress report due Tuesday
+\subitem Assign client side coding requirements \\
+
+
+
+\item[Notes] \hfill \\ \hfill \\
+Attendance:  Matthew and Wesley\\ \\
+Old Business: \\
+We code-reviewed the server-email module. We decided to split all the IO functions from the server-email to another send-email module that handled all the outside dependencies. This will make testing and theorems easier and more accurate on the data computation functions. 
+\\ \\
+New Business: \\
+We worked on writing a design for the network module and fixed XML errors on the Email and other wiki pages. \\ \\
+We wrote a progress report and will have the content finished before Monday to give the group time to prepare.
+
+
+
+
+\newpage
+\item[\Large March 5, 2013]
+\hypertarget{March 5, 2013} {}
+\item[Old Business] \hfill \\
+\subitem Completed Code
+\subitem Updated project on repository
+\subitem Design Revisions
+\subitem Server Code and Test
+\item[New Business] \hfill \\
+\subitem Progress Report C
+\subitem Work on the client side code
+\subsubitem Get the design finished and submitted
+\subsubitem Assign tasks for client code
+
+\item[Notes] \hfill \\ \hfill \\
+Attendance:  Matthew, Wesley, and Adam\\ \\
+Old Business: \\
+Gave individual updates on code completed over the weekend. The server email module has been completed and is functional for the the progress report. A shell script has been written to invoke the server-email module and will process emails in the server/incoming/email directory.\\
+The network interfaces have been fully designed and is ready to implement. Once we get this complete we will be able to interface between the client and server.
+\\ \\
+New Business: \\
+A progress report was given to Dr. Page. We demonstrated the completed code, shell script and theorems for the server email modules. We hammered out design considerations for the client modules and set deadlines for the client code. 
+
+
+
+\newpage
+\item[\Large March 7, 2013]
+\hypertarget{March 7, 2013} {}
+\item[Old Business] \hfill \\
+\subitem Completed Code
+\subitem Client Module Design
+\item[New Business] \hfill \\
+\subitem Work on the client side code
+\subsubitem Get the design finished and submitted
+\subsubitem Assign tasks for client code
+\subsubitem Work on implementation, test, and theorems
+
+\item[Notes] \hfill \\ \hfill \\
+Attendance:  Matthew, Wesley, and Adam\\ \\
+Old Business: \\
+Work has begun on both the network and client layers. With the way the network layer is being implemented on the UNIX system, it is possible that we will be able to reduce our overhead of the server monitor and eliminate the C++ code that would be needed to automate the system. \\ \\
+On the client side, work is beginning on the client-email portion. This should be able to port some of the same functions from the server with a few small modifications to the functions. 
+\\ \\
+New Business:\\
+We will continue to work on the client side code and the network layer code. As needed we will update the design to take into account the issues we run into while implementing. As we work on the code, it is important to keep the groups wiki up to date to keep the other group members informed of the issues and progress toward completion of the project.
+
+
+\newpage
+\item[\Large March 12, 2013]
+\hypertarget{March 12, 2013} {}
+\item[Old Business] \hfill \\
+\subitem Completed Code
+\item[New Business] \hfill \\
+\subitem Work on the client side code
+\subsubitem Have client-email completed by today
+\subitem work on the network layer code and shell script
+
+\item[Notes] \hfill \\ \hfill \\
+Attendance: Wesley, and Adam\\ \\
+Old Business: \\
+Client side email ACL2 code has been completed. Now we need to work on shell scripts to get the client side email to call the ACL2 functions and handled the data flow.
+\\ \\
+New Business:\\
+Work on getting the shell scripts written for the client. The next step will be to interface with with the networking clients and getting emails to send to the server.
+
+
+
+\newpage
+\item[\Large March 14, 2013]
+\hypertarget{March 14, 2013} {}
+\item[Old Business] \hfill \\
+\subitem Completed Code
+\item[New Business] \hfill \\
+\subitem Work on the client side code
+\subsubitem Have client-email completed by today
+\subitem work on the network layer code and shell script
+\subitem Assign spring break assignments
+\subitem Progress Report D
+
+\item[Notes] \hfill \\ \hfill \\
+Attendance:  Matthew, Wesley, and Adam\\ \\
+Old Business: \\
+The client side shell scripts have been written and tested. They will process both sending and receiving of client side email messages. The next task will be to call the network layer to send the message over a network. \\ \\
+The network layer has been partially implemented and needs to be fine tuned and tested to make sure it works properly. 
+\\ \\
+New Business:\\
+We need to get all the client side and network code completed by spring break. Wesley will handled the client email and make sure correct test and theorems are written for the client. Matthew will continue to work on the network layer and Adam will work on client registration. \\ \\
+We also worked on getting the network resolution to occur on a client machine. If we use localhost on the network layer, an email message is redirected, but the final message has no content. \\ \\
+We will write the progress report over spring break to keep the group updated on current progress
+
+
+
+\newpage
+\item[\Large March 26, 2013]
+\hypertarget{March 26, 2013} {}
+\item[Old Business] \hfill \\
+\subitem Completed Code
+\subitem Progress Report D
+\item[New Business] \hfill \\
+\subitem Work on the client side code
+\subsubitem Have client-email completed by today
+\subitem work on the network layer code and shell script
+
+\item[Notes] \hfill \\ \hfill \\
+Attendance:  Matthew, Wesley, and Adam\\ \\
+Old Business: \\
+Substantial work has been done over spring break. Client email, and user registration code is completed. Theorems have been written for the Client email module and pass. \\ \\
+The documentation needs to be overhauled. We started working on rewriting our documentation on the wiki page. This is due to the severe technical nature of the documentation. We need to work on getting the documentation in an easy-to-follow format that will allow the other groups to understand the complexity of this program. \\ \\
+The progress report was given to Dr. Page. We need to keep woking on the code and start focusing on the presentation. The presentation will need to be clear to the audience and will require time and effort to complete. 
+\\ \\
+New Business:\\
+We need to start working on other client functions. We are now at a point to where we need to start implementing features of the email system such as blocking users, mailing list, and spam filters. \\ \\
+The network layer is being re-defined and will work though the command line and shell scripts.
+
+
+
+\newpage
+\item[\Large March 28, 2013]
+\hypertarget{March 28, 2013} {}
+\item[Old Business] \hfill \\
+\subitem Completed Code
+\item[New Business] \hfill \\
+\subitem Work on the client side code
+\subitem Work on documentation
+\subitem Start implementing extra features.
+
+\item[Notes] \hfill \\ \hfill \\
+Attendance:  Matthew, Wesley, and Adam\\ \\
+Old Business: \\
+Matthew has worked on, and made significant progress, toward replacing the shell scripts with Java programs to allow the actions of our ACL2 program to be handed by the built in communication features rather than relying on the shell script. This allows sockets to be opened and listened to exclusively for each process. This adds a layer of security to the data flow of the program since it will not allow additional processes to use the sockets used by the Java program. This solves the issue of consistency that was problematic with the shell script. 
+\\ \\
+New Business:\\
+We need to continue to replace all the actions with Java programs to allow consistency in the final product. This will allow performance gains and eliminate the troubles we have had with network communication. \\ \\
+We need to set up a workflow that gets the email message transactions complete. We have one-way communication, we need to continue to set this up as a two-way communication.\\\\
+We need to start working on extra features in ACL2 that we originally planned in the design document \\ \\
+The next step will be to implement the mailing list, this will get us to the required size of the project and we will be able to pass this off to the next group if we do not get this 
+
+
+
+\newpage
+\item[\Large April 2, 2013]
+\hypertarget{April 2, 2013} {}
+\item[Old Business] \hfill \\
+\subitem Completed Code
+\subitem Java Replacement for Shell Scripts
+\item[New Business] \hfill \\
+\subitem Work on the client side code
+\subitem Work on documentation
+\subitem Start implementing extra features.
+
+\item[Notes] \hfill \\ \hfill \\
+Attendance:  Matthew, Wesley, and Adam\\ \\
+Old Business: \\
+Matthew completed the communication cycle with the Java shell scripts replacements. Now we need to finish the conversions of the shell scripts on both the client and server to incorporate the full functionality of the modules. 
+\\ \\
+New Business:\\
+We discussed the details of the structure of the Java files for the client. We need to make to where each module is an independent application. We need to finish all the code by Thursday in order to get a presentation ready.
+
+
+\newpage
+\item[\Large April 4, 2013]
+\hypertarget{April 4, 2013} {}
+\item[Old Business] \hfill \\
+\subitem Completed Code
+\subitem Java Replacement for Shell Scripts
+\item[New Business] \hfill \\
+\subitem Work on documentation
+\subitem Presentation Preparations 
+
+\item[Notes] \hfill \\ \hfill \\
+Attendance:  Matthew, Wesley, and Adam\\ \\
+Old Business: \\
+\\ \\
+New Business:\\
+
+
+\end{description}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

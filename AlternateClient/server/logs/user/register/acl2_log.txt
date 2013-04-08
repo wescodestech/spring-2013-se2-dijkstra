@@ -1,0 +1,71 @@
+ACL2_SYSTEM_BOOKS=C:/ACL2/books/
+saved_dir=C:/ACL2/books/
+Welcome to Clozure Common Lisp Version 1.8-r15286M  (WindowsX8664)!
+
+ ACL2 Version 6.0 built January 5, 2013  00:21:29.
+ Copyright (C) 2012, Regents of the University of Texas
+ ACL2 comes with ABSOLUTELY NO WARRANTY.  This is free software and you
+ are welcome to redistribute it under certain conditions.  For details,
+ see the LICENSE file distributed with ACL2.
+
+ Initialized with (INITIALIZE-ACL2 'INCLUDE-BOOK *ACL2-PASS-2-FILES*).
+ See the documentation topic note-6-0 for recent changes.
+ Note: We have modified the prompt in some underlying Lisps to further
+ distinguish it from the ACL2 prompt.
+
+ACL2 Version 6.0.  Level 1.  Cbd 
+"C:/Users/Matthew/Documents/My Projects/Software Engineering II/server/".
+System books directory "C:/ACL2/books/".
+Type :help for help.
+Type (good-bye) to quit completely out of ACL2.
+
+ACL2 !>
+ACL2 Warning [Compiled file] in ( INCLUDE-BOOK 
+"modules/user/register/register-user" ...):  Unable to load compiled
+file for book
+  C:/Users/Matthew/Documents/My Projects/Software Engineering II/server/module\
+s/user/register/register-user.lisp
+because that book is not certified.  See :DOC include-book.  No load
+was in progress for any parent book.
+
+
+ACL2 Warning [Uncertified] in ( INCLUDE-BOOK 
+"modules/user/register/register-user" ...):  There is no certificate
+on file for 
+"C:/Users/Matthew/Documents/My Projects/Software Engineering II/server/modules/user/register/register-user.lisp".
+
+
+
+ACL2 Warning [Uncertified] in ( INCLUDE-BOOK "../../../include/io-utilities"
+...):  There is no certificate on file for 
+"C:/Users/Matthew/Documents/My Projects/Software Engineering II/server/include/io-utilities.lisp".
+
+
+
+ACL2 Warning [Uncertified] in ( INCLUDE-BOOK "list-utilities" ...):
+There is no certificate on file for 
+"C:/Users/Matthew/Documents/My Projects/Software Engineering II/server/include/list-utilities.lisp".
+
+
+
+ACL2 Warning [Uncertified] in ( INCLUDE-BOOK "../../../include/xml-scanner"
+...):  There is no certificate on file for 
+"C:/Users/Matthew/Documents/My Projects/Software Engineering II/server/include/xml-scanner.lisp".
+
+
+
+ACL2 Warning [Uncertified] in ( INCLUDE-BOOK "../address-book" ...):
+There is no certificate on file for 
+"C:/Users/Matthew/Documents/My Projects/Software Engineering II/server/modules/user/address-book.lisp".
+
+
+
+Summary
+Form:  ( INCLUDE-BOOK "modules/user/register/register-user" ...)
+Rules: NIL
+Warnings:  Uncertified and Compiled file
+Time:  0.17 seconds (prove: 0.00, print: 0.00, other: 0.17)
+ "C:/Users/Matthew/Documents/My Projects/Software Engineering II/server/modules/user/register/register-user.lisp"
+ACL2 !> "ACL2"
+ACL2 !>("Wrote temp_address-book.xml successfully" <state>)
+ACL2 !>

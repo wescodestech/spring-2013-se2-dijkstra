@@ -1,0 +1,103 @@
+#summary Allows user to register their domain and name with the ACL2 email service.
+
+= Introduction =
+
+This module will invoke the action that is required to add a user to the address-book so that the server may divert email information to that user, since they are registered with the service.  If the user does not undergo this registration process, their email will not be stored and may simply be ignored.  This module will utilize a shell file that will dynamically generate a temporary lisp file to import this information to be passed to the ACL2 environment.  This work around can be viewed in the register-user.sh file.
+
+= Dependencies =
+
+[https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerXmlScanner xml-scanner]
+[https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerUserAddressBook address-book]
+
+= Persistence =
+
+Given a successful completion, the user will be stored via the persistent storage mechanism outlines in ServerUserAddressBook.
+
+A user registration request will be given the following structure:
+
+{{{
+<?xml version='1.0'?>
+<!DOCTYPE user SYSTEM '../../../dtd/register-user.dtd'>
+<user>
+	<domain>localhost</domain>
+	<name>matthew.a.crist</name>
+	<password>simulation</password>
+</user>
+}}}
+
+./server/dtd/register-user.dtd
+
+{{{
+<!ELEMENT domain (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT password (#PCDATA)>
+}}}
+
+= Data Structure =
+
+name - string - the name that the user is requesting to register.
+
+domain - string - the name that the user is requesting to register under.
+
+password - string - the password the user wishes to use for authentication.
+
+    * password is not implemented at the time of this writing.
+
+_(domain name password)_
+
+= Example =
+
+From the registration requestion, above:
+
+("localhost" "matthew.a.crist" "simulation")
+
+= Function Definitions =
+
+==(getDomain tokens)==
+Acquires the domain of the registration request from the token list.
+
+Estimated Lines of Code: , 
+Type: Non IO, 
+Actual Lines of Code: 6
+
+==(getName tokens)==
+Acquires the name of the registration request from the token list.
+
+Estimated Lines of Code: , 
+Type: Non IO, 
+Actual Lines of Code: 6
+
+==(getPassword tokens)==
+Acquires the password of the registration request from the token list.
+
+Estimated Lines of Code: , 
+Type: Non IO, 
+Actual Lines of Code: 6
+
+==(registerUser regXML abXML state)==
+Processes the information that is passed via XML string to add the user to the global server address book.
+
+Estimated Lines of Code: , 
+Type: IO, 
+Actual Lines of Code: 14
+
+= File Information =
+
+Lines of Code: 38
+
+Functions: 4
+
+Entry Point: _(registerUser regXML abXML state)_
+
+File Location:
+
+_./server/modules/user/register/register-user.lisp_, 
+_./server/modules/user/register/register-user.sh_
+
+= Theorems =
+
+_This module does not contain theorems due to it only using the functions that are present in the [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ServerUserAddressBook address-book] module._
+
+= Change Log =
+
+No entries at this point in time.

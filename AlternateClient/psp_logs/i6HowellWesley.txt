@@ -1,0 +1,325 @@
+name: Wesley Howell
+date: March 28, 2012
+
+program: Email Client Server System
+
+instructor: Dr. Rex Page
+
+language: ACL2
+
+
+actual added lines: 401
+actual base lines: 16
+actual modified lines: 15
+actual removed lines: 0
+
+time log:
+
+       - date: Jan 17, 2013
+	 start time: 10:30AM
+	 end time: 11:45AM
+	 phase: Conception
+	 comment: Team Dijkstra's regular meeting time. We brainstormed project ideas and decided on a networked chat client and server system.
+
+       - date: Jan 22, 2013
+	 start time: 10:30AM
+	 end time: 11:45AM
+	 phase: Conception
+	 comment: Team Dijkstra's regular meeting time. Finalized the idea of the chat system and began initial designs for the proposal.
+
+	- date: Jan 22, 2013
+	  start time: 7:32PM
+	  end time: 8:44PM
+	  phase: Conception
+	  comment: Worked on updating the team's LoC table to include tImpl from last semester. Reused the spreadsheet from last semester and added the new data. Then included the information into the t2 and t3 documents. 
+
+       - date: Jan 22, 2013
+	 start time: 8:53PM
+	 end time: 10:49PM
+	 phase: Testing
+	 comment: Worked on researching networking from within ACL2. There is not any native support for networking. However, we did discover that we could use networking if the Operating System supports it. Since our operating systems can be networked, we can work around this limitation. 
+
+	- date: Jan 23, 2013
+	  start time: 8:04PM
+	  end time: 10:27PM
+	  phase: Conception
+	  comment: Worked on writing the content of the Proposal. Finished the sections for the Overview, High-level design, some of the requirements, and began the PROBE estimate.
+
+       - date: Jan 24, 2013
+	 start time: 10:30AM
+	 end time: 11:45AM
+	 phase: Conception
+	 comment: Team Dijkstra's regular meeting time. We worked on the proposal and worked on several proofs of concepts to determine if the project is feasible. 
+
+	- date: Jan 26, 2013
+	  start time: 4:04PM
+	  end time: 6:31PM
+	  phase: Conception
+	  comment: Finished the complete proposal with all the specified requirements and PROBE estimate. 
+
+       - date: Jan 29, 2013
+	 start time: 10:30AM
+	 end time: 11:45AM
+	 phase: Conception
+	 comment: Team Dijkstra's regular meeting time. Dr. Page addressed concerns about the Project and that GUI's and File IO cannot exist in the same ACL2 program. We began a major re-design of the project and re-wrote most of the project requirements that are to be included in the proposal.
+
+	- date: Jan 29, 2013
+	  start time: 11:45AM
+	  end time: 2:12PM
+	  phase: Conception
+	  comment: Found out that some of the components of the original proposal were not feasible. Worked with Matthew to re-write sections of the proposal to include the new ideas for the project and write out the requirements for the project. The new project will be an email system instead of a chat system, with more emphasis on message delivery and content. 
+
+	- date: Feb 3, 2013
+	  start time: 12:42AM
+	  end time: 2:09AM
+	  phase: Conception
+	  comment: Matthew emailed about an issue with the ACL2 EXE's not working correctly and possibly being unable once the project gets large. Spent this time researching how to move the project to UNIX based servers and working with launching ACL2 from the terminal and using shell scripts to call ACL2 lisp files. 
+
+	- date: Feb 4, 2013
+	  start time: 5:23PM
+	  end time: 6:47PM
+	  phase: Conception
+	  comment: Worked on typing the progress report with the completed task to date and writing out the plans for the task to be completed. Also noted in in the progress report the need to move the system server to a UNIX based system to run the server components 
+
+	- date: Feb 5, 2013
+	  start time: 10:30PM
+	  end time: 11:45PM
+	  phase: Conception
+	  comment: Team Dijkstra's regular meeting time. We delivered a progress report to Dr. Page. We worked on converting the Windows based designs to a UNIX file system in order for the system to run.
+
+	- date: Feb 5, 2013
+	  start time: 7:32PM
+	  end time: 8:35PM
+	  phase: Conception
+	  comment: Worked on setting up ACL2 modules to run though the UNIX shell and wrote test scripts to automatically call ACL2 functions from a shell script
+
+	- date: Feb 7, 2013
+	  start time: 10:30PM
+	  end time: 11:45PM
+	  phase: Conception
+	  comment: Team Dijkstra's regular meeting time. We worked on the XML format and multi-level design and designed the data structure format for the project. We then wrote sections of the progress report and assigned an XML module to each team member.
+
+	- date: Feb 9, 2013
+	  start time: 5:14PM
+	  end time: 7:32PM
+	  phase: Conception
+	  comment: Worked on designing the XML structure for email messages. Designed the XML layout, Document type definition and explanation. These topics were then uploaded to the groups wiki for review, comment, and inclusion in the design document. 
+
+	- date: Feb 11, 2013
+	  start time: 5:12PM
+	  end time: 8:04PM
+	  phase: Conception
+	  comment: Worked on the team's design document and formatting of the sections. Took the information from the group's wiki and generated the data structure and IO format sections from this information. The other sections were expanded from the initial proposal with updates to relevant sections where the server information had been changed.
+
+	- date: Feb 12, 2013
+	  start time: 10:30PM
+	  end time: 11:45PM
+	  phase: Conception
+	  comment: Team Dijkstra's regular meeting time. We reviewed the team design document and made many changes to the XML format and found several errors. We marked up the design for submission on Thursday. 
+
+	- date: Feb 17, 2013
+	  start time: 3:43PM
+	  end time: 4:51PM
+	  phase: Coding 
+	  comment: Worked on designing the server email components of the server module. Wrote out data flow diagrams to match the data structure format and XML I/O from the design document, and wrote function prototypes. 
+
+	- date: Feb 18, 2013
+	  start time: 5:05PM
+	  end time: 6:12PM
+	  phase: Conception
+	  comment: Typed the progress report for the presentation tomorrow to give Dr. Page an update on our projects task and goals. Also updated the design document to Revision I for submission tomorrow. 
+
+	- date: Feb 18, 2013
+	  start time: 7:23PM
+	  end time: 10:44PM
+	  phase: Coding
+	  comment: Worked on implementing the server email components. Took my designs on paper from yesterday and worked them into working functions. I was able to finish an email splitter which splits one email sent to many recipients into multiple messages and XML output for email messages.
+
+	- date: Feb 19, 2013
+	  start time: 10:30AM
+	  end time: 11:45AM
+	  phase: Conception
+	  comment: Team Dijkstra's regular meeting time. We delivered a progress report to Dr. Page on our task so far. Also we updated our SVN repository to the most recent changes to the groups implementation. Isaac rejoined the group and the remaining time was spend catching him up on the groups progress.
+
+	- date: Feb 22, 2013
+	  start time: 4:32PM
+	  end time: 7:11PM
+	  phase: Coding
+	  comment: I worked on the ACL2 implementation of the server-email functions and finished the implementation of the components. The functions did not admit correctly and the details are described in the defect log. The issues were traced to file IO so we are still able to run and test the computational functions.
+
+	- date: Feb 22, 2013
+	  start time: 2:59PM
+	  end time: 4:16PM
+	  phase: Coding
+	  comment: I re-worked the file IO functions to accommodate the requirements of the IO utilities functions. This fixed the majority of the admission issues for these functions. Still the getEmail and runEmail functions are the global execution functions still have work needed to get them to admit and run with ACL2.
+
+	- date: Feb 26, 2013
+	 start time: 10:30AM
+	 end time: 11:45AM
+	 phase: Coding
+	 comment: Team Dijkstra's regular meeting time. We brainstormed bug issues and found a solution to the Server-Email IO problem. We will resolve multiple email messages from the command shell and call ACL2 for each individual message.
+
+	- date: Feb 27, 2013
+	  start time: 12:01PM
+	  end time: 12:53PM
+	  phase: Coding
+	  comment: Worked on the IO contents and designing the Test and Theorems for the server email module. Had an idea to combine the IO into one function to see if it fixes the IO issue I'm having with the server-email. Started implementation and will finish tonight.
+
+	- date: Feb 27, 2013
+	  start time: 9:54PM
+	  end time: 10:32PM
+	  phase: Coding
+	  comment: I finally have the IO fixed. With one call I can have and input file in XML format parse and get passed to an output file. Now its time to handled multiple XML messages in one file.	
+
+	- date: Feb 28, 2013
+	  start time: 10:30AM
+	  end time: 11:45AM
+	  phase: Coding
+	  comment: Team Dijkstra's regular meeting time. We worked on server implementation and fixed issues with the server-email file. We split it into two files where one contained the IO functions and the other contained the logic functions. This was done in order to make proving theorems in ACL2 easier. 
+
+	- date: Feb 28, 2013
+	  start time: 4:02PM
+	  end time: 5:12PM
+	  phase: Testing
+	  comment: I wrote the theorem suite for the server-email functions. These tested each function in the file at least once. This guarantees that the written code does what it is needed to do. 
+
+	- date: March 2, 2013
+	  start time: 4:53PM
+	  end time: 5:34PM
+	  phase: Coding
+	  comment: I wrote a shell script that dynamically writes a lisp file with the command to call the rwEmail function and output the files to a directory with the clients name in the servers store folder. Each file is names msg_timestamp where the timestamp is the actual timestamp of the message.
+
+	- date: March 4, 2013
+	  start time: 11:49AM
+	  end time: 1:04PM
+	  phase: Coding
+	  comment: Worked on updating rwEmail. I changed the output file from being solely passed in by the parameters to where only a timestamp is required. The output directory is now dynamically generated to pull the <to> tag from the XML and outputs to output each email message into a directory based on the contents of the tag and the naming convention that was implemented earlier for each individual file.
+
+	- date: March 5, 2013
+	  start time: 7:24PM
+	  end time: 7:48PM
+	  phase: Coding
+	  comment: Worked on updating the shell script to include a for loop to process each file that exist in the incoming directory. Also edited, the route-email ACL2 file to change the directory structure of the email output.
+
+	- date: March 9, 2013
+	  start time: 7:59PM
+	  end time: 9:25PM
+	  phase: Coding 
+	  comment: Worked on the client code for the email module. I wrote the functions to parse strings into XML files for outgoing messages. I also handled the need for the client to sent an email to multiple recipients to where a separate XML file will need to be written for each recipient indicated in the to field of the email xml.
+
+	- date: March 11, 2013
+	  start time: 12:04PM
+	  end time: 12:51PM
+	  phase: Coding
+	  comment: I worked on writing IO code for the client side email module. This included writing code for both incoming and outgoing messages. Since these needed to be handled differently, there are multiple functions for each of these requirements. 
+
+	- date: March 11, 2013
+	  start time: 8:13PM
+	  end time: 9:18PM
+	  phase: Coding 
+	  comment: I finished the IO code for the client email. It now handles multiple recipients and will output a single XML file that will need to be processed to send the multiple email messages. A shell script was written to handled ALL incoming messages and process them to HTML files for easy reading. 
+
+	- date: March 12, 2013
+	  start time: 11:46AM
+	  end time: 12:49PM
+	  phase: Coding
+	  comment: The client email code has been finished. Worked on tweaks to get the output correct and in the correct XML format. Worked on naming of files to ensure unique naming for each generated file. Finished a shell script to split the email output that contains multiple recipients. 
+
+	- date: March 13, 2013
+	  start time: 5:13PM
+	  end time: 7:14PM
+	  phase: Testing
+	  comment: Tested the client code. Worked on verification of the connection between the logic module and the IO module. Ensured that the correct functions were called, and returned the correct structures. This is set up for writing the theorems for this module. Also added the getHTMLtext to the client logic to allow an HTML file to formed and written instead of regular plain text for a nicer looking output.
+
+	- date: March 14, 2013
+	  start time: 6:43PM
+	  end time: 7:34PM
+	  phase: Coding
+	  comment: Wrote the shell scripts to automate the client email processing. One shell script was made to handle incoming email messages and directs incoming messages to the inbox folder. The other shell script handled outgoing messages and places them in the outbox folder.
+
+	- date: March 15, 2013
+	  start time: 9:46PM
+	  end time: 10:52PM
+	  phase: Coding
+	  comment: Added to the outgoing shell script the capability to parse multiple emails and create an XML file that contains a single email message with a unique file name. This shell script will then send the single email script to the server using the nc command.
+
+	- date: March 24, 2013
+	  start time: 4:58PM
+	  end time: 6:18PM
+	  phase: Testing
+	  comment: Worked on the theorem suite for the client email module. The theorems are used to test the data integrity of the logic functions in the client. We were unable to test the IO functions with theorems since they rely on variant data. However, the logic could be tested using theorems and we were able to prove that the client email logic module returns the correctly formatted data based on correct input. 
+
+	- date: March 25, 2013
+	  start time: 6:12PM
+	  end time: 6:49PM
+	  phase: Coding
+	  comment: Tweaked the shell scripts for the clients to ensure that the server has ample time to process a single email message and that the client will not overload the server by adding too many emails to the queue. 
+
+	- date: April 1, 2013
+	  start time: 5:55PM
+	  end time: 6:47PM
+	  phase: Coding
+	  comment: Worked on reworking the Java Gui client to work directly with ACL2 instead of relying on shell scripts. This allows faster and more secure connections between remote host for our networking portions. 
+
+	- date: April 1, 2013
+	  start time: 8:59PM
+	  end time: 11:10PM
+	  phase: Coding
+	  comment: Continued to work on the Java integration with ALC2. I was able to complete most of the Send email functions for the client. All that remains on this front is sending the file's contents over the network.
+
+defect log:
+
+	- date: Jan 22, 2013
+	  type: Design
+	  fix time: 60
+	  comment: Found out that networking is not feasible from within ACL2. To make it natively supported, writing and extending several Common Lisp features would need to be done. We cannot do this in the scope of this project. So we found that using the Operating System's native filesystem and networking support would be much more friendly to deal with once we get to this stage in the project.
+
+       - date: Jan 29, 2013
+	 type: Design
+	 fix time: 147
+	 comment: Found out that GUI's and File IO cannot coexist in ACL2. We can have one or the other, but not both. So we had to scrap the GUI portions of the project and replace them with a new idea. The new idea is the current design of the email server and client system. This project is strictly data processing and file IO. This project will be file and text based rather than Visual and Interactive. 
+
+- date: Feb 5, 2013
+	 type: Design
+	 fix time: 124
+	 comment: We discovered that generating ALC2 executables and invoking these files from an outside source is a troublesome experience and that the generated files are hundreds of megabytes in size. Since we will have several modules for this project, we saw this as a negative side effect of executable files. To solve this problem, we moved all our project to the UNIX platform. This has allowed us to use the UNIX shell environment to generate shell scripts that invoke the ACL2 environment while passing in ACL2 source code files. This reduces the size of the files to kilobytes and streamlines the execution process and eliminating the size of outside programming needed for the original idea to work. Thus we will be executing our ACL2 code through a UNIX shell script and the shell scripts will in turn be executed from the outside programming environment. 
+
+- date: Feb 12, 2013
+	 type: Design
+	 fix time: 75
+	 comment: When we looked at the design review. We saw several errors in the XML format that would not pass if it were to be sent though a web browser. We had to work on setting the XML to a correct format and modify the document type definitions to comply with proper XML syntax.
+
+- date: Feb 22, 2013
+	 type: Coding
+	 fix time: 12
+	 comment: After finishing coding the ACL2 functions, the functions would not admit under normal ACL2 invocation. However, it did work under Dr Racket. The issue was traced to the IO and List utilities files as they were un-certified files within the regular ACL2 environment. Adding the suppression to the certification requirement, the files worked as usual.
+
+- date: Feb 23, 2013
+	 type: Coding
+	 fix time: 52
+	 comment: After fixing the certification issue. Certain functions were still not admitting to ACL2. This was due to illegal arguments as the ACL2 output stated. To fix these arguments, the state variable had to be set and implemented differently than I had intended. I added some safe guards to the variables and added constraints to the functions that depended on them. 
+
+-date: March 5, 2013
+	type: Coding
+	fix time: 21
+	comment: After finishing the IO entry point function on the server email module, We noticed that the XML files were being generated with a comma instead of the @ symbol between names and domains in the email address. Also, the output file for the email was a statically named file. This file needed to be dynamically named with a timestamp.
+
+-date: March 11, 2013
+	type: Coding
+	fix time: 24
+	comment: Email parsing had a one off error that did not have the correct lines returned for the XML file which rendered the outputted file useless.
+
+-date: March 14, 2013
+	type: Coding
+	fix time: 32
+	comment: Shell script was not correctly splitting the XML files based on the regular expression. Started using awk to parse the file. However, the file did not have a unique file name and was getting overwritten every time the script was executed. 
+
+-date: March 24, 2013
+	type: Testing
+	fix time: 16
+	comment: The theorem that tested the email data structure was not passing. This was traced to an error in the proof and not in the code. The error was trying to access an item that was not in the structure, hence the failure of the proof.
+
+-date: April 1, 2013
+	type: Coding
+	fix time: 23
+	comment: Working on integrating the ALC2 with Java. Having trouble getting Java to see the files that ACL2 has generated. Right now, the current solution is to make the Java sleep for a couple of seconds while ACL2 finishes its processing then resume. Then it sees the files that ALC2 generates

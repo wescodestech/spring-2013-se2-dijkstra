@@ -1,0 +1,129 @@
+#summary Definitions of the address book data structure, functions, and modules associated.
+#labels ACL2,XML,Email
+
+= Introduction =
+
+The mailing list is created by a user (owner) and adds users to the mailing list or allows users to add themselves to the mailing list (addresses).  The user (owner) may also add other users to manage the list (owners), verified by a password.
+
+= Dependencies = 
+[http://code.google.com/p/spring-2013-se2-dijkstra/wiki/XMLScanner_ACL2 xml-scanner.lisp]
+
+= Mailing List Storage =
+
+_./$name.xml_ (File is defined by the name of the mailing list.)
+{{{
+<?xml version="1.0"?>
+<!DOCTYPE mailing_list SYSTEM "http://localhost/dtd/mailing_list.dtd">
+<mailing_list>
+   <list_name>My mailing list</list_name>
+   <addresses>
+      <address>
+         <domain>localhost</domain>
+         <name>matthew.crist</name>
+      </address>
+      <address>
+         <domain>localhost</domain>
+         <name>wesley.howell</name>
+      </address>
+      <address>
+         <domain>localhost</domain>
+         <name>adam.ghodratnama</name>
+      </address>
+   </addresses>
+   <owners>
+      <owner>
+         <name>matthew.crist</name>
+         <password>my_password</password>
+      </owner>
+   </owners>
+</mailing_list>
+}}}
+
+_http://localhost/dtd/mailing_list.dtd_
+{{{
+<!ELEMENT addresses (address+)>
+<!ELEMENT owners (owner+)>
+<!ELEMENT list_name (#PCDATA)>
+<!ELEMENT address (name, domain)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT domain (#PCDATA)>
+<!ELEMENT owner (name, password)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT password (#PCDATA)>
+}}}
+
+= Data Structure =
+{{{list_name}}} - string - The name of the mailing list.
+
+{{{domain}}} - string - The domain, to which the email address belongs.
+
+{{{name}}} - string - The name portion of the email address.
+
+{{{password}}} - string - The password to ensure the user has access to use this mailing list.
+
+_(list_name ((domain name),,1,, (domain name),,2,, ... (domain name),,n,,) ((name password),,1,, (name password),,2,, ... (name password),,n,,))_
+
+=== Example ===
+From the xml file described above, the sample data structure would be:
+
+{{{
+("My mailing list"
+ (("localhost" "matthew.crist")
+  ("localhost" "wesley.howell")
+  ("localhost" "adam.ghodratnama"))
+ (("matthew.crist" "my_password")))
+}}}
+
+= Function Definitions =
+{{{(parseMailingList s)}}} - parses the structure presented by xml-scanner.lisp into the data structure represented by this component. _s_ is the structure represented by the xml-scanner.
+
+{{{(getAddresses s)}}} - acquires the addresses of the recipients in this component's structure.  _s_ is the structure associated with mailing list.
+
+{{{(getListName s)}}} - acquires the name of the list in this component's structure.  _s_ is the structure associated with mailing list.
+
+{{{(getOwners s)}}} - acquires the owners of this list in this component's structure.  _s_ is the structure associated with mailing list.
+
+{{{(isInList s u d)}}} - predicate to determine if a user@domain is in this address book.  _s_ is the substructure defined in mailing list (of type list of tuples). _u_ is the name of the user.  _d_ is the domain of the name.
+
+{{{(isOwner s u)}}} - predicate to determine that a user is an owner of this mailing list.  _s_ is the substructure defined in mailing list (of type list of tuples). _u_ is the name of the owner.
+
+{{{(verifyOwner s u p)}}} - verifies the user name with the password supplied. _s_ is the substructure defined in mailing list (of type list of tuples). _u_ is the name of the owner.  _p_ is the password of the owner.
+
+= File Information =
+*Lines of Code*: Not defined.
+
+*Functions*: Not defined.
+
+*Entry Point*: Any function contained in file except _(parseMailingList s)_.
+
+*File Location*: ./server/modules/mailing-list/functions.lisp
+
+= External Functional References =
+
+{{{(createMailingList list_name owner password)}}} - Creates a new mailing list with the list name, and owner credentials.  This function is called through batch command and utilizes the mailing-list/function.lisp book.
+ * _./server/modules/mailing-list/create-mailing-list.lisp_
+ * _./server/modules/mailing-list/create-mailing-list.sh_
+
+{{{(deleteMailingList list_name owner password)}}} - Deletes the mailing list from the server so that it may not be used.  This function is called through batch command and utilizes the mailing-list/function.lisp book.
+ * _./server/modules/mailing-list/delete-mailing-list.lisp_
+ * _./server/modules/mailing-list/delete-mailing-list.sh_
+
+{{{(addUserToMailingList contact)}}} - Checks to verify that a user is not on a mailing list and if not, they will be added to the addresses element.  This function is called though batch command and utilizes the mailing-list/function.lisp book.
+ * _./server/modules/mailing-list/add-to-mailing-list.lisp_
+ * _./server/modules/mailing-list/add-to-mailing-list.sh_
+
+{{{(removeUserFromMailingList contact)}}} - Verifies that a user is on the mailing list and removes them if they are.  This function is called through batch command and utilizes the mailing-list/function.lisp book.
+ * _./server/modules/mailing-list/remove-from-list.lisp_
+ * _./server/modules/mailing-list/remove-from-list.sh_
+
+{{{(saveMailingList old new)}}} - Saves the current data structure for the mailing list to a file.  This function cannot be called at the same time the file is being read.  Consider storing information to temporary file and renaming after file is written by using shell.  This function is called through batch command and utilizes the mailing-list/function.lisp and ./server/inc/io-utilities.lisp books.
+ * _./server/modules/mailing-list/save-mailing-list.lisp_
+ * _./server/modules/mailing-list/save-mailing-list.sh_
+
+{{{(renameMailingList old new)}}} - Renames the name of the mailing list and updates that information in the mailing list XML storage for persistence.  This function is called through batch command and utilizes the mailing-list/function.lisp and ./server/in/io-utilities.lisp books.
+ * _./server/modules/mailing-list/rename-mailing-list.lisp_
+ * _./server/modules/mailing-list/rename-mailing-list.sh_
+
+{{{(sendEmailToMailingList email)}}} - Sends a single email to all the recipients on the mailing list.  This function is called through batch command and utilizes the mailing-list/function.lisp and ./server/in/io-utilities.lisp books.
+ * _./server/modules/mailing-list/send-to-mailing-list.lisp_
+ * _./server/modules/mailing-list/send-to-mailing-list.sh_

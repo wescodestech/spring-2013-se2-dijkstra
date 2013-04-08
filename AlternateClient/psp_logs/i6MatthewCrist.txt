@@ -1,0 +1,169 @@
+name: Matthew A. Crist
+date: March 26, 2013
+program: Email with ACL2
+instructor: Dr. Rex Page
+language: ACL2, Shell Scripting, XML, Java
+
+actual added lines: 208
+actual base lines: 0
+actual modified lines: 4
+actual removed lines: 0
+
+time log:
+	-	date: March 13, 2013
+		start time: 9:00am
+		end time: 10:30am
+		phase: Coding
+		comment: Began adding shell commands to extract the domain and name from the registration files to be able to create the directories for the email storage on the server.
+
+	-	date: March 17, 2013
+		start time: 12:15am
+		end time: 12:48am
+		phase: Coding
+		comment: Finished adding the directory creation mechanisms to the shell scripts and tested the user registration process.  It seems to be working correctly now.
+
+	-	date: March 17, 2013
+		start time: 12:50am
+		end time: 12:55am
+		phase: Testing
+		comment: Continued to test the functionality of the user registration process on the server side.  One thing to note, we cannot have spaces in our name and domain.  Whitespace has been trimmed.
+
+	-	date: March 17, 2013
+		start time: 1:00am
+		end time: 1:15am
+		phase: Coding
+		comment: Added and modified lines in the register-user and address-book lisp files to allow for a user to register with a password.  This will be used to verify the user can perform actions on the server side.
+
+	-	date: March 17, 2013
+		start time: 1:15am
+		end time: 3:00am
+		phase: Coding
+		comment: Created the verify action on the user module.  Defined utility functions to acquire domain, name, password and the location of the client.  The location will need to be extracted from the original XML from the shell script since it does not conform the the verification user information.
+
+	-	date: March 17, 2013
+		start time: 3:00am
+		end time: 6:17am
+		phase: Coding
+		comment: Created all the functions that will perform the actions on the mailing list.  subscribe, unsubscribe, and all predicates to allow for these actions to complete.
+
+	-	date: March 17, 2013
+		start time: 6:37am
+		end time: 6:45am
+		phase: Testing
+		comment: After looking at some of the properties from the address-book_tests file, I realize that I forgot to log these functions into the PSP logs from last cycle (probably because I did them right before class and lost track of time).  These have been added to this log.
+
+	-	date: March 23, 2013
+		start time: 2:00am
+		end time: 2:45am
+		phase: Coding
+		comment: Added verify-user.sh file to invoke the actions required to start the user verification process on the server side.  Having a few issues getting remote-actions.lisp to be accepted into logic (guard checking issues).
+
+	-	date: March 23, 2013
+		start time: 12:00am
+		end time: 2:50am
+		phase: Coding
+		comment: Finished the verify-user.sh action file for establishing a connection between the client and server for mail reception.
+
+new objects:
+	-	name: getDomain
+		estimated lines: 6
+		type: Non IO
+
+	-	name: getName
+		estimated lines: 6
+		type: Non IO
+
+	- 	name: getPassword
+		estimated lines: 6
+		type: Non IO
+
+	-	name: getLocation
+		estimated lines: 6
+		type: Non IO
+
+	-	name: verifyUser
+		estimated lines: 6
+		type: Non IO
+
+	-	name: testUser
+		estimated lines: 16
+		type: IO
+
+	-	name: findOwner
+		estimated lines: 6
+		type: Non IO
+
+	-	name: verifyOwner
+		estimated lines: 9
+		type: Non IO
+
+	- 	name: isOwner
+		estimated lines: 6
+		type: Non IO
+
+	-	name: addOwner
+		estimated lines: 9
+		type: Non IO
+
+	-	name: removeOwner
+		estimated lines: 6
+		type: Non IO
+
+	- 	name: hasOwners
+		estimated lines: 6
+		type: Non IO
+
+	-	name: changePassword
+		estimated lines: 18
+		type: Non IO
+
+	-	name: hasSubscribers
+		estimated lines: 6
+		type: Non IO
+
+	-	name: isSubscriber
+		estimated lines: 6
+		type: Non IO
+
+	-	name: removeSubscriber
+		estimated lines: 9
+		type: Non IO
+
+	-	name: unsubscribe
+		estimated lines: 9
+		type: Non IO
+
+	-	name: subscribe
+		estimated lines: 9
+		type: Non IO
+
+	-	name: renameMailingList
+		estimated lines: 9
+		type: Non IO
+
+	-	name: address-is-in-book-adding-returns-original-book-test
+		estimated lines: 3
+		type: Property
+
+	-	name: address-is-not-in-book-add-length-test
+		estimated lines: 4
+		type: Property
+
+	-	name: address-is-in-book-remove-length-test
+		estimated lines: 4
+		type: Property
+
+	-	name: address-is-not-in-address-book-remove-returns-original-book-test
+		estimated lines: 4
+		type: Property
+
+defect log:
+	-	date: March 13, 2013
+		type: Coding
+		fix time: 20
+		comment: Was not able to get email to write to the server.  Determine that it was an issue that the directories did not exist, thus the information was not being written properly by the ACL2 script, which was a difficult thing to determine since acquiring error information from the runtime environment would only be possible if we wrote the error to an output log.  Determined that I would need to finish the registration process by adding directory creation to the shell script in order to make this function correctly.  Until then, we can manually create the directories.
+	
+	-	date: March 23, 2013
+		type: Coding
+		fix time: 35
+		comment: Type checking for string-listp on XML conversion in the server actions was incorrect.  Was using endp and stringp tests, when combined I could use string-listp, which ended up being the required fix and not having to turn off guard checking.

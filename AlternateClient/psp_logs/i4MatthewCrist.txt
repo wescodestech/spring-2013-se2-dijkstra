@@ -1,0 +1,84 @@
+name: Matthew A. Crist
+date: March 7, 2013
+program: Email with ACL2
+instructor: Dr. Rex Page
+language: ACL2, C++, Shell Scripting, XML
+
+actual added lines: 42
+actual base lines: 0
+actual modified lines: 0
+actual removed lines: 0
+
+time log:
+	-	date: February 25, 2013 
+		start time: 8:00am
+		end time: 9:30am
+		phase: Conception
+		comment: Starting in the development of the network connectivity subsystem that will allow for the transmission of information across a network via IP address.  Determined previously that the "nc" command in UNIX was sufficient in order to accomplish this task  Proceeded to decompose the component and derived the need for a separate "method invocation" language.
+
+	-	date: February 26, 2013
+		start time: 8:00am
+		end time: 9:15am
+		phase: Conception
+		comment: Proceeded to develop a rough draft for the diagram that would be formalized into the design document for network connectivity.  Upon further investigation, I realized that I need to find a way in order to send a request to the server to open a sending port after the client has acknowledged opening a recieving port for data transmission.  This appears to be the most difficult scenario for the server to overcome.
+
+	-	date: March 1, 2013
+		start time: 12:35am
+		end time: 1:45am
+		phase: Conception
+		comment: Started to develop the basis for the "Server Messaging Language" that would overcome the need for remote method invocation.  Syntax of which would be encapsulated in curly brackets and separated by semicolins.  Started prototyping functions to scan for this language.  Header information would be passed via first line in the XML transmission over the network and would be saved in a timestamp relative to UNIX conception date (date +%s.txt).
+
+	-	date: March 4, 2013
+		start time: 8:00am
+		end time: 8:45am
+		phase: Conception
+		comment: Started to rough draft a client side development plan.  Wes and I are considered the "server side" team, while we had hopes of Adam and Isaac being the "client side" team.  Being that both Adam and Isaac were gone, Wes and I have had to develop a plan of action toward pushing for project completion.  RMI has been temporarily placed on hold until we can solve these issues.  Perhaps and explanation of the RAD process and a bit of motivation would be the route to go.  Designed a flow chart for an overview of the basic functionality and what components were complete.  Decided that I would give the presentation on the update of the status of the project.
+
+	-	date: March 5, 2013
+		start time: 7:15pm
+		end time: 8:30pm
+		phase: Coding
+		comment:	Started development on the RMI language.  Instead of developing this as a module, I have decided to place this in the "includes" folder since it would more than likely be used by other modules.  Point of entry is getActions function which would return a data structure of actions that will be updated in the next design document.  On a side note, we can use this for user authentication where required instead of a separate request for authentication.
+
+	-	date: March 5, 2013
+		start time: 2:30pm
+		end time: 2:45pm
+		phase: Testing
+		comment: Tested out some shell solutions to multiple file traversal, since Wes was stating he needed to find a resolution for this issue, as discussed in our meeting earlier today.  Posted a short "how-to" on the for loop and file acquisition.  Wes responded shortly after implementing the code to verify its working condition.  It appears to be the solution we were looking for.  Considering implemenation in other modules as well as the register-user module.
+
+	-	date: March 7, 2013
+		start time: 12:00am
+		end time: 2:30am
+		phase: Coding
+		comment: Continued development on the RMI language interpreter.  Developed last few functions getActionString, getAction.  Brackets encapsulate the actions, and semicolins separate the actions.  SERVERACTION denotes a server action to take place.  CLIENTACTION denotes that a client action should take place.  At the time of this file conception, MOVEFILE and COPYFILE actions are only considered.  The portion containing the string between the brackets is the module that will be considered.  This will acquire the "monitor" value from the module registration on the server side.  In otherwords, the file that contains the "header" information will be MOVED/COPIED (depending on action) to the monitor for the module that is in the brackets, thus invoking the monitor process and kick starting the module itself.  Files that contain monitor information will end with a file extension of $unix_timestamp.rmi.  When this file is copied, the header information is removed and the output is the following XML that is contained in the file ($unix_timestamp.xml).
+
+new objects:
+	-	name: getActionString
+		estimated lines: 6
+		type: Non IO
+
+	-	name: getAction
+		estimated lines: 6
+		type: Non IO
+
+	-	name: getActionKey
+		estimated lines: 9
+		type:	Non IO
+
+	-	name: getActionType
+		estimated lines: 4
+		type: Non IO
+
+	-	name: splitActions
+		estimated lines: 6
+		type: Non IO
+
+	-	name: getActions
+		estimated lines: 9
+		type: Non IO
+
+defect log:
+	-	date: March 4, 2013
+		type: Personnel
+		fix time: 45
+		comment: Has to reconsider a new "plan of action" with regards to completion of the project.  Current methods seemed to archaic for the current situation as we were unable to adapt due to the relaince on people.  Opted for a RAD development solution where SCRUM and Extreme Programming were the foundations for development.  Will need to explicitly sit down and speak with team to describe the course of action.  Developed a visual aid to describe where we are and what is completed.  There seems to be more questions on this as opposed to the completion of the project.

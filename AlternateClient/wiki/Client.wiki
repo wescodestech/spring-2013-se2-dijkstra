@@ -1,0 +1,146 @@
+#summary The Client handled the user end of the program and allows user entry and retrieval from the server.
+
+= Introduction =
+
+The client application is responsible for allowing users to interact with the program. Specifically the client will allow users to send/receive email messages. Register as user with the server. Create, store, maintain current messages and process incoming messages. The client is designed to allow users to have freedoms such as sending emails to multiple recipients and creating mailing list. 
+outing system.
+
+*Topics Covered*
+  * [Client#Client Operation Server Operation]
+  * [Client#Modules Modules]
+    * [Client#The_Module_Storage_File Module Storage]
+    * [Client#Constructing_a_Module Constructing a Module]
+
+= Details =
+
+=== Client Operation ===
+To start the client, you must make sure that the path to your ACL2 binary is registered in the PATH variable.  This can be checked in DOS via the command `echo %PATH%` .  Under windows, you will be required to rename the ACL2 binary from `run_acl2.exe` to `acl2.exe` in order to conform to the interoperable standards of the application.  This is because the application is located simply by the `acl2` command from the console, so if by typing `acl2` in the console of the OS you have chosen, you can invoke ACL2, then your environment has been configured correctly for ACL2.
+
+The Java SDK 1.7 is also required for development, but not deployment as we will only be required to use the Java Runtime 1.7 instead.  Regardless, if by typing `java` in the console of your choice, you are able to invoke the java application, your computer is properly set up to start the server process.  If not, you need to register the path variable to the location of your java SDK/RE.  A similar process is required for the `javac` command.
+
+In order to run the program, you need to ensure that all the java source code is compiled. The following directories contain java files for this program: 
+
+client
+client -> modules -> email -> action
+client -> modules -> user -> register
+
+Once these are compiled, starting the server GUI only involves one command from the client root directory:
+
+{{{ java ACL2Email }}}
+
+By typing this in the console you should be able to start the GUI. From the main window of the GUI, you should be able to send and receive email messages. Using the appropriate buttons, you will be able to connect to the server and process email messages. 
+
+The first thing you will need to do is register. Press the register client button, and enter information when prompted, by default, you should use "localhost" for your domain.
+
+To obtain email messages waiting on the server: Press the Get Email button. This will call the server program and get the email XML files from the server. These files are then handed off to ACL2 where they are processed into your inbox as HTML files. 
+
+To send and email. Press the New Message button and fill out the form. When the send button is pressed, ACL2 is called to create the XML files for the email message(s). Multiple recipients are allowed in emails and email addresses must be comma "," separated.
+
+NOTE: you will need to have the server program started in order for the client to be operable.  
+
+=Modules=
+
+The client currently consists of 3 basic modules:
+  * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ClientUser The User Module]
+  * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ClientEmail The Email Module]
+  * [https://code.google.com/p/spring-2013-se2-dijkstra/wiki/ClientMailingList The Mailing List Module]
+
+Each module is considered to be a standalone program and and run on its own without the client GUI.  
+
+As stated previously, each program is invoked through a new process and ideally the programmer dumps the log information to the logs folder which is similar to the path required to find the module (for instance modules/email/ is located under the logs/email/acl2_log.txt file.)  Because of this, the other modules in the GUI can still operate, even if one of the modules fail the programmer can update the failing program without having to recompile the entire program. 
+
+
+=== Constructing a Module ===
+
+Each module contains 3 basic parts:
+  # The Logic
+  # The Tests
+  # The Action
+
+The logic defines the ACL2 that may be performed on a data structure.  This explicitly does not contain any IO and will be used for testing purposes in order to determine the logically sound proof through Racket using Dracula.  The theoretical data structure for processing this information can be called up from the actions and the theorems in order to process what was intended.
+
+The tests are predicate based testing designed to prove the soundness of the logic behind the functions defined in the logic file.  The only include that should be required by this file is the logic file itself.  Typically these files are located next to each other in the `modules/module_name` folder.  The tests are ran separately and are not considered to be a functional part of the program itself, but ensures the results are to be as expected.  You can defined `defthm`, `defproperty` and `check-expects` in this file.
+
+The actions are the IO specific interfacing between the Java application and the logic defined in the logic file.  This is typically where ALL io must occur and any parsing form the input that is received from the Java application.
+
+Though not defined as a part of the module, the Java application that invokes the actions is the interfacing mechanism between the JVM and ACL2 runtime environments.  The Java application will start a process of the ACL2 environment and send ACL2 commands from the IO wrappers to the application spawned.
+
+_Basic Wrapper Requirements_
+
+** This code has been stripped and minimalized for brevity.  it will not compile since as listed, some of these values are not defined, but it will give you a basic sense of operation.
+
+{{{
+
+package modules.user.register;
+
+import java.io.*;
+import java.util.*;
+import java.net.*;
+
+public class RegisterUser {
+        public static void main(String[] args) {
+                boolean listening = true;
+                
+                try {
+                        // Acquire the listening port for connection to client.
+                        ServerSocket server = new ServerSocket(20001);
+                        
+                        while(listening) {
+                                // Wait until the client connects
+                                Socket client = server.accept();
+                                
+                                // Handles for input and output streams relating to the socket connection
+                                PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+                                BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                                
+                                // Buffers
+                                String input, store="", request="";
+                                
+                                // Read the input from the connection
+                                while((input = in.readLine()) != null) {
+                                        request += input;
+                                }       // end while
+                                
+                                // The ACL2 code to execute.
+                                String acl2 = "(include-book \"modules/user/register/register-user\")" +
+                                              "(in-package \"ACL2\")"            +
+                                                      "(registerUser \"" + request + "\" \"" + store + "\" state)";
+                                
+                                // Initialize ACL2 and dump its output to the log
+                                System.out.println("Executing ACL2 runtime for RegisterUser...");
+                                ProcessBuilder processBuilder = new ProcessBuilder("acl2");
+                                File log = new File("logs/user/register/acl2_log.txt");
+                                processBuilder.redirectErrorStream(true);
+                                processBuilder.redirectOutput(log);
+                                
+                                Process process = processBuilder.start();
+                                PrintWriter procIn = new PrintWriter(process.getOutputStream());
+                                
+                                // Write the ACL2 to the process, close ACL2
+                                procIn.println(acl2);
+                                procIn.println("(good-bye)");
+                                procIn.flush();
+                                procIn.close();
+                                
+                                // Close all streams
+                                out.close();
+                                in.close();
+                                client.close();
+                        }       // end while
+                } catch(Exception e) {
+                        e.printStackTrace();
+                }       // end try/catch
+        }       // end function main
+}       // end class RegisterUser
+
+}}}
+
+The package is the first thing to be defined.  In this example, the wrapper is in the `modules/user/register` directory.  The name of the class is `RegisterUser`.  We can select this file during module registration to invoke this class (file selected since we can parse the package name from the selection.)  This results in a binary after compilation being called by `java modules.user.register.RegisterUser` which is the location of the action file relative to the server invocation.
+
+Wrappers are created for the IO between the client and server with `out` being the stream to write information to the client and `in` being data that can be read from the client.  It may be required to close the input stream in order to write information back to the client by invoking the `socket.shutdownOutput` on the client side.  This is due in part that the socket is listening for an EOF command, which may not be reached, but by shutting down the output after it is no longer required by the client, we can force the outputstream to post.
+
+We then use the ProcessBuilder to initialize the ACL2 environment and log that information to the log defined by the `log` variable.  You may be tempted to use the ProcessBuilder.Redirect class but this forces the requirement for the user to 1.7 SDK in Java and should be worth noting in your module.  It is assumed, at the time of this writing, that Java 1.7 is the standard (some mac computers may need to manually update this from the Oracle website).
+
+The input wrapper for the ACL2 process is them acquired and the ACL2 is dumped to the process.  It is important to note that you ARE require to call `(good-bye)` in order to exit the ACL2 program gracefully.  Not doing so may result in the module hanging and not exiting properly, disallowing the module to continue processing.
+
+After this, it is merely a matter of closing the data streams and exiting to module or cycling back for another iteration of listening.

@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<!DOCTYPE modules SYSTEM '../dtd/module.dtd'>
+<modules>
+	<module>
+		<name>Send Email</name>
+		<invoke>modules.email.send.SendEmail</invoke>
+		<port>20005</port>
+	</module>
+	<module>
+		<name>User Registration</name>
+		<invoke>modules.user.register.RegisterUser</invoke>
+		<port>20003</port>
+	</module>
+	<module>
+		<name>User Verification</name>
+		<invoke>modules.user.verify.VerifyUser</invoke>
+		<port>20002</port>
+	</module>
+</modules>

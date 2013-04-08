@@ -1,0 +1,3 @@
+<!ELEMENT domain (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT password (#PCDATA)>
