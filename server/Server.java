@@ -33,9 +33,9 @@ public class Server extends JFrame {
 		
 		// Server actions
 		JMenu     _server        = new JMenu("Server");
-		JMenuItem _startServer   = new JMenuItem("Start Server");
-		JMenuItem _stopServer    = new JMenuItem("Stop Server");
-		JMenuItem _restartServer = new JMenuItem("Restart Server");
+		JMenuItem _startServer   = new JMenuItem("Start Server", new ImageIcon("lib/accept.png"));
+		JMenuItem _stopServer    = new JMenuItem("Stop Server", new ImageIcon("lib/stop.png"));
+		JMenuItem _restartServer = new JMenuItem("Restart Server", new ImageIcon("lib/arrow_refresh.png"));
 		JMenuItem _exit          = new JMenuItem("Exit Program");
 		
 		// Menu action listeners

@@ -27,22 +27,70 @@
 
 package modules.user.verify;
 
+import java.awt.*;
+import java.beans.*;
 import java.io.*;
 import java.util.*;
 import java.net.*;
+import javax.swing.*;
 import lib.*;
 
 public class VerifyUser {
+	private JDialog dialog;
+	public JLabel actionLabel;
+	
+	/**
+	 * Shows an indeterminate progress bar to let the user know that
+	 * this process has a transaction currently being processed.
+	 */
+	public void showProgress() {
+		dialog = new JDialog();
+		dialog.setResizable(false);
+		dialog.setBounds(Toolkit.getDefaultToolkit().getScreenSize().width/2-150, Toolkit.getDefaultToolkit().getScreenSize().height/2-100, 300, 200);
+		
+		JPanel progressBarContainer = new JPanel(null);
+		JLabel actionLabel = new JLabel("");
+		actionLabel.setBounds(10, 10, 280, 20);
+		JProgressBar progressBar = new JProgressBar();
+		progressBar.setIndeterminate(true);
+		progressBar.setBounds(10, 35, 280, 20);
+		
+		actionLabel.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent pce) {
+				dialog.repaint();
+			}
+		});
+		
+		progressBarContainer.add(progressBar);
+		progressBarContainer.add(actionLabel);
+		
+		dialog.add(progressBarContainer);
+		dialog.setVisible(true);
+	}	// end method showProgress
+	
+	/**
+	 * Disposes of the progressbar
+	 */
+	public void hideProgress() {
+		if(dialog != null) {
+			dialog.dispose();
+		}	// end if
+	}	// end method hideProgress
+	
+	/**
+	 * Entry point for this modular application.
+	 */
 	public static void main(String[] args) {
+		VerifyUser vUser = new VerifyUser();
+		
 		boolean listening = true;
-
 		try {
 			ServerSocket server = new ServerSocket(20002);
 
 			while(listening) {
-				ServerConsole.post("User verification bound to post 20002.\n");
 				Socket client = server.accept();
-				ServerConsole.post("User verification request accepted.  Processing...");
+				//vUser.showProgress();
+				//vUser.actionLabel.setText("Connection accepted...");
 
 				BufferedWriter out = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
 				BufferedReader in  = new BufferedReader(new InputStreamReader(client.getInputStream()));
@@ -68,7 +116,7 @@ public class VerifyUser {
 				              "(testUser \"" + request + "\" \"" + store + "\" state)";
 				
 				// Proceed to spur the ACL2 process and place a wrapper on the IO
-				ServerConsole.post("Executing ACL2 runtime for User Verification...");
+				//vUser.actionLabel.setText("Verifying user information with ACL2...");
 				ProcessBuilder processBuilder = new ProcessBuilder("acl2");
 				File log = new File("logs/user/verify/acl2_log.txt");
 				processBuilder.redirectErrorStream(true);
@@ -89,14 +137,13 @@ public class VerifyUser {
 				BufferedReader tRead = new BufferedReader(new FileReader("incoming/user/verify/server-action.xml"));
 				String failBuffer = "";
 				
-				ServerConsole.post("Determining if login information is correct.");
-				
 				while((input = tRead.readLine()) != null) {
 					// Because I am lazy and don't want to parse the XML
 					if(input.contains("ACCEPT")) {
 						proceed = true;
-						ServerConsole.post("User verified successfully!");
+						//vUser.actionLabel.setText("User credentials accepted.");
 					} else {
+						//vUser.actionLabel.setText("User credentials rejected.");
 						failBuffer += request;
 					}	// end if-else
 				}	// end while
@@ -110,7 +157,7 @@ public class VerifyUser {
 
 					File emailDirectory = new File("store/email/" + domain + "/" + name + "/");
 					
-					ServerConsole.post("Sending emails from " + emailDirectory.getPath());
+					//vUser.actionLabel.setText("Sending emails to client...");
 					
 					// It better be a damn directory, but incase someone has leet hacks
 					if(emailDirectory.isDirectory()) {
@@ -118,7 +165,6 @@ public class VerifyUser {
 						
 						String transmit = "";
 						
-						ServerConsole.post("Writing emails to client.");
 						// Read the contents of each email and transmit them to the client.
 						for(int i = 0; i < emails.length; i++) {
 						   if(!emails[i].isHidden()){	
@@ -129,6 +175,7 @@ public class VerifyUser {
 							   }	// end while
 							
 							   eRead.close();
+							   //emails[i].delete();
 							
 							   // Write email to client
 							   out.write(transmit);
@@ -142,8 +189,6 @@ public class VerifyUser {
 					} else {
 						// Create the directory since it should be there!!!
 						emailDirectory.mkdirs();
-						
-						ServerConsole.post("There was an internal server error: Inbox does not exist!\n");
 						out.write("END");
 					}	// end if-else
 				} else {
@@ -151,6 +196,8 @@ public class VerifyUser {
 					out.newLine();
 					out.write("END");
 				}	// end if-else
+				
+				vUser.hideProgress();
 				
 				// Close our connections
 				out.close();
@@ -161,7 +208,7 @@ public class VerifyUser {
 			server.close();
 			System.exit(0);
 		} catch(Exception e) {
-			ServerConsole.post(e.getMessage());
+			JOptionPane.showMessageDialog(null,  e.getMessage());
 			e.printStackTrace();
 		}	// end try/catch
 	}	// end function main

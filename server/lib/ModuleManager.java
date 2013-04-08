@@ -64,11 +64,11 @@ public class ModuleManager extends JDialog {
 			listModel.addElement(this.modules.get(i).getName());
 		}	// end for loop
 		
-		JButton _addButton = new JButton("Register");
-		_removeModule = new JButton("Remove");
-		_modifyModule = new JButton("Modify");
-		_saveModules  = new JButton("Save");
-		JButton _cancelButton = new JButton("Cancel");
+		JButton _addButton = new JButton("Add", new ImageIcon("lib/brick_add.png", "Add Module"));
+		_removeModule = new JButton("Remove", new ImageIcon("lib/brick_delete.png", "Remove Module"));
+		_modifyModule = new JButton("Modify", new ImageIcon("lib/brick_edit.png", "Modify Module"));
+		_saveModules  = new JButton("Save", new ImageIcon("lib/disk.png", "Save Modules"));
+		JButton _cancelButton = new JButton("Cancel", new ImageIcon("lib/cancel.png", "Cancel Action"));
 		
 		_removeModule.setEnabled(false);
 		_modifyModule.setEnabled(false);
@@ -107,6 +107,12 @@ public class ModuleManager extends JDialog {
 					JOptionPane.showMessageDialog(((JButton)ae.getSource()).getRootPane(), "Unable to update modules.  Please see console output.", "Module Management Error", JOptionPane.ERROR_MESSAGE);
 					_modDialog.dispose();
 				}	// end if-else
+			}	// end method actionPerformed
+		});
+		
+		_cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				_modDialog.dispose();
 			}	// end method actionPerformed
 		});
 		
