@@ -267,6 +267,30 @@ time log:
 	  phase: Coding
 	  comment: Continued to work on the Java integration with ALC2. I was able to complete most of the Send email functions for the client. All that remains on this front is sending the file's contents over the network.
 
+	- date: April 2, 2013
+	  start time: 6:32PM
+	  end time: 9:48PM
+	  phase: Coding
+	  comment: I reworked the client actions into the required Java programs. They now work with the server and can send and receive information. The scripts that handled the ACL2 function calls were also integrated into the GUI interface and are easily accessible to the user if they are running the interface.
+
+	- date: April 2, 2013
+	  start time: 9:49PM
+	  end time: 10:04PM
+	  phase: Testing
+	  comment: I found a bug with the server code that was already implemented. When looping though all files in a directory, it was picking up extra hidden files as well, This caused the server to crash. I added code to fix this issue.
+
+	- date: April 3, 2013
+	  start time: 5:47PM
+	  end time: 8:11PM
+	  phase: Coding
+	  comment: I finished coding the Java integration for the current ACL2 implementation. The client side of the program can now send and receive emails and User registration. This also includes user verification in order to get email messages. 
+
+	- date: April 4, 2013
+	  start time: 4:31PM
+	  end time: 5:34PM 
+	  phase: Coding
+	  comment: I added the delete function to the client GUI interface. I also worked on fixing a bug on the transmission of messages. The current issue is that the verification module does not allow for correct exceptions to be processed from the server. If a transmission fails, it does not handle the output correctly and sends an incorrect XML file back to the client.
+
 defect log:
 
 	- date: Jan 22, 2013
@@ -323,3 +347,8 @@ defect log:
 	type: Coding
 	fix time: 23
 	comment: Working on integrating the ALC2 with Java. Having trouble getting Java to see the files that ACL2 has generated. Right now, the current solution is to make the Java sleep for a couple of seconds while ACL2 finishes its processing then resume. Then it sees the files that ALC2 generates
+
+-date: April 2, 2013
+	type: Testing
+	fix time: 15
+	comment: The script that Matthew had written to open all files in a directory was not working. It was needed that the function open only the xml files, since there are hidden files in a directory, I had to modify the function to account for these changes.
