@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"> 
+	<head>
+		<title>PSP Report</title> 
+		
+		<style>
+		td.fieldname {
+			text-align:right;
+			font-weight:bold;
+		}
+		body {
+			font-family:Verdana;
+		}
+		div.section-title {
+			font-size:150%;
+			font-weight:bold;
+			margin-top:20px;
+		}
+		
+		div.graph-title {
+			font-style: italic;
+		}
+		
+		table.log-table {
+			border-collapse:collapse;
+		}
+		table.log-table td {
+			border-width:1px;
+			border-style:solid;
+			border-color:#888888;
+			padding:5px 5px 5px 5px;
+		}
+		table.log-table th {
+			border-width:2px;
+			border-style:solid;
+			border-color:#888888;
+			background-color:#CCCCCC;
+			padding:5px 5px 5px 5px;
+		}
+		</style>
+	</head> 
+	<body> 
+	
+		<div>
+			<h1>Email Client Server System</h1>
+			<em>Personal Software Process Summary</em>
+		</div>
+		
+		<div class="section-title">Project Essentials</div>
+			<table>
+				<tr><td class="fieldname">Name:</td><td>Wesley Howell</td></tr>
+				<tr><td class="fieldname">Instructor:</td><td>Dr. Rex Page</td></tr>
+				<tr><td class="fieldname">Date:</td><td>Feb 6, 2012</td></tr>
+				<tr><td class="fieldname">Language:</td><td>ACL2</td></tr>
+			</table>
+	
+		<div class="section-title">Lines of Code</div>
+		<table>
+			<tr><th>Type</th><th>Prediction by user</th><th>Actual</th></tr>
+			<tr>
+				<td>Added</td>
+				<td>0</td>
+				<td>401</td>
+			</tr>
+			<tr>
+				<td>Base</td>
+				<td>0</td>
+				<td>66</td>
+			</tr>
+			<tr>
+				<td>Modified</td>
+				<td>0</td>
+				<td>15</td>
+			</tr>
+			<tr>
+				<td>Removed</td>
+				<td>0</td>
+				<td>0</td>
+			</tr>
+		</table>
+		
+		<div class="section-title">PSP Projection</div>
+		<table>
+		<tr><td align=center>
+			<div class="graph-title">LoC Certainty</div>
+			<img src='http://chart.apis.google.com/chart?cht=lc&chd=t:45,36,26,17,6,-5,-19,-37,-63,-109|45,54,63,72,83,95,109,126,152,198&chs=450x300&chco=FF0000,00FF00&chxt=x,y,x,y&chxr=1,0,150,30&chdl=Lower bound|Upper bound&chxl=0:|10%|20%|30%|40%|50%|60%|70%|80%|90%|2:|Certainty|3:|LOC&chxp=2,50|3,50&chtt=&chds=0,198&chxr=1,0,198'>
+		</td><td align=center>
+			<div class="graph-title">Time Certainty</div>
+			<img src='http://chart.apis.google.com/chart?cht=lc&chd=t:679,639,598,555,508,455,392,313,199,-10|679,719,760,803,850,903,965,1045,1159,1368&chs=450x300&chco=FF0000,00FF00&chxt=x,y,x,y&chxr=1,0,150,30&chdl=Lower bound|Upper bound&chxl=0:|10%|20%|30%|40%|50%|60%|70%|80%|90%|2:|Certainty|3:|LOC&chxp=2,50|3,50&chtt=&chds=0,1368&chxr=1,0,1368'>
+		</td></tr></table>
+		
+		<div class="section-title">Project Data</div>
+		<table>
+		<tr><td align=center valign=top>
+			<div class="graph-title">Time Per Defect Type</div>
+			<img src='http://chart.apis.google.com/chart?cht=p3&chd=t:16,141,406&chs=300x150&chl=Testing|Coding|Design&chtt='>
+		</td><td align=center valign=top>
+			<div class="graph-title">Time Per Phase</div>
+			<img src='http://chart.apis.google.com/chart?cht=p3&chd=t:1300,387,1720&chs=300x150&chl=Coding|Testing|Conception&chtt='>
+		</td></tr>
+		<tr><td colspan=2 align=center valign=top>
+			<div class="graph-title">Time by Day</div>
+			<img src='http://chart.apis.google.com/chart?cht=bvs&chd=t:0,0,0,0,0,0,0,0,0,0|0,0,0,0,0,116,0,0,0,0|75,0,0,0,0,147,143,75,0,147&chco=FFCC00,CC3300,CC6600,99CC00,CCCC00&chdl=Coding|Testing|Conception&chxt=x,y&chxl=0:|Jan 17|Jan 18|Jan 19|Jan 20|Jan 21|Jan 22|Jan 23|Jan 24|Jan 25|Jan 26&chtt=&chs=500x200&chbh=30,10,10&chds=0,240,0,240,0,240,0,240,0,240&chxr=1,0,240,60'><br><img src='http://chart.apis.google.com/chart?cht=bvs&chd=t:0,0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0,0|0,0,222,0,0,0,0,87,84,138&chco=FFCC00,CC3300,CC6600,99CC00,CCCC00&chdl=Coding|Testing|Conception&chxt=x,y&chxl=0:|Jan 27|Jan 28|Jan 29|Jan 30|Jan 31|Feb 1|Feb 2|Feb 3|Feb 4|Feb 5&chtt=&chs=500x200&chbh=30,10,10&chds=0,240,0,240,0,240,0,240,0,240&chxr=1,0,240,60'><br><img src='http://chart.apis.google.com/chart?cht=bvs&chd=t:0,0,0,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0,0|0,75,0,138,0,172,75,0,0,0&chco=FFCC00,CC3300,CC6600,99CC00,CCCC00&chdl=Coding|Testing|Conception&chxt=x,y&chxl=0:|Feb 6|Feb 7|Feb 8|Feb 9|Feb 10|Feb 11|Feb 12|Feb 13|Feb 14|Feb 15&chtt=&chs=500x200&chbh=30,10,10&chds=0,240,0,240,0,240,0,240,0,240&chxr=1,0,240,60'><br><img src='http://chart.apis.google.com/chart?cht=bvs&chd=t:0,68,201,0,0,0,236,0,0,0|0,0,0,0,0,0,0,0,0,0|0,0,67,75,0,0,0,0,0,0&chco=FFCC00,CC3300,CC6600,99CC00,CCCC00&chdl=Coding|Testing|Conception&chxt=x,y&chxl=0:|Feb 16|Feb 17|Feb 18|Feb 19|Feb 20|Feb 21|Feb 22|Feb 23|Feb 24|Feb 25&chtt=&chs=500x200&chbh=30,10,10&chds=0,240,0,240,0,240,0,240,0,240&chxr=1,0,240,60'><br><img src='http://chart.apis.google.com/chart?cht=bvs&chd=t:75,90,75,0,41,0,75,24,0,0|0,0,70,0,0,0,0,0,0,0|0,0,0,0,0,0,0,0,0,0&chco=FFCC00,CC3300,CC6600,99CC00,CCCC00&chdl=Coding|Testing|Conception&chxt=x,y&chxl=0:|Feb 26|Feb 27|Feb 28|March 1|March 2|March 3|March 4|March 5|March 6|March 7&chtt=&chs=500x200&chbh=30,10,10&chds=0,240,0,240,0,240,0,240,0,240&chxr=1,0,240,60'><br><img src='http://chart.apis.google.com/chart?cht=bvs&chd=t:0,86,0,112,63,0,51,66,0,0|0,0,0,0,0,121,0,0,0,0|0,0,0,0,0,0,0,0,0,0&chco=FFCC00,CC3300,CC6600,99CC00,CCCC00&chdl=Coding|Testing|Conception&chxt=x,y&chxl=0:|March 8|March 9|March 10|March 11|March 12|March 13|March 14|March 15|March 16|March 17&chtt=&chs=500x200&chbh=30,10,10&chds=0,240,0,240,0,240,0,240,0,240&chxr=1,0,240,60'><br><img src='http://chart.apis.google.com/chart?cht=bvs&chd=t:0,0,0,0,0,0,0,37|0,0,0,0,0,0,80,0|0,0,0,0,0,0,0,0&chco=FFCC00,CC3300,CC6600,99CC00,CCCC00&chdl=Coding|Testing|Conception&chxt=x,y&chxl=0:|March 18|March 19|March 20|March 21|March 22|March 23|March 24|March 25&chtt=&chs=500x200&chbh=30,10,10&chds=0,240,0,240,0,240,0,240,0,240&chxr=1,0,240,60'>
+		</td></tr>
+		</table>
+		
+		
+		<div class="section-title">Cumulative Data</div>
+		
+		<table cellspacing=20>
+		<tr><td align=center valign=top>
+			<div class="graph-title">Time Per Defect Type</div>
+			<img src='http://chart.apis.google.com/chart?cht=p3&chd=t:90,300,60,60,16,226,406&chs=300x150&chl=Application Support|Conception|Networking|Personnel|Testing|Coding|Design&chtt='>
+		</td><td align=center valign=top>
+			<div class="graph-title">Time Per Phase</div>
+			<img src='http://chart.apis.google.com/chart?cht=p3&chd=t:90,120,3534,825,2255&chs=300x150&chl=Documentation|Conceptual|Coding|Testing|Conception&chtt='>
+		</td></tr>
+		<tr><td colspan align=center valign=top>
+			<div class="graph-title">Actual vs Estimated LoC</div>
+			<img src='http://chart.apis.google.com/chart?cht=s&chd=t:0,169,40,102,28|114,212,42,113,26&chxt=x,y,x,y&chxr=0,0,150,30|1,0,150,30&chxl=2:|User-Estimated+LOC|3:|Actual+LOC&chxp=2,50|3,50&chs=300x200&chtt=Actual-Estimate History&chm=d,000000,1,1.0,10.0&chg=20,20'>
+		</td>
+		<td colspan align=center valign=top>
+			<div class="graph-title">Actual vs Estimated LoC</div>
+			<table>
+			<tr><th>Project</th><th>Estimate</th><th>Actual</th></tr><tr><td>Email Client Server System</td><td>0</td><td>114</td></tr><tr><td>Email with ACL2</td><td>169</td><td>212</td></tr><tr><td>Email with ACL2</td><td>40</td><td>42</td></tr><tr><td>Email with ACL2</td><td>102</td><td>113</td></tr><tr><td>Email with ACL2</td><td>28</td><td>26</td></tr>
+			</table>
+		</td></tr>
+		
+		</table>
+	
+		<div class="section-title">Time Log</div>
+		<table class="log-table"> 
+			<tr><th>Date</th><th>Type</th><th>Int. Time</th><th width="50%">Description</th></tr><tr><td>Jan 17, 2013, 10:30 AM - 11:45 AM</td><td>Conception</td><td>0</td><td>Team Dijkstra's regular meeting time. We brainstormed project ideas and decided on a networked chat client and server system.</td></tr><tr><td>Jan 22, 2013, 10:30 AM - 11:45 AM</td><td>Conception</td><td>0</td><td>Team Dijkstra's regular meeting time. Finalized the idea of the chat system and began initial designs for the proposal.</td></tr><tr><td>Jan 22, 2013, 7:32 PM - 8:44 PM</td><td>Conception</td><td>0</td><td>Worked on updating the team's LoC table to include tImpl from last semester. Reused the spreadsheet from last semester and added the new data. Then included the information into the t2 and t3 documents.</td></tr><tr><td>Jan 22, 2013, 8:53 PM - 10:49 PM</td><td>Testing</td><td>0</td><td>Worked on researching networking from within ACL2. There is not any native support for networking. However, we did discover that we could use networking if the Operating System supports it. Since our operating systems can be networked, we can work around this limitation.</td></tr><tr><td>Jan 23, 2013, 8:04 PM - 10:27 PM</td><td>Conception</td><td>0</td><td>Worked on writing the content of the Proposal. Finished the sections for the Overview, High-level design, some of the requirements, and began the PROBE estimate.</td></tr><tr><td>Jan 24, 2013, 10:30 AM - 11:45 AM</td><td>Conception</td><td>0</td><td>Team Dijkstra's regular meeting time. We worked on the proposal and worked on several proofs of concepts to determine if the project is feasible.</td></tr><tr><td>Jan 26, 2013, 4:04 PM - 6:31 PM</td><td>Conception</td><td>0</td><td>Finished the complete proposal with all the specified requirements and PROBE estimate.</td></tr><tr><td>Jan 29, 2013, 10:30 AM - 11:45 AM</td><td>Conception</td><td>0</td><td>Team Dijkstra's regular meeting time. Dr. Page addressed concerns about the Project and that GUI's and File IO cannot exist in the same ACL2 program. We began a major re-design of the project and re-wrote most of the project requirements that are to be included in the proposal.</td></tr><tr><td>Jan 29, 2013, 11:45 AM - 2:12 PM</td><td>Conception</td><td>0</td><td>Found out that some of the components of the original proposal were not feasible. Worked with Matthew to re-write sections of the proposal to include the new ideas for the project and write out the requirements for the project. The new project will be an email system instead of a chat system, with more emphasis on message delivery and content.</td></tr><tr><td>Feb 3, 2013, 12:42 AM - 2:09 AM</td><td>Conception</td><td>0</td><td>Matthew emailed about an issue with the ACL2 EXE's not working correctly and possibly being unable once the project gets large. Spent this time researching how to move the project to UNIX based servers and working with launching ACL2 from the terminal and using shell scripts to call ACL2 lisp files.</td></tr><tr><td>Feb 4, 2013, 5:23 PM - 6:47 PM</td><td>Conception</td><td>0</td><td>Worked on typing the progress report with the completed task to date and writing out the plans for the task to be completed. Also noted in in the progress report the need to move the system server to a UNIX based system to run the server components</td></tr><tr><td>Feb 5, 2013, 10:30 PM - 11:45 PM</td><td>Conception</td><td>0</td><td>Team Dijkstra's regular meeting time. We delivered a progress report to Dr. Page. We worked on converting the Windows based designs to a UNIX file system in order for the system to run.</td></tr><tr><td>Feb 5, 2013, 7:32 PM - 8:35 PM</td><td>Conception</td><td>0</td><td>Worked on setting up ACL2 modules to run though the UNIX shell and wrote test scripts to automatically call ACL2 functions from a shell script</td></tr><tr><td>Feb 7, 2013, 10:30 PM - 11:45 PM</td><td>Conception</td><td>0</td><td>Team Dijkstra's regular meeting time. We worked on the XML format and multi-level design and designed the data structure format for the project. We then wrote sections of the progress report and assigned an XML module to each team member.</td></tr><tr><td>Feb 9, 2013, 5:14 PM - 7:32 PM</td><td>Conception</td><td>0</td><td>Worked on designing the XML structure for email messages. Designed the XML layout, Document type definition and explanation. These topics were then uploaded to the groups wiki for review, comment, and inclusion in the design document.</td></tr><tr><td>Feb 11, 2013, 5:12 PM - 8:04 PM</td><td>Conception</td><td>0</td><td>Worked on the team's design document and formatting of the sections. Took the information from the group's wiki and generated the data structure and IO format sections from this information. The other sections were expanded from the initial proposal with updates to relevant sections where the server information had been changed.</td></tr><tr><td>Feb 12, 2013, 10:30 PM - 11:45 PM</td><td>Conception</td><td>0</td><td>Team Dijkstra's regular meeting time. We reviewed the team design document and made many changes to the XML format and found several errors. We marked up the design for submission on Thursday.</td></tr><tr><td>Feb 17, 2013, 3:43 PM - 4:51 PM</td><td>Coding</td><td>0</td><td>Worked on designing the server email components of the server module. Wrote out data flow diagrams to match the data structure format and XML I/O from the design document, and wrote function prototypes.</td></tr><tr><td>Feb 18, 2013, 5:05 PM - 6:12 PM</td><td>Conception</td><td>0</td><td>Typed the progress report for the presentation tomorrow to give Dr. Page an update on our projects task and goals. Also updated the design document to Revision I for submission tomorrow.</td></tr><tr><td>Feb 18, 2013, 7:23 PM - 10:44 PM</td><td>Coding</td><td>0</td><td>Worked on implementing the server email components. Took my designs on paper from yesterday and worked them into working functions. I was able to finish an email splitter which splits one email sent to many recipients into multiple messages and XML output for email messages.</td></tr><tr><td>Feb 19, 2013, 10:30 AM - 11:45 AM</td><td>Conception</td><td>0</td><td>Team Dijkstra's regular meeting time. We delivered a progress report to Dr. Page on our task so far. Also we updated our SVN repository to the most recent changes to the groups implementation. Isaac rejoined the group and the remaining time was spend catching him up on the groups progress.</td></tr><tr><td>Feb 22, 2013, 4:32 PM - 7:11 PM</td><td>Coding</td><td>0</td><td>I worked on the ACL2 implementation of the server-email functions and finished the implementation of the components. The functions did not admit correctly and the details are described in the defect log. The issues were traced to file IO so we are still able to run and test the computational functions.</td></tr><tr><td>Feb 22, 2013, 2:59 PM - 4:16 PM</td><td>Coding</td><td>0</td><td>I re-worked the file IO functions to accommodate the requirements of the IO utilities functions. This fixed the majority of the admission issues for these functions. Still the getEmail and runEmail functions are the global execution functions still have work needed to get them to admit and run with ACL2.</td></tr><tr><td>Feb 26, 2013, 10:30 AM - 11:45 AM</td><td>Coding</td><td>0</td><td>Team Dijkstra's regular meeting time. We brainstormed bug issues and found a solution to the Server-Email IO problem. We will resolve multiple email messages from the command shell and call ACL2 for each individual message.</td></tr><tr><td>Feb 27, 2013, 12:01 PM - 12:53 PM</td><td>Coding</td><td>0</td><td>Worked on the IO contents and designing the Test and Theorems for the server email module. Had an idea to combine the IO into one function to see if it fixes the IO issue I'm having with the server-email. Started implementation and will finish tonight.</td></tr><tr><td>Feb 27, 2013, 9:54 PM - 10:32 PM</td><td>Coding</td><td>0</td><td>I finally have the IO fixed. With one call I can have and input file in XML format parse and get passed to an output file. Now its time to handled multiple XML messages in one file.</td></tr><tr><td>Feb 28, 2013, 10:30 AM - 11:45 AM</td><td>Coding</td><td>0</td><td>Team Dijkstra's regular meeting time. We worked on server implementation and fixed issues with the server-email file. We split it into two files where one contained the IO functions and the other contained the logic functions. This was done in order to make proving theorems in ACL2 easier.</td></tr><tr><td>Feb 28, 2013, 4:02 PM - 5:12 PM</td><td>Testing</td><td>0</td><td>I wrote the theorem suite for the server-email functions. These tested each function in the file at least once. This guarantees that the written code does what it is needed to do.</td></tr><tr><td>March 2, 2013, 4:53 PM - 5:34 PM</td><td>Coding</td><td>0</td><td>I wrote a shell script that dynamically writes a lisp file with the command to call the rwEmail function and output the files to a directory with the clients name in the servers store folder. Each file is names msg_timestamp where the timestamp is the actual timestamp of the message.</td></tr><tr><td>March 4, 2013, 11:49 AM - 1:04 PM</td><td>Coding</td><td>0</td><td>Worked on updating rwEmail. I changed the output file from being solely passed in by the parameters to where only a timestamp is required. The output directory is now dynamically generated to pull the <to> tag from the XML and outputs to output each email message into a directory based on the contents of the tag and the naming convention that was implemented earlier for each individual file.</td></tr><tr><td>March 5, 2013, 7:24 PM - 7:48 PM</td><td>Coding</td><td>0</td><td>Worked on updating the shell script to include a for loop to process each file that exist in the incoming directory. Also edited, the route-email ACL2 file to change the directory structure of the email output.</td></tr><tr><td>March 9, 2013, 7:59 PM - 9:25 PM</td><td>Coding</td><td>0</td><td>Worked on the client code for the email module. I wrote the functions to parse strings into XML files for outgoing messages. I also handled the need for the client to sent an email to multiple recipients to where a separate XML file will need to be written for each recipient indicated in the to field of the email xml.</td></tr><tr><td>March 11, 2013, 12:04 PM - 12:51 PM</td><td>Coding</td><td>0</td><td>I worked on writing IO code for the client side email module. This included writing code for both incoming and outgoing messages. Since these needed to be handled differently, there are multiple functions for each of these requirements.</td></tr><tr><td>March 11, 2013, 8:13 PM - 9:18 PM</td><td>Coding</td><td>0</td><td>I finished the IO code for the client email. It now handles multiple recipients and will output a single XML file that will need to be processed to send the multiple email messages. A shell script was written to handled ALL incoming messages and process them to HTML files for easy reading.</td></tr><tr><td>March 12, 2013, 11:46 AM - 12:49 PM</td><td>Coding</td><td>0</td><td>The client email code has been finished. Worked on tweaks to get the output correct and in the correct XML format. Worked on naming of files to ensure unique naming for each generated file. Finished a shell script to split the email output that contains multiple recipients.</td></tr><tr><td>March 13, 2013, 5:13 PM - 7:14 PM</td><td>Testing</td><td>0</td><td>Tested the client code. Worked on verification of the connection between the logic module and the IO module. Ensured that the correct functions were called, and returned the correct structures. This is set up for writing the theorems for this module. Also added the getHTMLtext to the client logic to allow an HTML file to formed and written instead of regular plain text for a nicer looking output.</td></tr><tr><td>March 14, 2013, 6:43 PM - 7:34 PM</td><td>Coding</td><td>0</td><td>Wrote the shell scripts to automate the client email processing. One shell script was made to handle incoming email messages and directs incoming messages to the inbox folder. The other shell script handled outgoing messages and places them in the outbox folder.</td></tr><tr><td>March 15, 2013, 9:46 PM - 10:52 PM</td><td>Coding</td><td>0</td><td>Added to the outgoing shell script the capability to parse multiple emails and create an XML file that contains a single email message with a unique file name. This shell script will then send the single email script to the server using the nc command.</td></tr><tr><td>March 24, 2013, 4:58 PM - 6:18 PM</td><td>Testing</td><td>0</td><td>Worked on the theorem suite for the client email module. The theorems are used to test the data integrity of the logic functions in the client. We were unable to test the IO functions with theorems since they rely on variant data. However, the logic could be tested using theorems and we were able to prove that the client email logic module returns the correctly formatted data based on correct input.</td></tr><tr><td>March 25, 2013, 6:12 PM - 6:49 PM</td><td>Coding</td><td>0</td><td>Tweaked the shell scripts for the clients to ensure that the server has ample time to process a single email message and that the client will not overload the server by adding too many emails to the queue.</td></tr>
+		</table> 
+		
+		<div class="section-title">Defect Log</div>
+		<table class="log-table">
+			<tr><th>Date</th><th>Phase</th><th>Fix Time</th><th width="50%">Description</th></tr><tr><td>Jan 22, 2013</td><td>Design</td><td>60</td><td>Found out that networking is not feasible from within ACL2. To make it natively supported, writing and extending several Common Lisp features would need to be done. We cannot do this in the scope of this project. So we found that using the Operating System's native filesystem and networking support would be much more friendly to deal with once we get to this stage in the project.</td></tr><tr><td>Jan 29, 2013</td><td>Design</td><td>147</td><td>Found out that GUI's and File IO cannot coexist in ACL2. We can have one or the other, but not both. So we had to scrap the GUI portions of the project and replace them with a new idea. The new idea is the current design of the email server and client system. This project is strictly data processing and file IO. This project will be file and text based rather than Visual and Interactive.</td></tr><tr><td>Feb 5, 2013</td><td>Design</td><td>124</td><td>We discovered that generating ALC2 executables and invoking these files from an outside source is a troublesome experience and that the generated files are hundreds of megabytes in size. Since we will have several modules for this project, we saw this as a negative side effect of executable files. To solve this problem, we moved all our project to the UNIX platform. This has allowed us to use the UNIX shell environment to generate shell scripts that invoke the ACL2 environment while passing in ACL2 source code files. This reduces the size of the files to kilobytes and streamlines the execution process and eliminating the size of outside programming needed for the original idea to work. Thus we will be executing our ACL2 code through a UNIX shell script and the shell scripts will in turn be executed from the outside programming environment.</td></tr><tr><td>Feb 12, 2013</td><td>Design</td><td>75</td><td>When we looked at the design review. We saw several errors in the XML format that would not pass if it were to be sent though a web browser. We had to work on setting the XML to a correct format and modify the document type definitions to comply with proper XML syntax.</td></tr><tr><td>Feb 22, 2013</td><td>Coding</td><td>12</td><td>After finishing coding the ACL2 functions, the functions would not admit under normal ACL2 invocation. However, it did work under Dr Racket. The issue was traced to the IO and List utilities files as they were un-certified files within the regular ACL2 environment. Adding the suppression to the certification requirement, the files worked as usual.</td></tr><tr><td>Feb 23, 2013</td><td>Coding</td><td>52</td><td>After fixing the certification issue. Certain functions were still not admitting to ACL2. This was due to illegal arguments as the ACL2 output stated. To fix these arguments, the state variable had to be set and implemented differently than I had intended. I added some safe guards to the variables and added constraints to the functions that depended on them.</td></tr><tr><td>March 5, 2013</td><td>Coding</td><td>21</td><td>After finishing the IO entry point function on the server email module, We noticed that the XML files were being generated with a comma instead of the @ symbol between names and domains in the email address. Also, the output file for the email was a statically named file. This file needed to be dynamically named with a timestamp.</td></tr><tr><td>March 11, 2013</td><td>Coding</td><td>24</td><td>Email parsing had a one off error that did not have the correct lines returned for the XML file which rendered the outputted file useless.</td></tr><tr><td>March 14, 2013</td><td>Coding</td><td>32</td><td>Shell script was not correctly splitting the XML files based on the regular expression. Started using awk to parse the file. However, the file did not have a unique file name and was getting overwritten every time the script was executed.</td></tr><tr><td>March 24, 2013</td><td>Testing</td><td>16</td><td>The theorem that tested the email data structure was not passing. This was traced to an error in the proof and not in the code. The error was trying to access an item that was not in the structure, hence the failure of the proof.</td></tr>
+		</table>
+	</body>
+</html> 
+ 
