@@ -1,0 +1,643 @@
+name: Team Dijkstra
+date: January 31, 2013
+
+program: Email Client-Server System
+
+instructor: Dr. Rex Page
+
+language: ACL2
+
+
+
+actual added lines: 261
+actual base lines: 0
+actual modified lines: 13
+actual removed lines: 4
+
+new objects:
+
+	- name: xmlScanner
+	  estimated lines: 18 
+	  type: NonIO
+
+	- name: xmlParser
+	  estimated lines: 18 
+	  type: NonIO
+
+	- name: getSubject
+	  estimated lines: 9 
+	  type: NonIO
+
+	- name: getFrom
+	  estimated lines: 9
+	  type: NonIO
+
+	- name: getTo
+	  estimated lines: 9 
+	  type: NonIO
+
+	- name: getEmail
+	  estimated lines: 14 
+	  type: IO
+
+	- name: getInboxFiles
+	  estimated lines: 18
+	  type: NonIO
+
+	- name: removeInboxFile
+	  estimated lines: 18
+	  type: NonIO
+
+	- name: registerClient
+	  estimated lines: 18
+	  type: NonIO
+
+	- name: writeEmail
+	  estimated lines: 18 
+	  type: NonIO
+
+	- name: writePreferences
+	  estimated lines: 18
+	  type: NonIO
+
+	- name: getBlocked
+	  estimated lines: 14 
+	  type: IO
+
+	- name: getTag
+	  estimated lines: 14 
+	  type: IO
+
+	- name: parseMessage
+	  estimated lines: 18
+	  type: NonIO
+
+	- name: parseSpamKey
+	  estimated lines: 18
+	  type: NonIO
+
+	- name: toServer
+	  estimated lines: 9 
+	  type: IO
+
+	- name: fromServer
+	  estimated lines: 9 
+	  type: IO
+
+	- name: getErrors
+	  estimated lines: 18 
+	  type: NonIO
+
+	- name: generateSpamKey
+	  estimated lines: 18
+	  type: NonIO
+
+	- name: generateMessage
+	  estimated lines: 18
+	  type: NonIO
+
+	- name: generateRegRequest
+	  estimated lines: 18
+	  type: NonIO
+
+	- name: getMessageLength
+	  estimated lines: 18
+	  type: NonIO
+
+	- name: writeHeaderInfo
+	  estimated lines: 18
+	  type: NonIO
+
+	- name: parseHeaderInfo
+	  estimated lines: 18
+	  type: NonIO
+
+	- name: getContentType
+	  estimated lines: 9
+	  type: NonIO
+
+	- name: setContentType
+	  estimated lines: 9
+	  type: NonIO
+
+	- name: ReadMsgInput
+	  estimated lines: 16
+	  type: IO
+
+	- name: readRegInput
+	  estimated lines: 16
+	  type: IO
+
+	- name: writeToAddressBook
+	  estimated lines: 16
+	  type: IO
+
+	- name: writeToClientInbox
+	  estimated lines: 16
+	  type: IO
+
+	- name: processMessage
+	  estimated lines: 18
+	  type: NonIO
+
+	- name: processRequest
+	  estimated lines: 18
+	  type: NonIO
+
+	- name: isSpam
+	  estimated lines: 9 
+	  type: NonIO
+
+	- name: isBlockedUser
+	  estimated lines: 6
+	  type: NonIO
+
+	- name: parseAddress
+	  estimated lines: 6
+	  type: NonIO
+
+	- name: createUserGroup
+	  estimated lines: 14
+	  type: IO
+
+	- name: createMailingList
+	  estimated lines: 16
+	  type: IO
+
+	- name: updateMailingList
+	  estimated lines: 16
+	  type: IO
+
+	- name: getAvailableMailingList
+	  estimated lines: 16
+	  type: IO
+
+	- name: getMailingListRequest
+	  estimated lines: 9
+	  type: IO
+
+	- name: getMailingListRegistrationRequest
+	  estimated lines: 16
+	  type: IO
+
+	- name: isInUserGroup
+	  estimated lines: 18
+	  type: NonIO
+
+	- name: isInMailingList
+	  estimated lines: 18
+	  type: NonIO
+
+	- name: isRegistered
+	  estimated lines: 18
+	  type: NonIO
+
+	- name: isNameAvailable
+	  estimated lines: 18
+	  type: NonIO
+
+	- name: getMessageLength
+	  estimated lines: 9
+	  type: NonIO
+
+	- name: readInbox
+	  estimated lines: 16 
+	  type: IO
+
+ 	- name: storeClientName
+	  estimated lines: 14
+	  type: IO
+
+
+	- name: getAddress
+	  estimated lines: 9
+	  type: Non IO
+
+	- name: email
+	  estimated lines: 14 
+	  type: IO
+
+	- name: inbox
+	  estimated lines: 16 
+	  type: IO
+
+	- name: register
+	  estimated lines: 16 
+	  type: IO
+
+	- name: blockUser
+	  estimated lines: 18 
+	  type: NonIO
+
+	- name: tagMessage
+	  estimated lines: 18 
+	  type: NonIO
+
+	- name: getServerAddressBook
+	  estimated lines: 16
+	  type: IO
+
+	- name: getLocalAddressBook
+	  estimated lines: 18
+	  type: NonIO
+
+	- name: updateAddressBook
+	  estimated lines: 18
+	  type: NonIO
+
+	- name: getMailingLists
+	  estimated lines: 16
+	  type: IO
+
+	- name: createMailingList
+	  estimated lines: 16
+	  type: IO
+
+	- name: registerForMailingList
+	  estimated lines: 16
+	  type: IO
+
+	- name: isRegistered
+	  estimated lines: 18
+	  type: NonIO
+
+	- name: isNameAvailiable
+	  estimated lines: 18
+	  type: NonIO
+
+	- name: isInAddressBook
+	  estimated lines: 18
+	  type: NonIO
+
+	- name: addSpamFilter
+	  estimated lines: 9
+	  type: NonIO
+
+	- name: addSpamKeyword
+	  estimated lines: 9
+	  type: NonIO
+
+	- name: addSpamAddress
+	  estimated lines: 9
+	  type: NonIO
+
+	- name: getDomain
+	  estimated lines: 6
+	  type: Non IO
+
+	- name: getName
+	  estimated lines: 6
+	  type: Non IO
+
+	- name: getPassword
+	  estimated lines: 6
+	  type: Non IO
+
+	- name: registerUser
+	  estimated lines: 14
+	  type: IO
+
+	- name: getEmailXML
+	  estimated lines: 18
+	  type: NonIO
+
+	- name: getEmailStructure
+	  estimated lines: 9
+	  type: NonIO
+
+	- name: getEmailStructureList
+	  estimated lines: 9
+	  type: NonIO
+
+	- 	name: consume
+		estimated lines: 6
+		type: Non IO
+	  
+	- 	name: tag
+		estimated lines: 6
+		type: Non IO
+		
+	- 	name: pcData
+		estimated lines: 4
+		type: Non IO
+		
+	-	name: nextToken
+		estimated lines: 9
+		type: Non IO
+		
+	-	name: tokenizeXML
+		estimated lines: 3
+		type: Non IO
+
+time log:
+
+       - date: Jan 17, 2013
+	 start time: 10:30AM
+	 end time: 11:45AM
+	 phase: Design
+	 comment: Team Dijkstra's regular meeting time. We brainstormed project ideas and decided on a networked chat client and server system.
+
+	- 	date: January 18, 2013
+		start time: 1:00am
+		end time: 2:00am
+		phase: Testing
+		comment: Tested network connectvity for ACL2 using various methods.  Found that through file streaming, we could transfer files through connected network drives.  We are not able to connect to a specific TCP/IP address or anything without a directory resolution on the network.  Example: \\MatthewCrist-Laptop would work, \\127.0.0.1 would work, but http://127.0.0.1 or \\127.0.0.1:80 would not yeild results.  I have determined that either we will need supplemental language in order to make the transfer or map network drives.
+
+
+       - date: Jan 22, 2013
+	 start time: 10:30AM
+	 end time: 11:45AM
+	 phase: Design
+	 comment: Team Dijkstra's regular meeting time. Finalized the idea of the chat system and began initial designs for the proposal.
+
+	- date: Jan 22, 2013
+	  start time: 7:32PM
+	  end time: 8:44PM
+	  phase: Design
+	  comment: Worked on updating the team's LoC table to include tImpl from last semester. Reused the spreadsheet from last semester and added the new data. Then included the information into the t2 and t3 documents. 
+
+       - date: Jan 22, 2013
+	 start time: 8:53PM
+	 end time: 10:49PM
+	 phase: Research
+	 comment: Worked on researching networking from within ACL2. There is not any native support for networking. However, we did discover that we could use networking if the Operating System supports it. Since our operating systems can be networked, we can work around this limitation. 
+
+	-	date: January 23, 2013
+		start time: 2:30am
+		end time: 4:00am
+		phase: Testing
+		comment: Attempted to research means by using Common Lisp to implement a layer for TCP/IP transfer to see if this is a viable alternative.  The solutions that are available seem to be beyond the scope to which we can implement.  It appears the network drive route is our best alternative.
+
+
+	- date: Jan 23, 2013
+	  start time: 8:04PM
+	  end time: 10:27PM
+	  phase: Design
+	  comment: Worked on writing the content of the Proposal. Finished the sections for the Overview, High-level design, some of the requirements, and began the PROBE estimate.
+
+       - date: Jan 24, 2013
+	 start time: 10:30AM
+	 end time: 11:45AM
+	 phase: Design
+	 comment: Team Dijkstra's regular meeting time. We worked on the proposal and worked on several proofs of concepts to determine if the project is feasible. 
+
+	- 	date: January 25, 2013
+		start time: 10:00am
+		end time: 10:20am
+		phase: Testing
+		comment: Researched event handling in ACL2 from previous project regarding "Blue Ball" scenario.  Determined that this could be used to implement the client side gestures for the chat messages to be sent and received.  Also noted that the primitive nature of the interface would require that we construct many of the GUI element ourselves.  I think we should be able to assign functions to these events to read and write files where necessary.
+
+
+	- date: Jan 26, 2013
+	  start time: 4:04PM
+	  end time: 6:31PM
+	  phase: Design
+	  comment: Finished the complete proposal with all the specified requirements and PROBE estimate. 
+
+       - date: Jan 29, 2013
+	 start time: 10:30AM
+	 end time: 11:45AM
+	 phase: Design
+	 comment: Team Dijkstra's regular meeting time. Dr. Page addressed concerns about the Project and that GUI's and File IO cannot exist in the same ACL2 program. We began a major re-design of the project and re-wrote most of the project requirements that are to be included in the proposal.
+
+	- date: Jan 29, 2013
+	  start time: 11:45AM
+	  end time: 2:12PM
+	  phase: Design
+	  comment: Found out that some of the components of the original proposal were not feasible. Worked with Matthew to re-write sections of the proposal to include the new ideas for the project and write out the requirements for the project. The new project will be an email system instead of a chat system, with more emphasis on message delivery and content. 
+
+	- 	date: January 29, 2013
+		start time: 12:00pm
+		end time: 2:30pm
+		phase: Conception
+		comment: After discussion with Rex Page regarding some of the features of ACL2, he described to us that ACL2 cannot use a GUI and write/read from files at the same time.  This has thrown us in a tizzy about writing a chat client.  After reassessment of the situation, we determined that we could salvage much of the information that we derived in previous sessions by using supplemental language, such as C to write the server and client interfaces that would invoke ACL2 executables on demand and have these applications handle the events for both client and server processes.  We could use folder monitoring on server side and invoke those modules that are created adding to the modularity of the application itself.  Isaac, Wes and I rewrote the design document so that it would be available for Thursday (January 31, 2013) for the presentation.  We also determined that Adam should be the one to give the overview of the application since he may want the extra speaking opportunity.
+
+	- 	date: January 30, 2013
+		start time: 4:00am
+		end time: 5:30am
+		phase: Conception
+		comment: Created the slides for the presentation that will be held tomorrow (January 31, 2013).  Used the design document as a point of reference for bullet points.  Also devided the slide information based on role (as opposed to design layer) to "sell" the idea to the end user and convey the purpose of the process we are intending to use.
+
+	-	date: January 31, 2013
+		start time: 8:00am
+		end time: 9:30am
+		phase: Testing
+		comment: Attempted to get Proofpad to function on my windows PC (Microsoft Windows 8) to no success.  Attempted to get it to work on my Linux partition as well (Ubuntu 11.04 LTS) with no such luck either.  Both result in NullPointerExceptions being tossed back by the application itself.  Unable to invoke ACL2 internally as a result.  Decided to do some testing with ACL2 command line and get familiar with the environment  Noticed that the teachpacks were not certified for io-utilities.lisp and list-utilities.lisp, so I had to include them in a subfolder and include them in the file directly.  Cannot use program mode in ACL2 and have to stay in logic mode else the files will not include correctly into the project.  Considering DrRacket as the IDE for development as a result.
+
+	- 	date: January 31, 2013
+		start time: 1:00pm
+		end time: 2:30pm
+		phase: Coding
+		comment: Started to develop the infrastructure for the server monitor program.  Determined that the use of processes and a dependency relationship was necessary to ensure that a process was complete before invoking a dependent processes.  Derived an XML DTD for the input format to load modules into the server environment for invocation.  Assigned names to modules in the format (program).(content).(action) naming convention, a folder to monitor for files, and a process to invoke when a file is detected.  Information has been updated on the wiki for reference on module creation under >> The Server Monitor.
+
+	-	date: February 1, 2013
+		start time: 4:30am
+		end time: 5:20am
+		phase: Coding
+		comment: Did some more work on the Server Monitor.  Wrote threading for directory monitoring and process invocation.  Have not tied module invocation directly to program yet, as I need to verify that executables can be effectively created from Racket.  File size seems to be rather large at the moment for just a hand full of code.  May consider an alternative approach.
+
+	- 	date: February 3, 2013
+		start time: 10:00am
+		end time: 12:30pm
+		phase: Testing
+		comment: Determined that executables in ACL2 is not a practical solution.  Tried invocations through redirection on the input method for ACL2 since the executable did not take any arguments.  So far I have had success.  Module invocation can occur through a shell script which does not require dependency checks (which will allow for linear execution.)  Reassessing the use of unsynchronized process invocation.  Perhaps synchronizing the main processing thread to halt while a process is running could be the best alternative.  Invocation of a shell script also alleviates the overhead that may have been involved and we can implement some of the operating system features to transfer information (such as ftp for file transfer).
+
+	- date: Feb 3, 2013
+	  start time: 12:42AM
+	  end time: 2:09AM
+	  phase: Design
+	  comment: Matthew emailed about an issue with the ACL2 EXE's not working correctly and possibly being unable once the project gets large. Spent this time researching how to move the project to UNIX based servers and working with launching ACL2 from the terminal and using shell scripts to call ACL2 lisp files. 
+
+	- date: Feb 4, 2013
+	  start time: 5:23PM
+	  end time: 6:47PM
+	  phase: Design
+	  comment: Worked on typing the progress report with the completed task to date and writing out the plans for the task to be completed. Also noted in in the progress report the need to move the system server to a UNIX based system to run the server components 
+
+	- 	date: February 5, 2013
+		start time: 4:00am
+		end time: 5:30am
+		phase: Documentation
+		comment: Updated progress report with findings over the last two weeks for delivery to Dr. Page and the team.  Need to address issues with the change in the group make up, since Isaac will be unable to participate in the project until his personal issues are resolved.
+
+	- date: Feb 5, 2013
+	  start time: 10:30PM
+	  end time: 11:45PM
+	  phase: Design
+	  comment: Team Dijkstra's regular meeting time. We delivered a progress report to Dr. Page. We worked on converting the Windows based designs to a UNIX file system in order for the system to run.
+
+	- date: Feb 5, 2013
+	  start time: 7:32PM
+	  end time: 8:35PM
+	  phase: Design
+	  comment: Worked on setting up ACL2 modules to run though the UNIX shell and wrote test scripts to automatically call ACL2 functions from a shell script
+
+	- 	date: February 6, 2013
+		start time: 10:00am
+		end time: 11:00am
+		phase: Coding
+		comment: Reorganized server code into better directory management so ensure a structure that can be deployed more effectively.  Updated references to be on local scope, as opposed to global folder references for portability purpose.
+		
+	-	date: February 7, 2013
+		start time: 6:30am
+		end time: 8:00am
+		phase: Coding
+		comment: Wrote scanner portion for the analyzer for XML content that can be parsed with ACL2.  Added consume, tag, pcData, nextToken, and tokenizeXML functions.  Entry point is tokenizeXML which takes a string of XML and will return a list of tokens and the token type.  This should then be added to a stack to verify xml correctness and can then be used to extract the PCDATA information contained between the brackets.
+
+
+	- date: Feb 7, 2013
+	  start time: 10:30PM
+	  end time: 11:45PM
+	  phase: Design
+	  comment: Team Dijkstra's regular meeting time. We worked on the XML format and multi-level design and designed the data structure format for the project. We then wrote sections of the progress report and assigned an XML module to each team member.
+
+	- date: Feb 9, 2013
+	  start time: 5:14PM
+	  end time: 7:32PM
+	  phase: Design
+	  comment: Worked on designing the XML structure for email messages. Designed the XML layout, Document type definition and explanation. These topics were then uploaded to the groups wiki for review, comment, and inclusion in the design document. 
+
+	- date: Feb 11, 2013
+	  start time: 5:12PM
+	  end time: 8:04PM
+	  phase: Design
+	  comment: Worked on the team's design document and formatting of the sections. Took the information from the group's wiki and generated the data structure and IO format sections from this information. The other sections were expanded from the initial proposal with updates to relevant sections where the server information had been changed.
+
+	- date: Feb 12, 2013
+	  start time: 10:30PM
+	  end time: 11:45PM
+	  phase: Design
+	  comment: Team Dijkstra's regular meeting time. We reviewed the team design document and made many changes to the XML format and found several errors. We marked up the design for submission on Thursday. 
+
+-	date: February 14, 2013 
+		start time: 12:15am
+		end time: 12:30am
+		phase: Conception
+		comment: Derived the format, in XML, for the transportation of the registration of a user into the address book for the server.  Also formulated the steps to be involved in order to invoke the appropriate modules.
+
+	-	date: February 14, 2013
+		start time: 12:30am
+		end time: 1:45am
+		phase: Coding
+		comment: Wrote the shell script that acquired the contents of the source file (ACL2 definitions) and compiled a function invocation to be written to a temporary file, input directed into ACL2 and removal of the temporary file created.  Considering just including the book to the source file and writing a new temporary file that invokes the function and includes to appropriate books in order to not manipulate the source files for unexpected results.
+
+	-	date: February 14, 2013
+		start time: 2:00am
+		end time: 4:00am
+		phase: Coding
+		comment: Created functions for managing address-book.  getAddress, parseAddresses, getAddressBook acquire values from the XML that was passed to the script via redirection through the XML that was acquired through the shell scripting.
+
+	-	date: February 14, 2013
+		start time: 6:15am
+		end time: 8:00am
+		phase: Coding
+		comment:	Created the functions for managing output of the address-book data structure.  addressXML, addressBookXML and getAddressBookXML will acquire the XML for the structure to be written back to the xml data file.  Determined that I will need to write to a temporary file and delete the original source, and rename the temporary file to the permanent persistent file in order to allow for the file to be updated (since I cannot write back to a read file).  Updated shell script to reflect these changes in ./server/modules/user/register/register-user.sh.
+
+	-	date: February 16, 2013
+		start time: 1:15am
+		end time: 3:00am
+		phase: Coding
+		comment: Added functions that acquires the contents of the tokens passed by parsing the XML information.  getDomain, getName, getPassword all use these tokens in order to extract the information from the registration file that will be used to determine what information needs to be added to the address-book.
+
+	-	date: February 16, 2013
+		start time: 3:00am
+		end time: 5:00am
+		phase: Coding
+		comment: Added functions that will test the address existence (to prevent duplication) and add/remove an address from the address-book.  isInAddressBook tests the predicate conditions to determine if an address can be added/removed by addAddress/removeAddress functions.
+
+
+	- date: Feb 17, 2013
+	  start time: 3:43PM
+	  end time: 4:51PM
+	  phase: Design
+	  comment: Worked on designing the server email components of the server module. Wrote out data flow diagrams to match the data structure format and XML I/O from the design document, and wrote function prototypes. 
+
+	- date: Feb 18, 2013
+	  start time: 5:05PM
+	  end time: 6:12PM
+	  phase: Design
+	  comment: Typed the progress report for the presentation tomorrow to give Dr. Page an update on our projects task and goals. Also updated the design document to Revision I for submission tomorrow. 
+
+	- date: Feb 18, 2013
+	  start time: 7:23PM
+	  end time: 10:44PM
+	  phase: Design
+	  comment: Worked on implementing the server email components. Took my designs on paper from yesterday and worked them into working functions. I was able to finish an email splitter which splits one email sent to many recipients into multiple messages and XML output for email messages.
+
+-	date: February 19, 2013
+		start time: 9:00am
+		end time: 10:30am
+		phase: Coding
+		comment: Updated shell script to generate static script that will invoke the registerUser function also defined in the register-user.lisp file.  Temporary lisp file is generated with static XML information and then redirected into the ACL2 program in order to parse the information.  File input is delegated to the shell, file output is delegated to ACL2.
+
+
+	- date: Feb 19, 2013
+	  start time: 10:30AM
+	  end time: 11:45AM
+	  phase: Design
+	  comment: Team Dijkstra's regular meeting time. We delivered a progress report to Dr. Page on our task so far. Also we updated our SVN repository to the most recent changes to the groups implementation. Isaac rejoined the group and the remaining time was spend catching him up on the groups progress.
+
+-	date: February 19, 2013
+		start time: 3:00pm
+		end time: 4:00pm
+		phase: Coding
+		comment: Corrected references the xml-scanner to ignore whitespace since some of the whitespace tokens that were being parsed were causing issues with the interpretation of the xml tokens.  user/registration module deemed complete at current point in time.
+
+
+
+defect log:
+	-	date: January 18, 2013
+		type: Networking
+		fix time: 60
+		comment: IP resolution cannot occur in ACL2 unless a network drive is mapped, after which you can call it by its network path.  Networking drives may be our resolution to this issue.
+		
+
+	- date: Jan 22, 2013
+	  type: Design
+	  fix time: 60
+	  comment: Found out that networking is not feasible from within ACL2. To make it natively supported, writing and extending several Common Lisp features would need to be done. We cannot do this in the scope of this project. So we found that using the Operating System's native filesystem and networking support would be much more friendly to deal with once we get to this stage in the project.
+
+       - date: Jan 29, 2013
+	 type: Design
+	 fix time: 147
+	 comment: Found out that GUI's and File IO cannot coexist in ACL2. We can have one or the other, but not both. So we had to scrap the GUI portions of the project and replace them with a new idea. The new idea is the current design of the email server and client system. This project is strictly data processing and file IO. This project will be file and text based rather than Visual and Interactive. 
+
+	- 	date: January 29, 2013
+		type: Conception
+		fix time: 150
+		comment: ACL2 cannot work with a GUI and IO at the same time.  Had to reevaluate how to salvage what we had regarding design.  Instead of real time chat, we would be sending email.  Instead of ACL2 interfaces, we would program them in C or C++.
+		
+	- 	date: January 31, 2013
+		type: Application Support
+		fix time: 90
+		comment: Unable to get Proofpad to work correctly on any of my computers.  Windows 8 and Ubuntu both show NullPointerExceptions when trying to implement ACL2 and Proofpad will not correctly identify with ACL2.  Opted to use Dracula instead.
+		
+	-	date: February 3, 2013
+		type: Conception
+		fix time: 150
+		comment: Determined that the size of the executables generated by ACL2 would not be a practical application for our program.  Opted to use input redirection into ACL2 prompt and shell script invocation.  Ubuntu would be the server platform and the two Macs would be used as clients to send and recieve information.
+		
+	-	date: February 5, 2013
+		type: Personnel
+		fix time: 15
+		comment: With the loss of Isaac from the team, modules had to be prioritized for completion and new due dates had to be set.  Determined that I would need to finish the XML Parser as quickly as possible to begin development in order to maintain deadlines.
+
+- date: Feb 5, 2013
+	 type: Design
+	 fix time: 124
+	 comment: We discovered that generating ALC2 executables and invoking these files from an outside source is a troublesome experience and that the generated files are hundreds of megabytes in size. Since we will have several modules for this project, we saw this as a negative side effect of executable files. To solve this problem, we moved all our project to the UNIX platform. This has allowed us to use the UNIX shell environment to generate shell scripts that invoke the ACL2 environment while passing in ACL2 source code files. This reduces the size of the files to kilobytes and streamlines the execution process and eliminating the size of outside programming needed for the original idea to work. Thus we will be executing our ACL2 code through a UNIX shell script and the shell scripts will in turn be executed from the outside programming environment. 
+
+	- date: Feb 12, 2013
+	 type: Design
+	 fix time: 75
+	 comment: When we looked at the design review. We saw several errors in the XML format that would not pass if it were to be sent though a web browser. We had to work on setting the XML to a correct format and modify the document type definitions to comply with proper XML syntax.
+
+-	date: February 15, 2013
+		type: Coding
+		fix time: 10
+		comment: Made the decision to allow shell scripts to take care of much of the IO on the read side as possible and file operations would need to be done by the OS in order to keep correct RWE privs on the file for security purposes.  CHMOD properties will need to be determined at a different date, since access to store files has not been completely determined.  Best guess is that server will be the only one that needs read/write access to these files and no user group will need execution access.
+
+	- 	date: February 19, 2013
+		type:	Coding
+		fix time: 20
+		comment: Issue arose when parsing XML tokens that the whitespace in the document was being identified by #PCDATA token, which was incorrect.  This created a case where the next token to be identified was not was predicted thus returning a nil result when processing the address-book xml input.  Created a special case that modified around 8 lines of code to check if there exists a whitespace character outside of encapsulating brackets and if so, to ignore those values.  Had to remove 4 lines of old predicate for prediction of the next token to be < character.
